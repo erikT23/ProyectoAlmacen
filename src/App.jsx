@@ -9,16 +9,22 @@ function App() {
   return (
     <>
       <ThemeContext.Provider value={{ theme, setTheme }}>
-        <ThemeProvider theme={themeStyle}></ThemeProvider>
+        <ThemeProvider theme={themeStyle}>
+          <AuthContextProvider>
+            <Container>
+              <section class="ContentSidebar"></section>
+              <section className="ContentMenuambur"></section>
+              <section className="ContentRoutes"></section>
+              <MyRoutes />
+            </Container>
+          </AuthContextProvider>
+        </ThemeProvider>
       </ThemeContext.Provider>
-      <AuthContextProvider>
-        <MyRoutes />
-      </AuthContextProvider>
     </>
   );
 }
 
-const Container = styled.div`
+const Container = styled.main`
   display: grid;
   grid-template-columns: 1fr;
   background-color: ${(props) => props.theme.bgtotal};
