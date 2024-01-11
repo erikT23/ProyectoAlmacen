@@ -1,14 +1,16 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { supabase } from "../index";
+import { Supabase } from "../index";
+import { set } from "react-hook-form";
 
-const Authcontext = createContext();
+const AuthContext = createContext();
 
-export const AuthcontextProvider = ({ children }) => {
+export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState([]);
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange(
+    const { data: authListener } = Supabase.auth.onAuthStateChange(
       (event, session) => {
         async (event, session) => {
+          console.log(event, session);
           if (session?.user == null) {
             setUser(null);
           } else {
@@ -17,15 +19,8 @@ export const AuthcontextProvider = ({ children }) => {
         };
       }
     );
-    return () => {
+    return ()=>{
       authListener.subscription;
-    };
-  }, []);
-  return (
-    <Authcontext.Provider value={{ user }}>{children}</Authcontext.Provider>
-  );
-};
-
-export const UserAuth = () => {
-  return useContext(Authcontext);
+    }
+  });
 };
