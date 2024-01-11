@@ -1,13 +1,10 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import { AuthContextProvider, Myroutes } from "./index";
+import { AuthContextProvider } from "./index";
 function App() {
   return (
     <>
       <AuthContextProvider>
-        <Myroutes />
+        <span>Hola desde ContProv</span>
       </AuthContextProvider>
     </>
   );

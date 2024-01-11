@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Supabase } from "../index";
-import { set } from "react-hook-form";
-
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
@@ -19,8 +17,16 @@ export const AuthContextProvider = ({ children }) => {
         };
       }
     );
-    return ()=>{
+    return () => {
       authListener.subscription;
-    }
-  });
+    };
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+  );
+};
+
+export const UserAuth = () => {
+  return useContext(AuthContext);
 };
