@@ -97,17 +97,15 @@ const Container = styled.div`
       cursor: pointer;
       transition: 0.3s ease;
       transform: ${({ $isopen }) =>
-          $isopen === "true" ? `scale(0.8)` : `scale(1.5)`}
+          $isopen === "true" ? `scale(0.7)` : `scale(1.5)`}
         rotate(${({ theme }) => theme.logorotate});
       img {
         width: 100%;
-        
         animation: flotar 1.7s ease-in-out infinite alternate;
       }
     }
     h2 {
       display: ${({ $isopen }) => ($isopen === "true" ? `block` : `none`)};
-      
     }
     @keyframes flotar {
       0% {
