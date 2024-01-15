@@ -47,6 +47,7 @@ export function ToggleTema() {
   );
 }
 const Container = styled.div`
+  margin-left: 0.5rem;
   .theme-switch {
     --toggle-size: 10px;
     /* the size is adjusted using font-size,

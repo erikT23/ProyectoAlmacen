@@ -1,74 +1,39 @@
 import styled from "styled-components";
-import { LinksArray, SecondarylinksArray, ToggleTema } from "../../index";
-import { NavLink } from "react-router-dom";
-import { v } from "../../styles/variables";
-import { useState } from "react";
-export function MenuHambur() {
-  const [click, setClick] = useState(false);
 
+export function MenuHambur() {
   return (
     <Container>
       <NavBar>
         <section>
-          <HamburgerMenu onClick={() => setClick}>
-            <label
-              htmlFor="checkbox"
-              className={click ? "toogle active" : "toogle"}
-            >
+          <HamburguerMenu>
+            <label htmlFor="checkbox" className="toggle">
               <div className="bars" id="bar1"></div>
               <div className="bars" id="bar2"></div>
               <div className="bars" id="bar3"></div>
             </label>
-          </HamburgerMenu>
+          </HamburguerMenu>
         </section>
-        <Main $click={click.toString()}>
-          {LinksArray.map(({ icon, label, to }) => (
-            <div
-              onClick={() => setClick(!click)}
-              className="LinkContainer"
-              key={label}
-            >
-              <NavLink to={to} className="Links">
-                <div className="Linkicon">{icon}</div>
-                <span>{label}</span>
-              </NavLink>
-            </div>
-          ))}
-          <Divider />
-          {SecondarylinksArray.map(({ icon, label, to }) => (
-            <div
-              onClick={() => setClick(!click)}
-              className="LinkContainer"
-              key={label}
-            >
-              <NavLink to={to} className="Links">
-                <div className="Linkicon">{icon}</div>
-                <span>{label}</span>
-              </NavLink>
-            </div>
-          ))}
-          <ToggleTema />
-          <Divider />
-        </Main>
       </NavBar>
     </Container>
   );
 }
 
 const Container = styled.div`
-  background-color: ${({ theme }) => theme.body};
+  background-color: ${(props) => props.theme.body};
 `;
 
-const NavBar = styled.nav`
+const NavBar = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   height: 100vh;
 `;
 
-const HamburgerMenu = styled.span`
+const HamburguerMenu = styled.div`
   position: fixed;
-  top: 2.3rem;
+  top: 1rem;
+  left: 15px;
+  z-index: 100;
   #checkbox {
     display: none;
   }
@@ -76,20 +41,20 @@ const HamburgerMenu = styled.span`
   .toggle {
     position: relative;
     width: 40px;
-    height: 30px;
+    height: 40px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 7px;
+    gap: 10px;
     transition-duration: 0.5s;
   }
 
   .bars {
     width: 100%;
     height: 4px;
-    background-color: ${({ theme }) => theme.bg5};
+    background-color: ${(props) => props.theme.bg5};
     border-radius: 4px;
   }
 
@@ -128,21 +93,4 @@ const HamburgerMenu = styled.span`
     transition-duration: 0.5s;
     transform: rotate(180deg);
   }
-`;
-
-const Main = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  list-style: none;
-  z-index: 10;
-  @media screen {
-  }
-`;
-
-const Divider = styled.div`
-  height: 1px;
-  width: 100%;
-  background: ${(props) => props.theme.bg4};
-  margin: ${() => v.lgSpacing} 0;
 `;
