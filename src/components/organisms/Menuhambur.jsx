@@ -123,7 +123,6 @@ const HamburguerMenu = styled.div`
   }
 
   .bars {
-    
     width: 100%;
     height: 4px;
     background-color: ${(props) => props.theme.bg5};
