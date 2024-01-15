@@ -17,7 +17,7 @@ export const Light = {
   navHeight: "5rem",
   whiteBg: "#f7b272",
   bg: "#ffffff",
-  bgAlpha: "#f2f2f2",
+  bgAlpha: "#c5c5c5",
   bg2: "rgb(245,245,245)",
   bg3: "#fff",
   primary: "rgb(52, 131, 235)",

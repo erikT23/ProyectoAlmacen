@@ -137,37 +137,44 @@ const HamburguerMenu = styled.div`
   #bar3 {
     width: 70%;
   }
-
- 
 `;
 
 const Menu = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   list-style: none;
   z-index: 10;
-  @media screen {
-  }
-  .Sidebarbutton {
-    position: fixed;
-    top: 70px;
-    left: 42px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: ${(props) => props.theme.bgtgderecha};
-    box-shadow: 0 0 4px ${(props) => props.theme.bg3},
-      0 0 7px ${(props) => props.theme.bg};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    z-index: 2;
-    transform: ${({ $isopen }) =>
-      $isopen === "true" ? `translateX(162px) rotate(3.142rad)` : `initial`};
-    color: ${(props) => props.theme.text};
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  background-color: ${(props) => `rgba(${props.theme.bodyRgba},0.85)`};
+  backdrop-filter: blur(3px);
+  transform: ${(props) =>
+    props.$click == "true" ? "translateY(0)" : "translateY(1000%)"};
+  transition: all 0.8s ease-in-out;
+
+  .LinkContainer {
+    &:hover {
+      background: ${(props) => props.theme.bgAlpha};
+    }
+    .Links {
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .Linkicon {
+      padding: ${v.smSpacing} ${v.mdSpacing};
+      display: flex;
+      svg {
+        font-size: 25px;
+      }
+    }
   }
 `;
 
