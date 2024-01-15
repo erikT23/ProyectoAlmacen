@@ -123,6 +123,7 @@ const HamburguerMenu = styled.div`
   }
 
   .bars {
+    
     width: 100%;
     height: 4px;
     background-color: ${(props) => props.theme.bg5};
@@ -162,11 +163,13 @@ const Menu = styled.div`
     &:hover {
       background: ${(props) => props.theme.bgAlpha};
     }
+
     .Links {
       width: 100vw;
       display: flex;
       align-items: center;
       text-decoration: none;
+      color: ${(props) => props.theme.text};
     }
     .Linkicon {
       padding: ${v.smSpacing} ${v.mdSpacing};
