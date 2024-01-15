@@ -2,15 +2,23 @@ import { create } from "zustand";
 import { supabase } from "../supabase/supabase.config";
 
 export const useAuthStore = create((set, get) => ({
-  sigInWithEmail: async () => {
-    const { data, error } = await supabase.auth.signUp({
+    signInWithEmail: async (p) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
       email: p.email,
       password: p.password,
-     
     });
-    if(error){
-        return null
+    if (error) {
+      throw new Error("A ocurrido un error durante el registro" + error);
     }
-    
   },
+  signOut: async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      throw new Error(
+        "A ocurrido un error durante el cierre de la sesion" + error
+      );
+    }
+  },
+
+  
 }));

@@ -1,12 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Supabase } from "../index";
+import { supabase } from "../index";
 const AuthContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState([]);
   useEffect(() => {
-    const { data: authListener } = Supabase.auth.onAuthStateChange(
+    const { data: authListener } = supabase.auth.onAuthStateChange(
       // eslint-disable-next-line no-unused-vars
       (event, session) => {
         async (event, session) => {
