@@ -1,4 +1,6 @@
 import { HomeTemplate } from "../components/templates/index";
-export function Home() {
+export function PageBase() {
   return <HomeTemplate />;
 }
+
+
