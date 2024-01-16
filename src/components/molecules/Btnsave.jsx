@@ -9,7 +9,7 @@ export function Btnsave({ funcion, titulo, bgcolor, icono,url }) {
 
       <span className="btn" onClick={funcion}>
         <a href={url} target="">
-           {titulo} test
+           {titulo} 
         </a>
        
       </span>
