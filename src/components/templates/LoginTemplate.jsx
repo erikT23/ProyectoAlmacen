@@ -1,19 +1,33 @@
 import styled from "styled-components";
 import { Btnsave } from "../../components/index";
-import { useUsersStore } from "../../store/index";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../../store/index";
+
 export function LoginTemplate() {
-  const { insertAdminUser } = useUsersStore();
-  const mutation = useMutation({
-    mutationKey: ["insertar usuario Admin"],
+  const navigate = useNavigate();
+  const { insertAdminUser } = useUserStore();
+  const mutationInsertUser = useMutation({
+    mutationKey: ["insertUserAdmin"],
     mutationFn: async () => {
-      await insertAdminUser;
+      const p = {
+        email: "20203tn152@utez.edu.mx",
+        password: "pass1234",
+      };
+      const dt = await insertAdminUser(p);
+      if (dt) {
+        navigate("/");
+      }
     },
   });
   return (
     <Container>
       <h1>hola login template</h1>
-      <Btnsave titulo="Crear cuenta" bgcolor="#3AA597" />
+      <Btnsave
+        titulo="Crear cuenta"
+        bgcolor="#3AA597"
+        funcion={mutationInsertUser.mutateAsync}
+      />
     </Container>
   );
 }

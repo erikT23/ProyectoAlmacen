@@ -1,3 +1,4 @@
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createContext, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import {
@@ -9,12 +10,13 @@ import {
   Sidebar,
 } from "./index";
 import { Device } from "./styles/breakpoints";
+
 export const ThemeContext = createContext(null);
+
 function App() {
   const [themeUse, setTheme] = useState("light");
   const theme = themeUse === "light" ? "light" : "dark";
   const themeStyle = theme === "light" ? Light : Dark;
-  // eslint-disable-next-line no-unused-vars
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <>
@@ -32,6 +34,7 @@ function App() {
                 <MyRoutes />
               </section>
             </Container>
+            <ReactQueryDevtools initialIsOpen={false} />
           </AuthContextProvider>
         </ThemeProvider>
       </ThemeContext.Provider>
