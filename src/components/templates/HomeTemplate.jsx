@@ -1,8 +1,12 @@
 import styled from "styled-components";
+import { Btnsave } from "../../components/index";
+import { useAuthStore } from "../../store/index";
 export function HomeTemplate() {
+  const { signOut } = useAuthStore();
   return (
     <Container>
       <h1>Home</h1>
+      <Btnsave titulo="Cerrar Sesion" bgcolor="#a53a48" funcion={signOut} />
     </Container>
   );
 }
@@ -16,5 +20,4 @@ const Container = styled.div`
   background-color: ${(props) => props.theme.bgtotal};
   color: ${({ theme }) => theme.text};
   width: 100%;
-  
 `;

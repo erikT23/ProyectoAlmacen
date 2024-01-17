@@ -27,6 +27,7 @@ export const Light = {
   bgtgderecha: "#eeeeee",
   colorToggle: "#3AA597",
   translateToggle: "-12px",
+  cancel: "#a53a48",
 
   logorotate: "360deg",
   slideroffset: "0.3em",
@@ -69,7 +70,7 @@ export const Dark = {
   bgtotal: "#3AA597",
   colorToggle: "rgb(52, 131, 235)",
   translateToggle: "26px",
-
+  cancel: "#a53a48",
   logorotate: "-360deg",
   slideroffset: "0.3em",
   sizeoficon: "1.4em",
