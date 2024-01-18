@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { LinksArray, SecondarylinksArray, ToggleTema } from "../../index";
+import { LinksArray, SecondarylinksArray } from "../../index";
+import { ToggleTema } from "../organisms/index";
 import { v } from "../../styles/variables";
 import { useState } from "react";
 
