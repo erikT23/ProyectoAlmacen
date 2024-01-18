@@ -1,12 +1,8 @@
 import styled from "styled-components";
-import {
-  BtnCircular,
-  UserAuth,
-  v,
-  ListaMenuDesplegable,
-  DesplegableUser,
-  useAuthStore,
-} from "../../index";
+import { useAuthStore } from "../../store/index";
+import { BtnCircular } from "../molecules/index";
+import { v } from "../../styles/index";
+
 export function Header({ stateConfig }) {
   const { signOut } = useAuthStore();
   const { user } = UserAuth();
