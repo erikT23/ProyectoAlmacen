@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Btnsave } from "../../components/index";
+import { Btnsave, FooterLogin } from "../../components/index";
 import { useAuthStore } from "../../store/index";
 export function HomeTemplate() {
   const { signOut } = useAuthStore();
@@ -7,6 +7,7 @@ export function HomeTemplate() {
     <Container>
       <h1>Home</h1>
       <Btnsave titulo="Cerrar Sesion" bgcolor="#a53a48" funcion={signOut} />
+      <FooterLogin />
     </Container>
   );
 }

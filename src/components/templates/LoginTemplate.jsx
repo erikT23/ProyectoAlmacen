@@ -99,7 +99,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: #262626;
+  background-color: #555555;
   @media ${Device.tablet} {
     grid-template-columns: 1fr 2fr;
   }

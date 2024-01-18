@@ -15,7 +15,7 @@ const Container = styled.div`
   align-items: center;
   gap: 10px;
   p {
-    color: #f46943;
+    color: #3AA597;
   }
   .form__group {
     position: relative;
@@ -76,7 +76,7 @@ const Container = styled.div`
     padding-bottom: 6px;
     font-weight: 700;
     border-width: 1px;
-    border-image: linear-gradient(to right, #ec580e, #f23505);
+    border-image: linear-gradient(to right, #3AA597, #3aa597a0);
     border-image-slice: 1;
   }
 
@@ -86,7 +86,7 @@ const Container = styled.div`
     display: block;
     transition: 0.2s;
     font-size: 17px;
-    color: #f9632c;
+    color: #3AA597;
     font-weight: 700;
   }
 
