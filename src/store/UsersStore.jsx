@@ -7,6 +7,11 @@ export const useUserStore = create(() => ({
     const { data, error } = await supabase.auth.signUp({
       email: p.email,
       password: p.password,
+      options: {
+        data: {
+          nombre: p.nombre,
+        },
+      },
     });
 
     console.log("dara del registro del auth", data);

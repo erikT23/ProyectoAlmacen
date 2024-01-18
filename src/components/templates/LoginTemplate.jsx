@@ -5,10 +5,15 @@ import styled from "styled-components";
 import { ThemeContext } from "../../App";
 import carrito from "../../assets/carrito.svg";
 import logo from "../../assets/inventarioslogo.png";
-import { FooterLogin, InputText } from "../../components/organisms/index";
+import {
+  FooterLogin,
+  InputText,
+  RegistrarAdmin,
+} from "../../components/organisms/index";
 import { Btnsave, v } from "../../index";
 import { useAuthStore } from "../../store/index";
 import { Device } from "../../styles/index";
+
 export function LoginTemplate() {
   const { setTheme } = useContext(ThemeContext);
   setTheme("light");
@@ -24,17 +29,17 @@ export function LoginTemplate() {
   async function iniciar(data) {
     try {
       const response = await signInWithEmail({
-        correo: data.correo,
-        pass: data.pass,
+        email: data.correo,
+        password: data.pass,
       });
       if (response) {
         navigate("/");
       } else {
-        setStateInicio(!stateInicio);
+        setStateInicio(true);
       }
     } catch (error) {
       console.error(error);
-      setStateInicio(!stateInicio);
+      setStateInicio(true);
     }
   }
 
@@ -50,13 +55,20 @@ export function LoginTemplate() {
 
       <div className="contentCard">
         <div className="card">
+          {state && (
+            <RegistrarAdmin
+              setState={() => {
+                setState(!state);
+              }}
+            />
+          )}
           <Titulo>Almacen Sistemas</Titulo>
           {stateInicio && (
-            <TextoStateInicio>datos incorrectos</TextoStateInicio>
+            <TextoStateInicio>¡Datos incorrectos!</TextoStateInicio>
           )}
 
           <form onSubmit={handleSubmit(iniciar)}>
-            <InputText icono={<v.iconoemail />}>
+            <InputText icono={<v.iconoemail color="#3AA597" />}>
               <input
                 className="form__field"
                 type="text"
@@ -65,10 +77,10 @@ export function LoginTemplate() {
                   required: true,
                 })}
               />
-              <label className="form__label">email</label>
+              <label className="form__label">Email</label>
               {errors.correo?.type === "required" && <p>Campo requerido</p>}
             </InputText>
-            <InputText icono={<v.iconopass />}>
+            <InputText icono={<v.iconopass color="#3AA597" />}>
               <input
                 className="form__field"
                 type="password"
@@ -77,11 +89,11 @@ export function LoginTemplate() {
                   required: true,
                 })}
               />
-              <label className="form__label">password</label>
+              <label className="form__label">Contraseña</label>
               {errors.pass?.type === "required" && <p>Campo requerido</p>}
             </InputText>
             <ContainerBtn>
-              <Btnsave titulo="Iniciar" bgcolor="#3AA597" />
+              <Btnsave titulo="Iniciar Sesion" bgcolor="#3AA597" />
               <Btnsave
                 funcion={() => setState(!state)}
                 titulo="Crear cuenta"
@@ -226,5 +238,6 @@ const ContainerBtn = styled.div`
   justify-content: center;
 `;
 const TextoStateInicio = styled.p`
-  color: #fc7575;
+  color: #3aa597;
+  font-weight: bold;
 `;
