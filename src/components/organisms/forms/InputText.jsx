@@ -15,7 +15,7 @@ const Container = styled.div`
   align-items: center;
   gap: 10px;
   p {
-    color: #3AA597;
+    color: #3aa597;
   }
   .form__group {
     position: relative;
@@ -27,9 +27,8 @@ const Container = styled.div`
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
     -webkit-background-clip: text;
-    -webkit-text-fill-color: ${(props)=>props.theme.text};
+    -webkit-text-fill-color: ${(props) => props.theme.text};
     transition: background-color 5000s ease-in-out 0s;
-    
   }
   .form__field {
     font-family: inherit;
@@ -38,17 +37,16 @@ const Container = styled.div`
     border-bottom: 2px solid #9b9b9b;
     outline: 0;
     font-size: 17px;
-    color: ${(props)=>props.theme.text};
+    color: ${(props) => props.theme.text};
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;
-    &.disabled{
+    &.disabled {
       color: #696969;
       background: #2d2d2d;
-      border-radius:8px;
-      margin-top:8px;
+      border-radius: 8px;
+      margin-top: 8px;
       border-bottom: 1px dashed #656565;
-
     }
   }
 
@@ -76,7 +74,7 @@ const Container = styled.div`
     padding-bottom: 6px;
     font-weight: 700;
     border-width: 1px;
-    border-image: linear-gradient(to right, #3AA597, #3aa597a0);
+    border-image: linear-gradient(to right, #3aa597, #3aa597a0);
     border-image-slice: 1;
   }
 
@@ -86,7 +84,7 @@ const Container = styled.div`
     display: block;
     transition: 0.2s;
     font-size: 17px;
-    color: #3AA597;
+    color: #3aa597;
     font-weight: 700;
   }
 
@@ -95,5 +93,4 @@ const Container = styled.div`
   .form__field:invalid {
     box-shadow: none;
   }
- 
 `;

@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { MdOutlineInfo } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ThemeContext } from "../../App";
@@ -23,14 +22,19 @@ export function LoginTemplate() {
     handleSubmit,
   } = useForm();
   async function iniciar(data) {
-    const response = await signInWithEmail({
-      correo: data.correo,
-      pass: data.pass,
-    });
-    if (response) {
-      navigate("/");
-    } else {
-      setStateInicio(true);
+    try {
+      const response = await signInWithEmail({
+        correo: data.correo,
+        pass: data.pass,
+      });
+      if (response) {
+        navigate("/");
+      } else {
+        setStateInicio(!stateInicio);
+      }
+    } catch (error) {
+      console.error(error);
+      setStateInicio(!stateInicio);
     }
   }
 
@@ -50,7 +54,7 @@ export function LoginTemplate() {
           {stateInicio && (
             <TextoStateInicio>datos incorrectos</TextoStateInicio>
           )}
-        
+
           <form onSubmit={handleSubmit(iniciar)}>
             <InputText icono={<v.iconoemail />}>
               <input
@@ -73,7 +77,7 @@ export function LoginTemplate() {
                   required: true,
                 })}
               />
-              <label className="form__label">pass</label>
+              <label className="form__label">password</label>
               {errors.pass?.type === "required" && <p>Campo requerido</p>}
             </InputText>
             <ContainerBtn>
