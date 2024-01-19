@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useAuthStore } from "../../store/index";
-import { BtnCircular } from "../molecules/index";
-import { v } from "../../styles/index";
+import { ListaMenuDesplegable } from "./index";
+import { UserAuth } from "../../index";
+import { DesplegableUser } from "../../utils/staticData";
 
 export function Header({ stateConfig }) {
   const { signOut } = useAuthStore();
@@ -17,16 +18,6 @@ export function Header({ stateConfig }) {
         <div className="imgContainer">
           <img src="https://i.ibb.co/kGYgRZ8/programador.png" />
         </div>
-        <BtnCircular
-          icono={<v.iconocorona />}
-          width="25px"
-          height="25px"
-          bgcolor={`linear-gradient(15deg, rgba(255, 88, 58, 0.86) 9%, #f8bf5b 100%);`}
-          textcolor="#ffffff"
-          fontsize="11px"
-          translatex="-50px"
-          translatey="-12px"
-        />
         <span className="nombre">{user.email}</span>
         {stateConfig.state && (
           <ListaMenuDesplegable
@@ -39,6 +30,7 @@ export function Header({ stateConfig }) {
     </Container>
   );
 }
+
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -46,6 +38,7 @@ const Container = styled.div`
   position: relative;
   justify-content: end;
 `;
+
 const Datauser = styled.div`
   z-index: 10;
   position: relative;
@@ -84,6 +77,6 @@ const Datauser = styled.div`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    word-wrap: break-word;
+    word-wrap: normal;
   }
 `;
