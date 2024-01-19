@@ -1,11 +1,8 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
-import {
-  LinksArray,
-  SecondarylinksArray,
-  SidebarCard,
-  ToggleTema,
-} from "../../../index";
+import { LinksArray, SecondarylinksArray } from "../../../index";
+import { ToggleTema } from "../../organisms/index";
+import { SidebarCard } from "./index";
 import { v } from "../../../styles/variables";
 import { NavLink } from "react-router-dom";
 

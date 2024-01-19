@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-import { Home, ProtectedRoutes, UserAuth } from "../index";
-import { Login } from "../pages/index";
+import { Home, Login } from "../pages/index";
+import { UserAuth } from "../context/AuthContext";
+import { ProtectedRoutes } from "../index";
 
 export function MyRoutes() {
   const { user } = UserAuth();

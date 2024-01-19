@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { v, Btnsave } from "../../../index";
 import { useAuthStore } from "../../../store/index";
+import { Btnsave } from "../../molecules/index";
+import { v } from "../../../styles/index";
 
 export function SidebarCard() {
   const { signOut } = useAuthStore();
@@ -39,9 +40,10 @@ const Container = styled.div`
   .cardContent {
     position: relative;
     padding: 1rem;
-    background: ${(props) => props.theme.bg5};
+    background: ${(props) => props.theme.bgAlpha};
     border-radius: 10px;
     overflow: hidden;
+    border: 1px solid ${(props) => props.theme.text};
 
     .circle1,
     .circle2 {
@@ -67,7 +69,7 @@ const Container = styled.div`
       margin-top: 1rem;
       padding: 1rem 0;
       font-weight: 800;
-      color: #000;
+      color: ${(props) => props.theme.text};
     }
     .contentBtn {
       position: relative;

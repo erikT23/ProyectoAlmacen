@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useUserStore } from "../../../store";
 import { v } from "../../../styles/variables";
-import { Btnsave } from "../../index";
 import { InputText } from "../forms/index";
+import { Btnsave } from "../../molecules/index";
 
 export function RegistrarAdmin({ setState }) {
   const { insertAdminUser } = useUserStore();

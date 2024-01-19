@@ -1,17 +1,13 @@
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createContext, useState } from "react";
-import styled, { ThemeProvider } from "styled-components";
-import {
-  AuthContextProvider,
-  Dark,
-  Light,
-  MenuHambur,
-  MyRoutes,
-  Sidebar,
-} from "./index";
-import { Device } from "./styles/breakpoints";
 import { useLocation } from "react-router-dom";
+import styled, { ThemeProvider } from "styled-components";
+import { MenuHambur } from "./components/organisms/index";
+import { Sidebar } from "./components/organisms/sidebar/index";
+import { AuthContextProvider, MyRoutes } from "./index";
 import { Login } from "./pages/index";
+import { Device } from "./styles/breakpoints";
+import { Dark, Light } from "./styles/index";
 
 export const ThemeContext = createContext(null);
 

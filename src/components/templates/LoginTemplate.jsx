@@ -10,9 +10,8 @@ import {
   InputText,
   RegistrarAdmin,
 } from "../../components/organisms/index";
-import { Btnsave, v } from "../../index";
-import { useAuthStore } from "../../store/index";
 import { Device } from "../../styles/index";
+import { Btnsave } from "../molecules/index";
 
 export function LoginTemplate() {
   const { setTheme } = useContext(ThemeContext);
