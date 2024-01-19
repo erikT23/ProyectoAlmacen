@@ -30,7 +30,6 @@ const Container = styled.div`
     position: absolute;
     font-size: 3rem;
     border-radius: 50%;
-    top: -8px;
     right: 50%;
     transform: translate(50%);
     z-index: 100;

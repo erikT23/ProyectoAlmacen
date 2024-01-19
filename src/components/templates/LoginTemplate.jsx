@@ -12,6 +12,8 @@ import {
 } from "../../components/organisms/index";
 import { Device } from "../../styles/index";
 import { Btnsave } from "../molecules/index";
+import { useAuthStore } from "../../store/index";
+import { v } from "../../styles/index";
 
 export function LoginTemplate() {
   const { setTheme } = useContext(ThemeContext);
