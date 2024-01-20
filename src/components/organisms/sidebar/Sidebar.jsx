@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { LinksArray, SecondarylinksArray } from "../../../index";
 import { ToggleTema } from "../../organisms/index";
@@ -9,7 +8,12 @@ import { NavLink } from "react-router-dom";
 export function Sidebar({ state, setState }) {
   return (
     <Main $isopen={state.toString()}>
-      <span className="Sidebarbutton" onClick={() => setState(!state)}>
+      <span
+        className="Sidebarbutton"
+        onClick={() => {
+          setState(!state);
+        }}
+      >
         {<v.iconoflechaderecha />}
       </span>
       <Container $isopen={state.toString()} className={state ? "active" : ""}>
@@ -82,6 +86,7 @@ const Container = styled.div`
   &.active {
     width: 220px;
   }
+
   .Logocontent {
     display: flex;
     justify-content: center;
@@ -148,20 +153,23 @@ const Container = styled.div`
       }
       &.active {
         color: ${(props) => props.theme.bg5};
-        font-weight: 600;
+        font-weight: 100;
         &::before {
           content: "";
           position: absolute;
           height: 100%;
           background: ${(props) => props.theme.bg5};
-          width: 4px;
+          width: 10px;
           border-radius: 10px;
-          left: 0;
+          left: 10;
         }
       }
     }
     &.active {
       padding: 0;
+    }
+    .toggletema {
+      margin-left: 1rem;
     }
   }
 `;
