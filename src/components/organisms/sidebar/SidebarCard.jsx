@@ -39,7 +39,7 @@ const Container = styled.div`
   .cardContent {
     position: relative;
     padding: 1rem;
-    background: ${(props) => props.theme.bgAlpha};
+    background: ${(props) => props.theme.sidebarCardbg};
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid ${(props) => props.theme.text};
@@ -47,7 +47,7 @@ const Container = styled.div`
     .circle1,
     .circle2 {
       position: absolute;
-      background: ${(props) => props.theme.whiteBg};
+      background: ${(props) => props.theme.colorToggle};
       border-radius: 50%;
       opacity: 0.7;
     }
