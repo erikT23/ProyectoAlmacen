@@ -34,6 +34,10 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 0 solid #6b6b6b;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat, repeat;
 `;
 
 const ContentCards = styled.div`
