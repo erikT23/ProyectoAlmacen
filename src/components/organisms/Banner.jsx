@@ -38,6 +38,9 @@ const Container = styled.div`
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat, repeat;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: ;
 `;
 
 const ContentCards = styled.div`
