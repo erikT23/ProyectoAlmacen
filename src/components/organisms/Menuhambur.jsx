@@ -20,9 +20,18 @@ export function MenuHambur() {
               htmlFor="checkbox"
               className={click ? "toggle active" : "toggle"}
             >
-              <div className="bars" id="bar1"></div>
-              <div className="bars" id="bar2"></div>
-              <div className="bars" id="bar3"></div>
+              <div
+                className="bars"
+                id="bar1"
+              ></div>
+              <div
+                className="bars"
+                id="bar2"
+              ></div>
+              <div
+                className="bars"
+                id="bar3"
+              ></div>
             </label>
           </HamburguerMenu>
         </section>
@@ -35,7 +44,10 @@ export function MenuHambur() {
               className="LinkContainer"
               key={label}
             >
-              <NavLink to={to} className="Links">
+              <NavLink
+                to={to}
+                className="Links"
+              >
                 <div className="Linkicon">{icon}</div>
                 <span>{label}</span>
               </NavLink>
@@ -50,7 +62,10 @@ export function MenuHambur() {
               className="LinkContainer"
               key={label}
             >
-              <NavLink to={to} className="Links">
+              <NavLink
+                to={to}
+                className="Links"
+              >
                 <div className="Linkicon">{icon}</div>
                 <span>{label}</span>
               </NavLink>

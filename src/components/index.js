@@ -1,1 +1,1 @@
-export { Icono } from './atoms/Icono';
+export { Icono } from "./atoms/Icono";

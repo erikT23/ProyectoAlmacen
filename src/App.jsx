@@ -27,7 +27,10 @@ function App() {
             ) : (
               <Container className={sidebarOpen ? "active" : ""}>
                 <section className="ContentSidebar">
-                  <Sidebar state={sidebarOpen} setState={setSidebarOpen} />
+                  <Sidebar
+                    state={sidebarOpen}
+                    setState={setSidebarOpen}
+                  />
                 </section>
                 <section className="ContentMenuambur">
                   <MenuHambur />

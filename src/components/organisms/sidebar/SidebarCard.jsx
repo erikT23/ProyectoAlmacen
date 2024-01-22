@@ -14,7 +14,11 @@ export function SidebarCard() {
         <div className="circle2"></div>
         <h3>Cerrar sesión</h3>
         <div className="contentBtn">
-          <Btnsave titulo="Cerrar Sesion" bgcolor="#a53a48" funcion={signOut} />
+          <Btnsave
+            titulo="Cerrar Sesion"
+            bgcolor="#a53a48"
+            funcion={signOut}
+          />
         </div>
       </div>
     </Container>

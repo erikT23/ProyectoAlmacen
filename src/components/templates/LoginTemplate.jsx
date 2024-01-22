@@ -94,7 +94,10 @@ export function LoginTemplate() {
               {errors.pass?.type === "required" && <p>Campo requerido</p>}
             </InputText>
             <ContainerBtn>
-              <Btnsave titulo="Iniciar Sesion" bgcolor="#3AA597" />
+              <Btnsave
+                titulo="Iniciar Sesion"
+                bgcolor="#3AA597"
+              />
               <Btnsave
                 funcion={() => setState(!state)}
                 titulo="Crear cuenta"

@@ -7,7 +7,10 @@ export function ListaMenuDesplegable({ data, top, funcion }) {
     <Container top={top}>
       {data.map((item, index) => {
         return (
-          <ItemsDesplegable key={index} onClick={() => funcion(item)}>
+          <ItemsDesplegable
+            key={index}
+            onClick={() => funcion(item)}
+          >
             <Icono>{item.icono}</Icono>
             <span>{item.text}</span>
           </ItemsDesplegable>

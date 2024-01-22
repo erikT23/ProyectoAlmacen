@@ -1,2 +1,2 @@
-export { supabase } from './supabase.config';
-export { InsertUser } from './usersCrud';
+export { supabase } from "./supabase.config";
+export { InsertUser } from "./usersCrud";
