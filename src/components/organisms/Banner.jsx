@@ -40,7 +40,7 @@ const Container = styled.div`
   background-repeat: no-repeat, repeat;
   border-radius: 14px;
   overflow: hidden;
-  transition: ;
+  
 `;
 
 const ContentCards = styled.div`
