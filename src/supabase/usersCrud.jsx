@@ -24,9 +24,14 @@ export const ShowUsers = async () => {
   const { error, data } = await supabase
     .from("users")
     .select()
-    .eq("idauth", idAuthSupabase)
+    .eq("idAuth", idAuthSupabase)
     .maybeSingle();
   if (data) {
     return data;
   }
+  Swal.fire({
+    icon: "error",
+    title: " Error",
+    text: "error al mostrar los usuarios " + error.message,
+  });
 };
