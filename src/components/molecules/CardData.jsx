@@ -1,11 +1,28 @@
 import styled from "styled-components";
 
-export function CardData() {
+export function CardData({ title, numSerie }) {
   return (
     <Container>
-      <h1>CardData</h1>
+      <div className="card">
+        <div className="data-block-content">
+          <p className="name">{title}</p>
+          <div className="serial-block">
+            <p className="serial-value">{numSerie}</p>
+          </div>
+        </div>
+      </div>
     </Container>
   );
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+  .card {
+    width: 190px;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 0.5vmin solid #000000;
+    overflow: hidden;
+    
+  }
+`;
