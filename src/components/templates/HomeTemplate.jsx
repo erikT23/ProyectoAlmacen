@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { Header } from "../organisms/index";
+import { Header, Banner } from "../organisms/index";
 import { useState } from "react";
+import { Title } from "../atoms/index";
+
 export function HomeTemplate() {
   const [state, setState] = useState(false);
   return (
@@ -10,9 +12,13 @@ export function HomeTemplate() {
           stateConfig={{ state: state, setState: () => setState(!state) }}
         />
       </header>
-      <section className="area1"></section>
+      <section className="area1">
+        <Title>Titulo test</Title>
+      </section>
       <section className="area2"></section>
-      <section className="main"></section>
+      <section className="main">
+        <Banner></Banner>
+      </section>
     </Container>
   );
 }
@@ -43,6 +49,7 @@ const Container = styled.div`
     background-color: rgba(229, 67, 26, 0.14);
     display: flex;
     align-items: center;
+    justify-content: end;
   }
 
   .area2 {

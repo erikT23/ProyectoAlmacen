@@ -1,2 +1,2 @@
-export { InputText } from "./InputText";
-export { RegistrarAdmin } from "./RegistrarAdmin";
+export { InputText } from './InputText';
+export { RegistrarAdmin } from './RegistrarAdmin';
