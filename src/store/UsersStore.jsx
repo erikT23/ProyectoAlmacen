@@ -23,7 +23,6 @@ export const useUserStore = create(() => ({
       fechaRegistro: new Date(),
       rol: "admin",
     });
-    console.log("la ata user", dataUser);
     return dataUser;
   },
 }));
