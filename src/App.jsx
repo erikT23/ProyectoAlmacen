@@ -16,33 +16,31 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { pathname } = useLocation();
   return (
-    <>
-      <ThemeContext.Provider value={{ theme, setTheme }}>
-        <ThemeProvider theme={themeStyle}>
-          <AuthContextProvider>
-            {pathname == "/login" ? (
-              <Login />
-            ) : (
-              <Container className={sidebarOpen ? "active" : ""}>
-                <section className="ContentSidebar">
-                  <Sidebar
-                    state={sidebarOpen}
-                    setState={setSidebarOpen}
-                  />
-                </section>
-                <section className="ContentMenuambur">
-                  <MenuHambur />
-                </section>
-                <section className="ContentRoutes">
-                  <MyRoutes />
-                </section>
-              </Container>
-            )}
-            <ReactQueryDevtools initialIsOpen={false} />
-          </AuthContextProvider>
-        </ThemeProvider>
-      </ThemeContext.Provider>
-    </>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <ThemeProvider theme={themeStyle}>
+        <AuthContextProvider>
+          {pathname == "/login" ? (
+            <Login />
+          ) : (
+            <Container className={sidebarOpen ? "active" : ""}>
+              <section className="ContentSidebar">
+                <Sidebar
+                  state={sidebarOpen}
+                  setState={setSidebarOpen}
+                />
+              </section>
+              <section className="ContentMenuambur">
+                <MenuHambur />
+              </section>
+              <section className="ContentRoutes">
+                <MyRoutes />
+              </section>
+            </Container>
+          )}
+          <ReactQueryDevtools initialIsOpen={false} />
+        </AuthContextProvider>
+      </ThemeProvider>
+    </ThemeContext.Provider>
   );
 }
 
