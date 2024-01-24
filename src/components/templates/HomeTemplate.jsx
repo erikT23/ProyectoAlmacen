@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { Header, Banner } from "../organisms/index";
 import { useState } from "react";
+import styled from "styled-components";
 import { Title } from "../atoms/index";
+import { Banner, Header } from "../organisms/index";
 
 export function HomeTemplate() {
   const [state, setState] = useState(false);

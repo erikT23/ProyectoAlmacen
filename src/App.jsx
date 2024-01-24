@@ -1,5 +1,5 @@
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { createContext, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import { MenuHambur, Sidebar } from "./components/organisms/index";
@@ -10,13 +10,14 @@ import { Dark, Device, Light } from "./styles/index";
 export const ThemeContext = createContext(null);
 
 function App() {
+  const value = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
   const [themeUse, setTheme] = useState("light");
   const theme = themeUse === "light" ? "light" : "dark";
   const themeStyle = theme === "light" ? Light : Dark;
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { pathname } = useLocation();
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={value}>
       <ThemeProvider theme={themeStyle}>
         <AuthContextProvider>
           {pathname == "/login" ? (

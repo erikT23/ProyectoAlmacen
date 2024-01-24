@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Icono } from "../index";
 import { v } from "../../styles/index";
+import { Icono } from "../index";
 
 export function ListaMenuDesplegable({ data, top, funcion }) {
   return (

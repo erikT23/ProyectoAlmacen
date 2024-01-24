@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { ClimbingBoxLoader } from "react-spinners";
+import styled from "styled-components";
 
 export function SpinnerLoader() {
   return (

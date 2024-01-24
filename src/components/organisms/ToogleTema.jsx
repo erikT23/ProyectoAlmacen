@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import { useContext } from "react";
-import { ThemeContext } from "../../App";
+import styled from "styled-components";
+import { ThemeContext } from "../../index";
 
 export function ToggleTema() {
   const { setTheme } = useContext(ThemeContext);

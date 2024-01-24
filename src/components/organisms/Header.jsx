@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { useAuthStore } from "../../store/index";
-import { ListaMenuDesplegable } from "./index";
 import { UserAuth } from "../../index";
+import { useAuthStore } from "../../store/index";
 import { DesplegableUser } from "../../utils/staticData";
+import { ListaMenuDesplegable } from "./index";
 
 export function Header({ stateConfig }) {
   const { signOut } = useAuthStore();

@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { ThemeContext } from "../../App";
 import carrito from "../../assets/carrito.svg";
 import logo from "../../assets/inventarioslogo.png";
 import {
@@ -10,10 +9,10 @@ import {
   InputText,
   RegistrarAdmin,
 } from "../../components/organisms/index";
-import { Device } from "../../styles/index";
-import { Btnsave } from "../molecules/index";
+import { ThemeContext } from "../../index";
 import { useAuthStore } from "../../store/index";
-import { v } from "../../styles/index";
+import { Device, v } from "../../styles/index";
+import { Btnsave } from "../molecules/index";
 
 export function LoginTemplate() {
   const { setTheme } = useContext(ThemeContext);

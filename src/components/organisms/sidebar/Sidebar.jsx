@@ -1,9 +1,9 @@
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { LinksArray, SecondarylinksArray } from "../../../index";
+import { v } from "../../../styles/index";
 import { ToggleTema } from "../../organisms/index";
 import { SidebarCard } from "./index";
-import { v } from "../../../styles/variables";
-import { NavLink } from "react-router-dom";
 
 export function Sidebar({ state, setState }) {
   return (
@@ -16,7 +16,10 @@ export function Sidebar({ state, setState }) {
       >
         {<v.iconoflechaderecha />}
       </span>
-      <Container $isopen={state.toString()} className={state ? "active" : ""}>
+      <Container
+        $isopen={state.toString()}
+        className={state ? "active" : ""}
+      >
         <div className="Logocontent">
           <div className="imgcontent">
             <img src={v.logo} />
@@ -184,7 +187,8 @@ const Main = styled.div`
     height: 32px;
     border-radius: 50%;
     background: ${(props) => props.theme.bgtgderecha};
-    box-shadow: 0 0 4px ${(props) => props.theme.bg3},
+    box-shadow:
+      0 0 4px ${(props) => props.theme.bg3},
       0 0 7px ${(props) => props.theme.bg};
     display: flex;
     align-items: center;

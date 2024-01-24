@@ -1,10 +1,9 @@
-import { Route, Routes } from "react-router-dom";
-import { Home, Login } from "../pages/index";
-import { UserAuth } from "../context/AuthContext";
-import { ProtectedRoutes } from "../index";
 import { useQuery } from "@tanstack/react-query";
+import { Route, Routes } from "react-router-dom";
+import { ErrorCard, SpinnerLoader } from "../components/molecules/index";
+import { ProtectedRoutes, UserAuth } from "../index";
+import { Home, Login } from "../pages/index";
 import { useTestStore, useUserStore } from "../store/index";
-import { SpinnerLoader, ErrorCard } from "../components/molecules/index";
 
 export function MyRoutes() {
   const { user } = UserAuth();

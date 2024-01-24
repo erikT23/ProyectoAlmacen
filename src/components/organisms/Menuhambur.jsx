@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { LinksArray, SecondarylinksArray } from "../../index";
+import { v } from "../../styles/index";
 import { ToggleTema } from "../organisms/index";
-import { v } from "../../styles/variables";
-import { useState } from "react";
 
 export function MenuHambur() {
   const [click, setClick] = useState(false);

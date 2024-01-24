@@ -1,14 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { MdAlternateEmail } from "react-icons/md";
-import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
+import { MdAlternateEmail, MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useUserStore } from "../../../store";
-import { v } from "../../../styles/variables";
-import { InputText } from "../forms/index";
+import { useUserStore } from "../../../store/index";
+import { v } from "../../../styles/index";
 import { Btnsave } from "../../molecules/index";
+import { InputText } from "../forms/index";
 
 export function RegistrarAdmin({ setState }) {
   const { insertAdminUser } = useUserStore();

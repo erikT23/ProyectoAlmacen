@@ -1,5 +1,5 @@
-import { supabase } from "../supabase/index";
 import Swal from "sweetalert2";
+import { supabase } from "../supabase/index";
 import { GetIdAuthSupabase } from "./index";
 
 export const InsertUser = async (p) => {

@@ -1,5 +1,6 @@
-import styled from "styled-components";
 import { GiPadlock } from "react-icons/gi";
+import styled from "styled-components";
+
 export function FooterLogin() {
   return (
     <Container>
