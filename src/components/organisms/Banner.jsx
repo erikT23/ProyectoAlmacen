@@ -1,21 +1,23 @@
 import styled from "styled-components";
 import { v } from "../../styles/index";
 import { CardData } from "../molecules/index";
+import { useTestStore } from "../../store/index";
 
 export function Banner() {
+  const { datatest } = useTestStore();
   return (
     <Container>
       <div className="content-wrapper-context">
         <span className="titulo">
           {<v.iconoempresa />}
-          banner test
+          {datatest.users?.nombre}
         </span>
-        <div className="content-text">text placeholder</div>
+        <div className="content-text">{datatest.users?.rol}</div>
 
         <ContentCards>
           <CardData
-            title="Titulo"
-            numSerie="123456"
+            title={datatest.users?.nombre}
+            numSerie={datatest.users?.rol}
           />
           <CardData
             title="Titulo2"
@@ -40,7 +42,6 @@ const Container = styled.div`
   background-repeat: no-repeat, repeat;
   border-radius: 14px;
   overflow: hidden;
-  
 `;
 
 const ContentCards = styled.div`

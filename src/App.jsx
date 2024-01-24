@@ -10,9 +10,9 @@ import { Dark, Device, Light } from "./styles/index";
 export const ThemeContext = createContext(null);
 
 function App() {
-  const value = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
   const [themeUse, setTheme] = useState("light");
   const theme = themeUse === "light" ? "light" : "dark";
+  const value = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
   const themeStyle = theme === "light" ? Light : Dark;
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { pathname } = useLocation();

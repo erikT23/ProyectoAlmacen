@@ -4,11 +4,9 @@ import { supabase } from "./index";
 export const ShowTest = async (p) => {
   const { error, data } = await supabase
     .from("permisos")
-    .select(
-      `id_modulo,
-    users (nombre,rol,idAuth)`
-    )
-    .eq("id_user", p.id_user);
+    .select(`users (nombre, rol )`)
+    .eq("id_user", p.id_user)
+    .maybeSingle();
   if (data) {
     return data;
   }
