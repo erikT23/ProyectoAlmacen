@@ -9,10 +9,12 @@ import { SpinnerLoader, ErrorCard } from "../components/molecules/index";
 export function MyRoutes() {
   const { user } = UserAuth();
   const { showUsers } = useUserStore();
+  const {testPermisos}=
   const { data, isLoading, error } = useQuery({
     queryKey: ["mostrar usuarios"],
     queryFn: showUsers,
   });
+  const {data:datatest = useQuery({queryKey:["mostrar test"],queryFn:})}
   if (isLoading) {
     return <SpinnerLoader />;
   }
