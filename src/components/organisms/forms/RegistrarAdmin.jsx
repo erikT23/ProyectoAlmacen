@@ -77,8 +77,7 @@ export function RegistrarAdmin({ setState }) {
                   placeholder="correo"
                   {...register("correo", {
                     required: true,
-                    pattern: /^(?=[^\s@]+@[^\s@]+\.[^\s@]+$)[^\s@]+@[^\s@]+\.[^\s@]+$/i
-                    ,
+                    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                   })}
                 />
                 <label className="form__label">Email</label>
