@@ -2,12 +2,10 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import { MenuHambur } from "./components/organisms/index";
-import { Sidebar } from "./components/organisms/sidebar/index";
+import { MenuHambur, Sidebar } from "./components/organisms/index";
 import { AuthContextProvider, MyRoutes } from "./index";
 import { Login } from "./pages/index";
-import { Device } from "./styles/breakpoints";
-import { Dark, Light } from "./styles/index";
+import { Dark, Device, Light } from "./styles/index";
 
 export const ThemeContext = createContext(null);
 
@@ -40,7 +38,6 @@ function App() {
                 </section>
               </Container>
             )}
-
             <ReactQueryDevtools initialIsOpen={false} />
           </AuthContextProvider>
         </ThemeProvider>

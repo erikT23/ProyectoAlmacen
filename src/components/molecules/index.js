@@ -1,3 +1,5 @@
 export { BtnCircular } from './BtnCircular';
 export { Btnsave } from './Btnsave';
 export { CardData } from './CardData';
+export { ErrorCard } from './ErrorCard';
+export { SpinnerLoader } from './SpinnerLoader';
