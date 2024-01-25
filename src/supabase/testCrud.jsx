@@ -16,3 +16,18 @@ export const ShowTest = async (p) => {
     text: "error en el test crud " + error.message,
   });
 };
+
+export const CountTest = async (p) => {
+  const { data, error } = await supabase
+    .from("users")
+    .select(` permisos(count)`)
+    .eq("id", p.id_user);
+  if (data) {
+    return data;
+  }
+  Swal.fire({
+    icon: "error",
+    title: " Error",
+    text: "error en el test count " + error.message,
+  });
+};

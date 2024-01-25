@@ -4,7 +4,7 @@ import { CardData } from "../molecules/index";
 import { useTestStore } from "../../store/index";
 
 export function Banner() {
-  const { datatest } = useTestStore();
+  const { datatest, testcount } = useTestStore();
   return (
     <Container>
       <div className="content-wrapper-context">
@@ -20,8 +20,8 @@ export function Banner() {
             numSerie={datatest.users?.rol}
           />
           <CardData
-            title="Titulo2"
-            numSerie="123456"
+            title="count test"
+            numSerie={testcount[0]?.permisos?.[0]?.count}
           />
         </ContentCards>
       </div>

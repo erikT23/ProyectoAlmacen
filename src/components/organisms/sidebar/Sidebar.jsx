@@ -58,6 +58,7 @@ export function Sidebar({ state, setState }) {
             </NavLink>
           </div>
         ))}
+         <Divider />
         <ToggleTema />
       </Container>
     </Main>
