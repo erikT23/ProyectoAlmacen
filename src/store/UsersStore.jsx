@@ -13,9 +13,7 @@ export const useUserStore = create((set, get) => ({
         },
       },
     });
-
-    console.log("dara del registro del auth", data);
-
+    
     if (error) return;
 
     const dataUser = await InsertUser({

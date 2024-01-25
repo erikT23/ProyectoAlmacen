@@ -38,7 +38,6 @@ export function LoginTemplate() {
         setStateInicio(true);
       }
     } catch (error) {
-      console.error(error);
       setStateInicio(true);
     }
   }

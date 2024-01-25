@@ -7,7 +7,6 @@ import { ListaMenuDesplegable } from "./index";
 export function Header({ stateConfig }) {
   const { signOut } = useAuthStore();
   const { user } = UserAuth();
-  console.log(user);
   const funcionXtipo = async (p) => {
     if (p.tipo === "cerrarsesion") {
       await signOut();
