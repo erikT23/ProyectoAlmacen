@@ -17,7 +17,7 @@ export function HomeTemplate() {
       </section>
       <section className="area2"></section>
       <section className="main">
-        <Banner></Banner>
+        <Banner />
       </section>
     </Container>
   );

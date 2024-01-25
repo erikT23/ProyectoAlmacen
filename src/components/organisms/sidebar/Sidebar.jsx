@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { LinksArray, SecondarylinksArray } from "../../../index";
 import { v } from "../../../styles/index";
 import { ToggleTema } from "../../organisms/index";
-import { SidebarCard } from "./index";
 
 export function Sidebar({ state, setState }) {
   return (
@@ -60,8 +59,6 @@ export function Sidebar({ state, setState }) {
           </div>
         ))}
         <ToggleTema />
-        <Divider />
-        {state && <SidebarCard />}
       </Container>
     </Main>
   );
