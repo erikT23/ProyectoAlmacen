@@ -1,33 +1,33 @@
 import Swal from "sweetalert2";
 import { supabase } from "./index";
 
-export const ShowTest = async (p) => {
+export const ShowTest = async () => {
   const { error, data } = await supabase
-    .from("permisos")
-    .select(`users (nombre, rol )`)
-    .eq("id_user", p.id_user)
+    .from("departamentos")
+    .select(`departamentos_en_centros (*)`)
     .maybeSingle();
   if (data) {
+    console.log("data en show test", data);
     return data;
   }
   Swal.fire({
     icon: "error",
-    title: " Error",
+    title: " Error show test",
     text: "error en el test crud " + error.message,
   });
 };
 
-export const CountTest = async (p) => {
+export const CountTest = async () => {
   const { data, error } = await supabase
-    .from("users")
-    .select(` permisos(count)`)
-    .eq("id", p.id_user);
+    .from("centros")
+    .select(` departamentos_en_centros(count)`);
+
   if (data) {
     return data;
   }
   Swal.fire({
     icon: "error",
-    title: " Error",
+    title: " Error count test",
     text: "error en el test count " + error.message,
   });
 };

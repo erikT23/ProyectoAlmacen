@@ -77,7 +77,7 @@ export function RegistrarAdmin({ setState }) {
                   placeholder="correo"
                   {...register("correo", {
                     required: true,
-                    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    pattern: /^[^\s@]+@iberostar\.com$/,
                   })}
                 />
                 <label className="form__label">Correo</label>
@@ -95,10 +95,17 @@ export function RegistrarAdmin({ setState }) {
                   placeholder="password"
                   {...register("password", {
                     required: true,
+                    pattern: /^(?=.*[A-Z])(?=.*\d).{8,}$/,
                   })}
                 />
                 <label className="form__label">Contraseña</label>
                 {errors.password?.type === "required" && <p>Campo requerido</p>}
+                {errors.password?.type === "pattern" && (
+                  <p>
+                    tu contraseña debe tener almenos 8 caracteres y tener una
+                    letra mayuscula y un numero
+                  </p>
+                )}
               </InputText>
             </article>
             <div className="btnguardarContent">
