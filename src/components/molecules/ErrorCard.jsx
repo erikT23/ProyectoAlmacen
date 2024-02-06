@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export function ErrorCard(mensaje) {
+export function ErrorCard({ mensaje }) {
   return (
     <Container>
-      <span>Error... {mensaje}</span>
+      <span>Error... [{mensaje}]</span>
     </Container>
   );
 }

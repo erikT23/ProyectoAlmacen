@@ -29,7 +29,7 @@ export function LoginTemplate() {
   async function iniciar(data) {
     try {
       const response = await signInWithEmail({
-        email: data.correo,
+        correo: data.correo,
         password: data.pass,
       });
       if (response) {
@@ -71,12 +71,12 @@ export function LoginTemplate() {
               <input
                 className="form__field"
                 type="text"
-                placeholder="email"
+                placeholder="correo"
                 {...register("correo", {
                   required: true,
                 })}
               />
-              <label className="form__label">Email</label>
+              <label className="form__label">Correo</label>
               {errors.correo?.type === "required" && <p>Campo requerido</p>}
             </InputText>
             <InputText icono={<v.iconopass color="#3AA597" />}>

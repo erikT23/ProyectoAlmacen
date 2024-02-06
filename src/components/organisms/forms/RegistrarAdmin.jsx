@@ -1,6 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { MdAlternateEmail, MdOutlineDriveFileRenameOutline } from "react-icons/md";
+import {
+  MdAlternateEmail,
+  MdOutlineDriveFileRenameOutline,
+} from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -20,16 +23,14 @@ export function RegistrarAdmin({ setState }) {
   const mutation = useMutation({
     mutationFn: async (data) => {
       const p = {
-        email: data.correo,
-        password: data.pass,
+        correo: data.correo,
+        password: data.password,
         rol: "admin",
         nombre: data.nombre,
       };
       const dt = await insertAdminUser(p);
       if (dt) {
         navigate("/");
-      } else {
-        setStateInicio(!stateInicio);
       }
     },
   });
@@ -79,9 +80,9 @@ export function RegistrarAdmin({ setState }) {
                     pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                   })}
                 />
-                <label className="form__label">Email</label>
+                <label className="form__label">Correo</label>
                 {errors.correo?.type === "pattern" && (
-                  <p>El formato del email es incorrecto</p>
+                  <p>El formato del correo es incorrecto</p>
                 )}
                 {errors.correo?.type === "required" && <p>Campo requerido</p>}
               </InputText>
@@ -91,13 +92,13 @@ export function RegistrarAdmin({ setState }) {
                 <input
                   className="form__field"
                   type="password"
-                  placeholder="pass"
-                  {...register("pass", {
+                  placeholder="password"
+                  {...register("password", {
                     required: true,
                   })}
                 />
                 <label className="form__label">Contraseña</label>
-                {errors.pass?.type === "required" && <p>Campo requerido</p>}
+                {errors.password?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
             <div className="btnguardarContent">

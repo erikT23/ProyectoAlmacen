@@ -3,8 +3,10 @@ import { supabase } from "../supabase/index";
 import { GetIdAuthSupabase } from "./index";
 
 export const InsertUser = async (p) => {
+  console.log("data de p ", p);
   const { data, error } = await supabase
-    .from("users")
+
+    .from("usuarios")
     .insert(p)
     .select()
     .maybeSingle();
@@ -22,9 +24,9 @@ export const InsertUser = async (p) => {
 export const ShowUsers = async () => {
   const idAuthSupabase = await GetIdAuthSupabase();
   const { error, data } = await supabase
-    .from("users")
+    .from("usuarios")
     .select()
-    .eq("idAuth", idAuthSupabase)
+    .eq("idauth", idAuthSupabase)
     .maybeSingle();
   if (data) {
     return data;
