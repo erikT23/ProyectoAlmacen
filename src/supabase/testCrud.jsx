@@ -5,7 +5,7 @@ export const ShowTest = async () => {
   const { error, data } = await supabase
     .from("departamentos")
     .select(`id, nombre`)
-    .eq("id", 6);
+    .eq("id", 1);
 
   if (data) {
     console.log("data en show test", data);
@@ -75,4 +75,36 @@ export const DeleteTest = async (p) => {
       text: "error en el test delete " + error.message,
     });
   }
+};
+
+export const EditTest = async (p) => {
+  const { error } = await supabase
+    .from("departamentos")
+    .update(p)
+    .eq("id", p.id);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error edit test",
+      text: "error en el test edit " + error.message,
+    });
+  }
+};
+
+export const SearchTest = async (p) => {
+  const { data, error } = await supabase
+    .from("departamentos")
+    .select()
+    .eq("id", p.id)
+    .ilike("nombre", "%" + p.nombre + "%");
+
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error search test",
+      text: "error en el test search " + error.message,
+    });
+  }
+
+  return data;
 };

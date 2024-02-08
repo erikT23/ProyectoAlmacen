@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { ShowTest, CountTest } from "../supabase/index";
+import { ShowTest, CountTest, SearchTest } from "../supabase/index";
 
-export const useTestStore = create((set) => ({
+export const useTestStore = create((set, get) => ({
   datatest: [],
   testcount: [],
   showtest: async (p) => {
@@ -14,5 +14,16 @@ export const useTestStore = create((set) => ({
     set({ testcount: response });
     return response;
   },
-  
+
+  buscador: "",
+  setBuscador: (p) => {
+    set({ buscador: p });
+  },
+  data: [],
+  item: [],
+  parametros: {},
+  mostrarMarca: async (p) => {
+    const response = await SearchTest(p)
+    
+  },
 }));
