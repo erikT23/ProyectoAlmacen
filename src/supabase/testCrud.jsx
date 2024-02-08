@@ -4,8 +4,9 @@ import { supabase } from "./index";
 export const ShowTest = async () => {
   const { error, data } = await supabase
     .from("departamentos")
-    .select(`departamentos_en_centros (*)`)
-    .maybeSingle();
+    .select(`id, nombre`)
+    .eq("id", 6);
+
   if (data) {
     console.log("data en show test", data);
     return data;
@@ -30,4 +31,48 @@ export const CountTest = async () => {
     title: " Error count test",
     text: "error en el test count " + error.message,
   });
+};
+
+export const InsertTest = async (p) => {
+  const { error } = await supabase
+    .from("departamentos")
+    .insert([{ nombre: p.nombre }])
+    .select();
+
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error insert test",
+      text: "error en el test insert " + error.message,
+    });
+  }
+};
+
+export const InsertWithIDTest = async (p) => {
+  const { error } = await supabase
+    .from("modelos")
+    .insert([{ nombre: p.nombre, marca_id: p.marca_id, tipo_id: p.tipo_id }])
+    .select();
+
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error insert test",
+      text: "error en el test insert " + error.message,
+    });
+  }
+};
+
+export const DeleteTest = async (p) => {
+  const { error } = await supabase
+    .from("departamentos")
+    .delete()
+    .eq("id", p.id);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error delete test",
+      text: "error en el test delete " + error.message,
+    });
+  }
 };

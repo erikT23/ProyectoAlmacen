@@ -9,6 +9,7 @@ export function MyRoutes() {
   const { user } = UserAuth();
   const { showUsers, idUser } = useUserStore();
   const { showtest, counttest } = useTestStore();
+
   const {
     data: datausers,
     isLoading,
@@ -16,12 +17,14 @@ export function MyRoutes() {
   } = useQuery({
     queryKey: ["mostrar usuarios"],
     queryFn: showUsers,
+
   });
   const { data: datatest } = useQuery({
     queryKey: ["mostrar test"],
     queryFn: () => showtest({ id_user: idUser }),
     enabled: !!datausers,
   });
+  
   useQuery({
     queryKey: ["contar Test"],
     queryFn: () => counttest({ id_user: idUser }),
