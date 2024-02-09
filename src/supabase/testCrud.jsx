@@ -8,7 +8,6 @@ export const ShowTest = async () => {
     .eq("id", 1);
 
   if (data) {
-    console.log("data en show test", data);
     return data;
   }
   Swal.fire({

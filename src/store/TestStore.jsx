@@ -1,5 +1,12 @@
 import { create } from "zustand";
-import { ShowTest, CountTest, SearchTest, InsertTest } from "../supabase/index";
+import {
+  ShowTest,
+  CountTest,
+  SearchTest,
+  InsertTest,
+  DeleteTest,
+  EditTest,
+} from "../supabase/index";
 
 export const useTestStore = create((set, get) => ({
   datatest: [],
@@ -36,8 +43,27 @@ export const useTestStore = create((set, get) => ({
 
   insertTest: async (p) => {
     await InsertTest(p);
-
     const { mostrarTest } = get();
-    set(mostrarTest);
+    const { parametros } = get();
+    set(mostrarTest(parametros));
+  },
+
+  deleteTest: async (p) => {
+    await DeleteTest(p);
+    const { mostrarTest } = get();
+    const { parametros } = get();
+    set(mostrarTest(parametros));
+  },
+
+  editTest: async (p) => {
+    await EditTest(p);
+    const { mostrarTest } = get();
+    const { parametros } = get();
+    set(mostrarTest(parametros));
+  },
+
+  searchTest: async (p) => {
+    const response = await SearchTest(p);
+    set({ data: response });
   },
 }));
