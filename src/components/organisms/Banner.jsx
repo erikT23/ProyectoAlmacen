@@ -16,8 +16,8 @@ export function Banner() {
 
         <ContentCards>
           <CardData
-            title={"Numero de id "+datatest[0]?.id}
-            numSerie={"Nombre "+datatest[0]?.nombre}
+            title={"Numero de id " + datatest?.id}
+            numSerie={"Nombre " + datatest?.nombre}
           />
           <CardData
             title="count test"

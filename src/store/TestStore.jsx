@@ -14,6 +14,7 @@ export const useTestStore = create((set, get) => ({
   showtest: async (p) => {
     const response = await ShowTest(p);
     set({ datatest: response });
+    console.log("data e p en store" + response + p);
     return response;
   },
   counttest: async (p) => {
@@ -30,7 +31,7 @@ export const useTestStore = create((set, get) => ({
   item: [],
   parametros: {},
   mostrarTest: async (p) => {
-    const response = await SearchTest(p);
+    const response = await ShowTest(p);
     set({ parametros: response });
     set({ data: response });
     set({ item: response[0] });

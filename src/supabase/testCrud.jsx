@@ -1,11 +1,13 @@
 import Swal from "sweetalert2";
 import { supabase } from "./index";
 
-export const ShowTest = async () => {
+export const ShowTest = async (p) => {
+  console.log("data de p en crud", p);
   const { error, data } = await supabase
     .from("departamentos")
     .select(`id, nombre`)
-    .eq("id", 1);
+    .eq("id", p.id)
+    .maybeSingle();
 
   if (data) {
     return data;

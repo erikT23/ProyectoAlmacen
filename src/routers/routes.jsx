@@ -21,7 +21,7 @@ export function MyRoutes() {
   });
   const { data: datatest } = useQuery({
     queryKey: ["mostrar test"],
-    queryFn: () => showtest({ id_user: idUser }),
+    queryFn: () => showtest({ id: 1 }),
     enabled: !!datausers,
   });
   
