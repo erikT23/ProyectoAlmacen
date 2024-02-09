@@ -18,7 +18,7 @@ export function Marca() {
   });
 
   if (isLoading) {
-    return <SpinnerLoader />;
+    return <SpinnerLoader />; 
   }
   if (error) {
     return <div>Error al cargar los datos</div>;
