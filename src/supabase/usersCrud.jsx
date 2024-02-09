@@ -3,7 +3,6 @@ import { supabase } from "../supabase/index";
 import { GetIdAuthSupabase } from "./index";
 
 export const InsertUser = async (p) => {
-  console.log("data de p ", p);
   const { data, error } = await supabase
 
     .from("usuarios")

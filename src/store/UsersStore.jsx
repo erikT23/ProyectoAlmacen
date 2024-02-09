@@ -8,7 +8,6 @@ export const useUserStore = create((set) => ({
       email: p.correo,
       password: p.password,
     });
-    console.log("info en data userstore", data);
     if (error) return;
 
     const dataUser = await InsertUser({
@@ -18,7 +17,6 @@ export const useUserStore = create((set) => ({
       correo: data.user.email,
       password: data.user.password,
     });
-    console.log("debug datauser" + dataUser);
     return dataUser;
   },
   idUser: 0,
