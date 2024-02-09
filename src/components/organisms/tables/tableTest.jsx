@@ -1,14 +1,19 @@
 import {
-    getCoreRowModel,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
-    useReactTable,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
 import styled from "styled-components";
 
 export function TableTest({ data }) {
-  const columns = [{}];
+  const columns = [
+    {
+      accessorKey: "nombre",
+      
+    },
+  ];
 
   const table = useReactTable({
     data,
@@ -20,7 +25,20 @@ export function TableTest({ data }) {
   });
   return (
     <Container>
-      <h1>test</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>test1</td>
+            <td>test2</td>
+          </tr>
+        </tbody>
+      </table>
     </Container>
   );
 }
