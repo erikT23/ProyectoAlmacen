@@ -13,7 +13,7 @@ export function TableActions({ editFunct, deleteFunct }) {
       />
       <AccionTabla
         funcion={deleteFunct}
-        color="#aac50d"
+        color="#a11107"
         icono={<v.iconeliminarTabla />}
         fontsize="20px"
       />
@@ -23,7 +23,9 @@ export function TableActions({ editFunct, deleteFunct }) {
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
+  @media (max-width: 48em) {
+    justify-content: end;
+  }
 `;

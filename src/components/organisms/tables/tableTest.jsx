@@ -8,8 +8,30 @@ import {
 } from "@tanstack/react-table";
 import styled from "styled-components";
 import { TableActions } from "../index";
+import Swal from "sweetalert2";
 
 export function TableTest({ data }) {
+  const editar = () => {};
+
+  const eliminar = () => {
+    Swal.fire({
+      title: "¿Estas seguro de eliminar esto?",
+      text: "este cambio sera irreversible!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, eliminar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Borrado",
+          text: "El registro ha sido eliminado.",
+          icon: "success",
+        });
+      }
+    });
+  };
   const columns = [
     {
       accessorKey: "id",
@@ -25,9 +47,12 @@ export function TableTest({ data }) {
     {
       accessorKey: "acciones",
       header: "Acciones",
-      cell: (info) => ( 
+      cell: (info) => (
         <td>
-          <TableActions />
+          <TableActions
+            editFunct={() => editar(info.row.original)}
+            deleteFunct={() => eliminar(info.row.original)}
+          />
         </td>
       ),
     },
