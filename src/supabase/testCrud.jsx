@@ -2,14 +2,12 @@ import Swal from "sweetalert2";
 import { supabase } from "./index";
 
 export const ShowTest = async (p) => {
-  console.log("data de p en crud", p);
   const { error, data } = await supabase
     .from("departamentos")
-    .select(`id, nombre`)
-    .eq("id", p.id)
-    .maybeSingle();
-
+    .select(`id, nombre`);
   if (data) {
+    console.log("data de p en crud", data);
+
     return data;
   }
   Swal.fire({

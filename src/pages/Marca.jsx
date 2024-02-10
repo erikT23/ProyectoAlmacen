@@ -6,9 +6,9 @@ import { SpinnerLoader } from "../components/molecules/index";
 export function Marca() {
   const { mostrarTest, data, searchTest, datatest, buscador } = useTestStore();
   const { isLoading, error } = useQuery({
-    queryKey: ["mostrar Test", { id: datatest.id }],
-    queryFn: () => mostrarTest({ id: datatest.id }),
-    enabled: datatest.id != null,
+    queryKey: ["mostrar Testssss", { id: datatest[0]?.id }],
+    queryFn: () => mostrarTest({ id: datatest[0]?.id }),
+    enabled: datatest[0]?.id != null,
   });
 
   const { data: buscarData } = useQuery({
@@ -18,7 +18,7 @@ export function Marca() {
   });
 
   if (isLoading) {
-    return <SpinnerLoader />; 
+    return <SpinnerLoader />;
   }
   if (error) {
     return <div>Error al cargar los datos</div>;
