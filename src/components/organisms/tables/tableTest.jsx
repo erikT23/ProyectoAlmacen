@@ -7,6 +7,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import styled from "styled-components";
+import { TableActions } from "../index";
 
 export function TableTest({ data }) {
   const columns = [
@@ -24,7 +25,11 @@ export function TableTest({ data }) {
     {
       accessorKey: "acciones",
       header: "Acciones",
-      cell: (info) => <td></td>,
+      cell: (info) => ( 
+        <td>
+          <TableActions />
+        </td>
+      ),
     },
   ];
 
