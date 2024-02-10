@@ -10,8 +10,8 @@ import styled from "styled-components";
 export function TableTest({ data }) {
   const columns = [
     {
-      accessorKey: "nombre",
-      
+      accessorKey: "id",
+      header: "id",
     },
   ];
 
@@ -27,10 +27,13 @@ export function TableTest({ data }) {
     <Container>
       <table>
         <thead>
-          <tr>
-            <th>id</th>
-            <th>nombre</th>
-          </tr>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th key={header.id}></th>
+              ))}
+            </tr>
+          ))}
         </thead>
         <tbody>
           <tr>
