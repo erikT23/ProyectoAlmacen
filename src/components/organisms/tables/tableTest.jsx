@@ -17,17 +17,15 @@ export function TableTest({ data }) {
     },
 
     {
-      accessorKey:"nombre",
-      header:"Nombre",
-      cell:(info) => <span>{info.getValue()}</span>
-    }
+      accessorKey: "nombre",
+      header: "Nombre",
+      cell: (info) => <span>{info.getValue()}</span>,
+    },
     {
-      accessorKey:"acciones",
-      header:"Acciones",
-      cell:(info)=>(<td>
-        
-      </td>)
-    }
+      accessorKey: "acciones",
+      header: "Acciones",
+      cell: (info) => <td></td>,
+    },
   ];
 
   const table = useReactTable({
