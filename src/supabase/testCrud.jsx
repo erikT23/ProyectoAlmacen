@@ -63,6 +63,7 @@ export const InsertWithIDTest = async (p) => {
 };
 
 export const DeleteTest = async (p) => {
+  console.log("data de p en delete", p);
   const { error } = await supabase
     .from("departamentos")
     .delete()

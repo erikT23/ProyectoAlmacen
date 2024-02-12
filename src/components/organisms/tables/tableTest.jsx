@@ -9,11 +9,23 @@ import {
 import styled from "styled-components";
 import { TableActions } from "../index";
 import Swal from "sweetalert2";
+import { useTestStore } from "../../../store/index";
 
 export function TableTest({ data }) {
+  const { deleteTest } = useTestStore();
   const editar = () => {};
 
-  const eliminar = () => {
+  const eliminar = (p) => {
+    //esto sirve para prevenir que se elimine una categoria por defecto
+    /* if (p.descripcion === "generica") {
+      return Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "No se puede eliminar una categoria generica",
+      });
+      return;
+    }*/
+
     Swal.fire({
       title: "¿Estas seguro de eliminar esto?",
       text: "este cambio sera irreversible!",
@@ -22,13 +34,10 @@ export function TableTest({ data }) {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Si, eliminar",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Borrado",
-          text: "El registro ha sido eliminado.",
-          icon: "success",
-        });
+        await deleteTest({ id: p.id });
+        Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
       }
     });
   };
