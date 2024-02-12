@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import { supabase } from "./index";
 
-export const ShowTest = async (p) => {
+export const ShowTest = async () => {
   const { error, data } = await supabase
     .from("departamentos")
     .select(`id, nombre`);
