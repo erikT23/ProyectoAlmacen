@@ -12,9 +12,7 @@ export function MarcaTemplate({ data }) {
       <RegistrarTest
         dataSelect={dataSelect}
         accion={accion}
-        onClose={() => {
-          setopenRegistro(!openRegistro);
-        }}
+        onClose={() => setopenRegistro(!openRegistro)}
       />
 
       <header className="header">
