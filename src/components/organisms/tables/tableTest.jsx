@@ -56,7 +56,7 @@ export function TableTest({ data }) {
     },
     {
       accessorKey: "acciones",
-      header: "",
+      header: "Acciones",
       cell: (info) => (
         <td className="ContentCell">
           <TableActions

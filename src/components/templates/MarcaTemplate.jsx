@@ -1,10 +1,22 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Header, TableTest } from "../organisms/index";
+import { Header, TableTest, RegistrarTest } from "../organisms/index";
 export function MarcaTemplate({ data }) {
   const [state, setState] = useState(false);
+  const [dataSelect, setdataSelect] = useState([]);
+  const [accion, setAccion] = useState("");
+  const [openRegistro, setopenRegistro] = useState(false);
+
   return (
     <Container>
+      <RegistrarTest
+        dataSelect={dataSelect}
+        accion={accion}
+        onClose={() => {
+          setopenRegistro(!openRegistro);
+        }}
+      />
+
       <header className="header">
         <Header
           stateConfig={{ state: state, setState: () => setState(!state) }}

@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { v } from "../../../styles/variables";
 import { useForm } from "react-hook-form";
 import { useTestStore } from "../../../store/index";
-import { InputText } from "../forms/index";
-import {Btnsave} from "../../molecules/index";
+import { InputText } from "../../organisms/index";
+import { Btnsave } from "../../molecules/index";
 
-export function RegistrarMarca({ onClose, dataSelect, accion }) {
+export function RegistrarTest({ onClose, dataSelect, accion }) {
   const { insertTest, editTest, datatest } = useTestStore();
   const {
     register,
@@ -40,7 +40,7 @@ export function RegistrarMarca({ onClose, dataSelect, accion }) {
         <div className="headers">
           <section>
             <h1>
-              {accion == "Editar" ? "Editar marca" : "Registrar nueva marca"}
+              {accion == "Editar" ? "Editar dato" : "Registrar nuevo dato"}
             </h1>
           </section>
 
@@ -65,7 +65,7 @@ export function RegistrarMarca({ onClose, dataSelect, accion }) {
                     required: true,
                   })}
                 />
-                <label className="form__label">marca</label>
+                <label className="form__label">Test</label>
                 {errors.nombre?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
@@ -74,7 +74,7 @@ export function RegistrarMarca({ onClose, dataSelect, accion }) {
               <Btnsave
                 icono={<v.iconoguardar />}
                 titulo="Guardar"
-                bgcolor="#ef552b"
+                bgcolor="#3AA597"
               />
             </div>
           </section>
