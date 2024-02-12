@@ -6,7 +6,6 @@ export const ShowTest = async (p) => {
     .from("departamentos")
     .select(`id, nombre`);
   if (data) {
-    console.log("data de p en crud", data);
 
     return data;
   }
@@ -63,7 +62,6 @@ export const InsertWithIDTest = async (p) => {
 };
 
 export const DeleteTest = async (p) => {
-  console.log("data de p en delete", p);
   const { error } = await supabase
     .from("departamentos")
     .delete()
