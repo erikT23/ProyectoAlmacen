@@ -1,6 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Header, TableTest, RegistrarTest } from "../organisms/index";
+import { BtnAdd } from "../molecules/index";
+import { ContentFiltro, Title } from "../atoms/index";
+import { v } from "../../styles/index";
 export function MarcaTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
@@ -9,18 +12,29 @@ export function MarcaTemplate({ data }) {
 
   return (
     <Container>
-      <RegistrarTest
-        dataSelect={dataSelect}
-        accion={accion}
-        onClose={() => setopenRegistro(!openRegistro)}
-      />
+      {openRegistro && (
+        <RegistrarTest
+          dataSelect={dataSelect}
+          accion={accion}
+          onClose={() => setopenRegistro(!openRegistro)}
+        />
+      )}
 
       <header className="header">
         <Header
           stateConfig={{ state: state, setState: () => setState(!state) }}
         />
       </header>
-      <section className="area1"></section>
+      <section className="area1">
+        <ContentFiltro>
+          <Title>TestBench</Title>
+          <BtnAdd
+            bgColor="#f6f3f3"
+            textColor="#353535"
+            icono={v.agregar}
+          />
+        </ContentFiltro>
+      </section>
       <section className="area2"></section>
       <section className="main">
         <TableTest data={data} />
@@ -67,3 +81,4 @@ const Container = styled.div`
     background-color: rgba(179, 46, 241, 0.14);
   }
 `;
+
