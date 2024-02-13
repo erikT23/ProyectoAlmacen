@@ -29,9 +29,9 @@ export function MarcaTemplate({ data }) {
         <ContentFiltro>
           <Title>TestBench</Title>
           <BtnAdd
-            bgColor="#f6f3f3"
-            textColor="#353535"
-            icono={v.agregar}
+            bgColor="#be1d1d"
+            textColor="#000"
+            icono={<v.agregar />}
           />
         </ContentFiltro>
       </section>
@@ -81,4 +81,3 @@ const Container = styled.div`
     background-color: rgba(179, 46, 241, 0.14);
   }
 `;
-

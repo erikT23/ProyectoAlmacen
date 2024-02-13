@@ -18,8 +18,7 @@ const Container = styled.div`
   min-width: 50px;
   min-height: 50px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #ffffff, #e6e6e6);
-  box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+  background: linear-gradient(145deg, #3aa597, #1af5d8);
   color: ${(props) => props.$textColor};
   display: flex;
   align-items: center;
@@ -28,7 +27,17 @@ const Container = styled.div`
   position: relative;
   cursor: pointer;
 
-  .contentIcon{
-    
+  .contentIcon {
+    position: absolute;
+    top: 25%;
+    bottom: 25%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    transition: 0.2s;
+    &:hover {
+      transform: scale(1.5);
+    }
   }
 `;
