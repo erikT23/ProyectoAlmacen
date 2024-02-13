@@ -44,7 +44,15 @@ export function RegistrarTest({ onClose, dataSelect, accion }) {
           </section>
 
           <section>
-            <span onClick={onClose}>x</span>
+            <span
+              onClick={onClose}
+              onKeyDown={onClose}
+              tabIndex="0"
+              role="button"
+              aria-label="Close"
+            >
+              x
+            </span>
           </section>
         </div>
 
