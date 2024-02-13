@@ -7,7 +7,7 @@ import { InputText } from "../../organisms/index";
 import { Btnsave } from "../../molecules/index";
 
 export function RegistrarTest({ onClose, dataSelect, accion }) {
-  const { insertTest, editTest, datatest } = useTestStore();
+  const { insertTest, editTest } = useTestStore();
   const {
     register,
     formState: { errors },
@@ -17,14 +17,13 @@ export function RegistrarTest({ onClose, dataSelect, accion }) {
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,
-        descripcion: data.nombre,
+        nombre: data.nombre,
       };
       await editTest(p);
       onClose();
     } else {
       const p = {
-        _descripcion: data.nombre,
-        _idempresa: datatest.id,
+        nombre: data.nombre,
       };
       await insertTest(p);
       onClose();
@@ -58,7 +57,7 @@ export function RegistrarTest({ onClose, dataSelect, accion }) {
               <InputText icono={<v.iconomarca />}>
                 <input
                   className="form__field"
-                  defaultValue={dataSelect.descripcion}
+                  defaultValue={dataSelect.nombre}
                   type="text"
                   placeholder=""
                   {...register("nombre", {

@@ -12,9 +12,13 @@ import Swal from "sweetalert2";
 import { useTestStore } from "../../../store/index";
 import { v } from "../../../styles/index";
 
-export function TableTest({ data }) {
+export function TableTest({ data, setopenRegistro, setdataSelect, setAccion }) {
   const { deleteTest } = useTestStore();
-  const editar = () => {};
+  const editar = (data) => {
+    setopenRegistro(true);
+    setdataSelect(data);
+    setAccion("Editar");
+  };
 
   const eliminar = (p) => {
     //esto sirve para prevenir que se elimine una categoria por defecto

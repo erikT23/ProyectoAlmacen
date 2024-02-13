@@ -9,6 +9,11 @@ export function MarcaTemplate({ data }) {
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");
   const [openRegistro, setopenRegistro] = useState(false);
+  const nuevoRegistro = () => {
+    setopenRegistro(!openRegistro);
+    setAccion("Nuevo");
+    setdataSelect([]);
+  };
 
   return (
     <Container>
@@ -32,12 +37,18 @@ export function MarcaTemplate({ data }) {
             bgColor="#be1d1d"
             textColor="#000"
             icono={<v.agregar />}
+            funcion={nuevoRegistro}
           />
         </ContentFiltro>
       </section>
       <section className="area2"></section>
       <section className="main">
-        <TableTest data={data} />
+        <TableTest
+          data={data}
+          setopenRegistro={setopenRegistro}
+          setdataSelect={setdataSelect}
+          setAccion={setAccion}
+        />
       </section>
     </Container>
   );
