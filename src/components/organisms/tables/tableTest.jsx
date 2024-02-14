@@ -11,6 +11,7 @@ import { TableActions } from "../index";
 import Swal from "sweetalert2";
 import { useTestStore } from "../../../store/index";
 import { v } from "../../../styles/index";
+import { FaSortDown, FaSortUp } from "react-icons/fa";
 
 export function TableTest({ data, setopenRegistro, setdataSelect, setAccion }) {
   const { deleteTest } = useTestStore();
@@ -61,6 +62,7 @@ export function TableTest({ data, setopenRegistro, setdataSelect, setAccion }) {
     {
       accessorKey: "acciones",
       header: "Acciones",
+      enableSorting: false,
       cell: (info) => (
         <td className="ContentCell">
           <TableActions
@@ -87,7 +89,23 @@ export function TableTest({ data, setopenRegistro, setdataSelect, setAccion }) {
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>{header.column.columnDef.header}</th>
+                <th key={header.id}>
+                  {header.column.columnDef.header}
+                  {header.column.getCanSort() && (
+                    <span
+                      style={{ cursor: "pointer" }}
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
+                      <FaSortDown />
+                    </span>
+                  )}
+                  {
+                    {
+                      asc: <FaSortUp />,
+                      des: <FaSortDown />,
+                    }[header.column.getIsSorted()]
+                  }
+                </th>
               ))}
             </tr>
           ))}
