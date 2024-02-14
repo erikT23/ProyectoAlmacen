@@ -1,4 +1,5 @@
 export { Banner } from './Banner';
+export { Buscador } from './Buscador';
 export { FooterLogin } from './FooterLogin';
 export { Header } from './Header';
 export { ListaMenuDesplegable } from './ListaMenuDesplegable';

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Header, TableTest, RegistrarTest } from "../organisms/index";
+import { Header, TableTest, RegistrarTest, Buscador } from "../organisms/index";
 import { BtnAdd } from "../molecules/index";
 import { ContentFiltro, Title } from "../atoms/index";
 import { v } from "../../styles/index";
+import { useTestStore } from "../../store/index";
 export function MarcaTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
@@ -14,6 +15,7 @@ export function MarcaTemplate({ data }) {
     setAccion("Nuevo");
     setdataSelect([]);
   };
+  const { setBuscador } = useTestStore();
 
   return (
     <Container>
@@ -41,7 +43,9 @@ export function MarcaTemplate({ data }) {
           />
         </ContentFiltro>
       </section>
-      <section className="area2"></section>
+      <section className="area2">
+        <Buscador setBuscador={setBuscador} />
+      </section>
       <section className="main">
         <TableTest
           data={data}

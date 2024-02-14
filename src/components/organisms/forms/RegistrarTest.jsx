@@ -30,6 +30,7 @@ export function RegistrarTest({ onClose, dataSelect, accion }) {
     }
   }
   useEffect(() => {
+    // eslint-disable-next-line no-empty
     if (accion === "Editar") {
     }
   }, []);
@@ -44,15 +45,7 @@ export function RegistrarTest({ onClose, dataSelect, accion }) {
           </section>
 
           <section>
-            <span
-              onClick={onClose}
-              onKeyDown={onClose}
-              tabIndex="0"
-              role="button"
-              aria-label="Close"
-            >
-              x
-            </span>
+            <span onClick={onClose}>x</span>
           </section>
         </div>
 
@@ -65,7 +58,7 @@ export function RegistrarTest({ onClose, dataSelect, accion }) {
               <InputText icono={<v.iconomarca />}>
                 <input
                   className="form__field"
-                  defaultValue={dataSelect.nombre}
+                  defaultValue={dataSelect.descripcion}
                   type="text"
                   placeholder=""
                   {...register("nombre", {
@@ -141,32 +134,4 @@ const Container = styled.div`
       }
     }
   }
-`;
-
-const ContentTitle = styled.div`
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  gap: 20px;
-  svg {
-    font-size: 25px;
-  }
-  input {
-    border: none;
-    outline: none;
-    background: transparent;
-    padding: 2px;
-    width: 40px;
-    font-size: 28px;
-  }
-`;
-const ContainerEmojiPicker = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
 `;

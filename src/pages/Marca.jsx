@@ -12,9 +12,9 @@ export function Marca() {
   });
 
   const { data: buscarData } = useQuery({
-    queryKey: ["buscar Test", { id: datatest.id, descripcion: buscador }],
-    queryFn: () => searchTest({ id: datatest.id, descripcion: buscador }),
-    enabled: datatest.id != null,
+    queryKey: ["buscar Test", { id: datatest.id, nombre: buscador }],
+    queryFn: () => searchTest({ id: datatest.id, nombre: buscador }),
+    enabled: datatest[0]?.id != null,
   });
 
   if (isLoading) {

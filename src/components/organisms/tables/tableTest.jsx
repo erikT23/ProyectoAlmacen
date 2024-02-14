@@ -22,7 +22,7 @@ export function TableTest({ data, setopenRegistro, setdataSelect, setAccion }) {
 
   const eliminar = (p) => {
     //esto sirve para prevenir que se elimine una categoria por defecto
-    /* if (p.descripcion === "generica") {
+    /* if (p.nombre === "generica") {
       return Swal.fire({
         icon: "error",
         title: " Error",

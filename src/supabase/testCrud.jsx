@@ -93,7 +93,6 @@ export const SearchTest = async (p) => {
   const { data, error } = await supabase
     .from("departamentos")
     .select()
-    .eq("id", p.id)
     .ilike("nombre", "%" + p.nombre + "%");
 
   if (error) {
