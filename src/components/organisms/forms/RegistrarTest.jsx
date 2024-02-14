@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useTestStore } from "../../../store/index";
 import { InputText } from "../../organisms/index";
 import { Btnsave } from "../../molecules/index";
+import { Capitalize } from "../../../utils/Conversiones";
 
 export function RegistrarTest({ onClose, dataSelect, accion }) {
   const { insertTest, editTest } = useTestStore();
@@ -17,13 +18,13 @@ export function RegistrarTest({ onClose, dataSelect, accion }) {
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,
-        nombre: data.nombre,
+        nombre: Capitalize(data.nombre),
       };
       await editTest(p);
       onClose();
     } else {
       const p = {
-        nombre: data.nombre,
+        nombre: Capitalize(data.nombre),
       };
       await insertTest(p);
       onClose();

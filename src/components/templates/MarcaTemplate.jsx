@@ -89,6 +89,9 @@ const Container = styled.div`
   .area2 {
     grid-area: area2;
     background-color: rgba(77, 237, 106, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: end;
   }
 
   .main {
