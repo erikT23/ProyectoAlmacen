@@ -12,8 +12,11 @@ import Swal from "sweetalert2";
 import { useTestStore } from "../../../store/index";
 import { v } from "../../../styles/index";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
+import { Paginacion } from "./index";
+import { useState } from "react";
 
 export function TableTest({ data, setopenRegistro, setdataSelect, setAccion }) {
+  const [pagina, setPagina] = useState(1);
   const { deleteTest } = useTestStore();
   const editar = (data) => {
     setopenRegistro(true);
@@ -57,7 +60,14 @@ export function TableTest({ data, setopenRegistro, setdataSelect, setAccion }) {
     {
       accessorKey: "nombre",
       header: "Nombre",
-      cell: (info) => <span>{info.getValue()}</span>,
+      cell: (info) => (
+        <td
+          data-title="Nombre"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
+        </td>
+      ),
     },
     {
       accessorKey: "acciones",
@@ -122,6 +132,13 @@ export function TableTest({ data, setopenRegistro, setdataSelect, setAccion }) {
           ))}
         </tbody>
       </table>
+      <Paginacion
+        table={table}
+        irinicio={() => table.setPageIndex(0)}
+        pagina={table.getState().pagination.pageIndex + 1}
+        setPagina={setPagina}
+        maximo={table.getPageCount()}
+      />
     </Container>
   );
 }
