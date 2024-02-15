@@ -16,7 +16,7 @@ import { Paginacion } from "./index";
 import { useState } from "react";
 
 export function TableTest({ data, setopenRegistro, setdataSelect, setAccion }) {
-  const [pagina, setPagina] = useState(1);
+  const [, setPagina] = useState(1);
   const { deleteTest } = useTestStore();
   const editar = (data) => {
     setopenRegistro(true);

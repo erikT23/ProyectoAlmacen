@@ -59,14 +59,14 @@ export function RegistrarTest({ onClose, dataSelect, accion }) {
               <InputText icono={<v.iconomarca />}>
                 <input
                   className="form__field"
-                  defaultValue={dataSelect.descripcion}
+                  defaultValue={dataSelect.nombre}
                   type="text"
                   placeholder=""
                   {...register("nombre", {
                     required: true,
                   })}
                 />
-                <label className="form__label">Test</label>
+                <label className="form__label">Nombre:</label>
                 {errors.nombre?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
