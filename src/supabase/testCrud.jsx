@@ -6,7 +6,6 @@ export const ShowTest = async () => {
     .from("departamentos")
     .select(`id, nombre`);
   if (data) {
-
     return data;
   }
   Swal.fire({
