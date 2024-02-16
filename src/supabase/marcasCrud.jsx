@@ -52,7 +52,7 @@ export const EditMarcas = async (p) => {
   }
 };
 
-export const DetleMarcas = async (p) => {
+export const DeleteMarcas = async (p) => {
   const { error } = await supabase.from("marcas").delete().eq("id", p.id);
   if (error) {
     Swal.fire({
