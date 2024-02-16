@@ -78,18 +78,35 @@ export const DataModulosConfiguracion = [
     link: "/configurar/empresa",
   },
   {
-    title: "Categoria de productos",
-    subtitle: "asigna categorias a tus productos",
-    icono: "https://i.ibb.co/VYbMRLZ/categoria.png",
-    link: "/configurar/categorias",
+    title: "Marcas",
+    subtitle: "Gestion de las marcas de los productos",
+    //  icono: "https://i.ibb.co/VYbMRLZ/categoria.png",
+    icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
+    link: "/configurar/menuMarcas",
   },
   {
-    title: "Marca de productos",
+    title: "tests",
     subtitle: "gestiona tus marcas",
     icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
     link: "/configurar/marca",
   },
 ];
+
+export const MenuMarcasData = [
+  {
+    title: "Marcas",
+    subtitle: "Gestion de las marcas de los productos",
+    icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
+    link: "/configurar/menuMarcas/marcas",
+  },
+  {
+    title: "Modelos",
+    subtitle: "Gestion de modelos por marca",
+    icono: "https://i.ibb.co/VYbMRLZ/categoria.png",
+    link: "/configurar/menuMarcas/modelos",
+  },
+];
+
 //tipo usuario
 export const TipouserData = [
   {

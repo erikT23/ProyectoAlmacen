@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Route, Routes } from "react-router-dom";
 import { ErrorCard, SpinnerLoader } from "../components/molecules/index";
 import { ProtectedRoutes, UserAuth } from "../index";
-import { Configuracion, Home, Login, Marca } from "../pages/index";
+import { Configuracion, Home, Login, Marca, MenuMarcas } from "../pages/index";
 import { useTestStore, useUserStore } from "../store/index";
 
 export function MyRoutes() {
@@ -17,14 +17,13 @@ export function MyRoutes() {
   } = useQuery({
     queryKey: ["mostrar usuarios"],
     queryFn: showUsers,
-
   });
   const { data: datatest } = useQuery({
     queryKey: ["mostrar test"],
     queryFn: () => showtest({ id: 1 }),
     enabled: !!datausers,
   });
-  
+
   useQuery({
     queryKey: ["contar Test"],
     queryFn: () => counttest({ id_user: idUser }),
@@ -61,6 +60,10 @@ export function MyRoutes() {
         <Route
           path="/configurar/marca"
           element={<Marca />}
+        />
+        <Route
+          path="/configurar/menuMarcas"
+          element={<MenuMarcas />}
         />
       </Route>
     </Routes>
