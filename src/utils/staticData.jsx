@@ -1,5 +1,8 @@
 import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";
 import { v } from "../styles/index";
+import marcasMenu from "../assets/marcas.png";
+import modelosMenu from "../assets/modelos.png";
+import mainMarcas from "../assets/mainMarcas.png"
 
 export const DesplegableUser = [
   {
@@ -81,7 +84,7 @@ export const DataModulosConfiguracion = [
     title: "Marcas",
     subtitle: "Gestion de las marcas de los productos",
     //  icono: "https://i.ibb.co/VYbMRLZ/categoria.png",
-    icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
+    icono: mainMarcas,
     link: "/configurar/menuMarcas",
   },
   {
@@ -96,13 +99,13 @@ export const MenuMarcasData = [
   {
     title: "Marcas",
     subtitle: "Gestion de las marcas de los productos",
-    icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
+    icono: marcasMenu,
     link: "/configurar/menuMarcas/marcas",
   },
   {
     title: "Modelos",
     subtitle: "Gestion de modelos por marca",
-    icono: "https://i.ibb.co/VYbMRLZ/categoria.png",
+    icono: modelosMenu,
     link: "/configurar/menuMarcas/modelos",
   },
 ];

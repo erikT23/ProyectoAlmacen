@@ -2,7 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { Route, Routes } from "react-router-dom";
 import { ErrorCard, SpinnerLoader } from "../components/molecules/index";
 import { ProtectedRoutes, UserAuth } from "../index";
-import { Configuracion, Home, Login, Marca, MenuMarcas } from "../pages/index";
+import {
+  Configuracion,
+  Home,
+  Login,
+  Marca,
+  Marcas,
+  MenuMarcas,
+  Modelos,
+} from "../pages/index";
 import { useTestStore, useUserStore } from "../store/index";
 
 export function MyRoutes() {
@@ -64,6 +72,14 @@ export function MyRoutes() {
         <Route
           path="/configurar/menuMarcas"
           element={<MenuMarcas />}
+        />
+        <Route
+          path="/configurar/menuMarcas/marcas"
+          element={<Marcas />}
+        />
+        <Route
+          path="/configurar/menuMarcas/modelos"
+          element={<Modelos />}
         />
       </Route>
     </Routes>

@@ -4,4 +4,5 @@ export { LoginTemplate } from './LoginTemplate';
 export { MarcaTemplate } from './MarcaTemplate';
 export { MarcasTemplate } from './MarcasTemplate';
 export { MenuMarcasTemplate } from './MenuMarcasTemplate';
+export { ModelosTemplate } from './ModelosTemplate';
 export { PlantillaBase } from './PlantillaBase';
