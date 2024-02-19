@@ -10,14 +10,19 @@ import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { useTestStore } from "../../../store/index";
+import { useMarcasStore } from "../../../store/index";
 import { v } from "../../../styles/index";
 import { TableActions } from "../index";
 import { Paginacion } from "./index";
 
-export function TableTest({ data, setopenRegistro, setdataSelect, setAccion }) {
+export function TableMarcas({
+  data,
+  setopenRegistro,
+  setdataSelect,
+  setAccion,
+}) {
   const [, setPagina] = useState(1);
-  const { deleteTest } = useTestStore();
+  const { borrarMarcas } = useMarcasStore();
   const editar = (data) => {
     setopenRegistro(true);
     setdataSelect(data);
@@ -45,7 +50,7 @@ export function TableTest({ data, setopenRegistro, setdataSelect, setAccion }) {
       confirmButtonText: "Si, eliminar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await deleteTest({ id: p.id });
+        await borrarMarcas({ id: p.id });
         Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
       }
     });
@@ -70,8 +75,8 @@ export function TableTest({ data, setopenRegistro, setdataSelect, setAccion }) {
       ),
     },
     {
-      accessorKey: "acciones",
-      header: "Acciones",
+      accessorKey: "accionesMarcas",
+      header: "Acciones Marcas",
       enableSorting: false,
       cell: (info) => (
         <td className="ContentCell">

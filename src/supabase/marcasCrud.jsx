@@ -74,6 +74,7 @@ export const SearchMarcas = async (p) => {
       title: " Error search marcas",
       text: "error en el search marcas crud" + error.message,
     });
+   
   }
 
   return data;

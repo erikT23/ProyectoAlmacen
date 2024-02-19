@@ -1,10 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Header, TableTest, RegistrarTest, Buscador } from "../organisms/index";
-import { BtnAdd } from "../molecules/index";
-import { ContentFiltro, Title } from "../atoms/index";
+import { useMarcasStore } from "../../store/index";
 import { v } from "../../styles/index";
-import { useTestStore } from "../../store/index";
+import { ContentFiltro, Title } from "../atoms/index";
+import { BtnAdd } from "../molecules/index";
+import {
+  Buscador,
+  Header,
+  RegistrarMarca,
+  TableMarcas,
+  TableTest
+} from "../organisms/index";
 export function MarcasTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
@@ -15,12 +21,12 @@ export function MarcasTemplate({ data }) {
     setAccion("Nuevo");
     setdataSelect([]);
   };
-  const { setBuscador } = useTestStore();
+  const { setBuscador } = useMarcasStore();
 
   return (
     <Container>
       {openRegistro && (
-        <RegistrarTest
+        <RegistrarMarca
           dataSelect={dataSelect}
           accion={accion}
           onClose={() => setopenRegistro(!openRegistro)}
@@ -34,7 +40,7 @@ export function MarcasTemplate({ data }) {
       </header>
       <section className="area1">
         <ContentFiltro>
-          <Title>TestBench</Title>
+          <Title>Marcas</Title>
           <BtnAdd
             bgColor="#be1d1d"
             textColor="#000"
@@ -47,7 +53,7 @@ export function MarcasTemplate({ data }) {
         <Buscador setBuscador={setBuscador} />
       </section>
       <section className="main">
-        <TableTest
+        <TableMarcas
           data={data}
           setopenRegistro={setopenRegistro}
           setdataSelect={setdataSelect}

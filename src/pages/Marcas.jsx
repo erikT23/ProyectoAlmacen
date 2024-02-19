@@ -1,21 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { SpinnerLoader } from "../components/molecules/index";
 import { MarcasTemplate } from "../components/templates/index";
-import { useTestStore } from "../store";
+import { useMarcasStore } from "../store";
 
 export function Marcas() {
-  const { mostrarTest, data, searchTest, datatest, buscador } = useTestStore();
+  const { mostrarMarcas, data, searchMarcas, marcasTest, buscador } =
+    useMarcasStore();
   const { isLoading, error } = useQuery({
-    queryKey: ["mostrar Testssss", { id: datatest[0]?.id }],
-    queryFn: () => mostrarTest({ id: datatest[0]?.id }),
-    enabled: datatest[0]?.id != null,
+    queryKey: ["mostrar Marcas", { id: marcasTest?.id }],
+    queryFn: () => mostrarMarcas({ id: marcasTest?.id }),
   });
 
   const { data: buscarData } = useQuery({
-    queryKey: ["buscar Test", { id: datatest.id, nombre: buscador }],
-    queryFn: () => searchTest({ id: datatest.id, nombre: buscador }),
-    enabled: datatest[0]?.id != null,
+    queryKey: ["buscar marcas", { nombre: buscador }],
+    queryFn: () => searchMarcas({  nombre: buscador }) || [],  // Devuelve un array vacío si searchMarcas no devuelve nada
   });
+
 
   if (isLoading) {
     return <SpinnerLoader />;
