@@ -1,20 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { SpinnerLoader } from "../components/molecules/index";
 import { ModelosTemplate } from "../components/templates/index";
-import { useTestStore } from "../store";
+import { useModelosStore } from "../store";
 
 export function Modelos() {
-  const { mostrarTest, data, searchTest, datatest, buscador } = useTestStore();
+  const { mostrarModelos, data, searchModelos, modelosData, buscador } =
+    useModelosStore();
   const { isLoading, error } = useQuery({
-    queryKey: ["mostrar Testssss", { id: datatest[0]?.id }],
-    queryFn: () => mostrarTest({ id: datatest[0]?.id }),
-    enabled: datatest[0]?.id != null,
+    queryKey: ["mostrar Modelos", { id: modelosData?.id }],
+    queryFn: () => mostrarModelos({ id: modelosData?.id }),
+  
   });
 
   const { data: buscarData } = useQuery({
-    queryKey: ["buscar Test", { id: datatest.id, nombre: buscador }],
-    queryFn: () => searchTest({ id: datatest.id, nombre: buscador }),
-    enabled: datatest[0]?.id != null,
+    queryKey: ["buscar Modelo", { id: modelosData.id, nombre: buscador }],
+    queryFn: () => searchModelos({ id: modelosData.id, nombre: buscador }),
+    
   });
 
   if (isLoading) {

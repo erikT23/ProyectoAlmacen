@@ -7,7 +7,7 @@ export function Marcas() {
   const { mostrarMarcas, data, searchMarcas, marcasTest, buscador } =
     useMarcasStore();
   const { isLoading, error } = useQuery({
-    queryKey: ["mostrar Marcas", { id: marcasTest?.id }],
+    queryKey: ["mostrar Marcassss", { id: marcasTest?.id }],
     queryFn: () => mostrarMarcas({ id: marcasTest?.id }),
   });
 

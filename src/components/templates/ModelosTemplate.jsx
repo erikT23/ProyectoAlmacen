@@ -1,10 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Header, TableTest, RegistrarTest, Buscador } from "../organisms/index";
-import { BtnAdd } from "../molecules/index";
+import { useModelosStore, useTestStore } from "../../store/index";
 import { ContentFiltro, Title } from "../atoms/index";
-import { v } from "../../styles/index";
-import { useTestStore } from "../../store/index";
+import {
+  Buscador,
+  Header,
+  RegistrarTest,
+  TableModelos,
+} from "../organisms/index";
 export function ModelosTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
@@ -15,7 +18,7 @@ export function ModelosTemplate({ data }) {
     setAccion("Nuevo");
     setdataSelect([]);
   };
-  const { setBuscador } = useTestStore();
+  const { setBuscador } = useModelosStore();
 
   return (
     <Container>
@@ -34,20 +37,14 @@ export function ModelosTemplate({ data }) {
       </header>
       <section className="area1">
         <ContentFiltro>
-          <Title>TestBench</Title>
-          <BtnAdd
-            bgColor="#be1d1d"
-            textColor="#000"
-            icono={<v.agregar />}
-            funcion={nuevoRegistro}
-          />
+          <Title>Modelos</Title>
         </ContentFiltro>
       </section>
       <section className="area2">
         <Buscador setBuscador={setBuscador} />
       </section>
       <section className="main">
-        <TableTest
+        <TableModelos
           data={data}
           setopenRegistro={setopenRegistro}
           setdataSelect={setdataSelect}

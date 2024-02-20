@@ -1,15 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useMarcasStore } from "../../store/index";
-import { v } from "../../styles/index";
 import { ContentFiltro, Title } from "../atoms/index";
-import { BtnAdd } from "../molecules/index";
 import {
   Buscador,
   Header,
   RegistrarMarca,
-  TableMarcas,
-  TableTest
+  TableMarcas
 } from "../organisms/index";
 export function MarcasTemplate({ data }) {
   const [state, setState] = useState(false);
@@ -41,12 +38,7 @@ export function MarcasTemplate({ data }) {
       <section className="area1">
         <ContentFiltro>
           <Title>Marcas</Title>
-          <BtnAdd
-            bgColor="#be1d1d"
-            textColor="#000"
-            icono={<v.agregar />}
-            funcion={nuevoRegistro}
-          />
+         
         </ContentFiltro>
       </section>
       <section className="area2">
