@@ -28,7 +28,7 @@ export const useModelosStore = create((set, get) => ({
     set({ buscador: p });
   },
 
-  data: [],
+  dataModelos: [],
   item: [],
   parametros: {},
   mostrarModelos: async (p) => {
@@ -66,7 +66,6 @@ export const useModelosStore = create((set, get) => ({
 
   searchModelos: async (p) => {
     const response = await ShowModelos(p);
-    set({ modelosData: response });
-    return response;
+    set({ dataModelos: response });
   },
 }));

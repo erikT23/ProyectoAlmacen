@@ -1,13 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useModelosStore, useTestStore } from "../../store/index";
+import { useModelosStore } from "../../store/index";
 import { ContentFiltro, Title } from "../atoms/index";
 import {
   Buscador,
   Header,
-  RegistrarTest,
+  RegistrarModelos,
   TableModelos,
 } from "../organisms/index";
+import { BtnAdd } from "../molecules/index";
+import { v } from "../../styles/variables";
+
 export function ModelosTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
@@ -19,11 +22,10 @@ export function ModelosTemplate({ data }) {
     setdataSelect([]);
   };
   const { setBuscador } = useModelosStore();
-
   return (
     <Container>
       {openRegistro && (
-        <RegistrarTest
+        <RegistrarModelos
           dataSelect={dataSelect}
           accion={accion}
           onClose={() => setopenRegistro(!openRegistro)}
@@ -38,6 +40,12 @@ export function ModelosTemplate({ data }) {
       <section className="area1">
         <ContentFiltro>
           <Title>Modelos</Title>
+          <BtnAdd
+            bgColor="#be1d1d"
+            textColor="#000"
+            icono={<v.agregar />}
+            funcion={nuevoRegistro}
+          />
         </ContentFiltro>
       </section>
       <section className="area2">

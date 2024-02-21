@@ -29,7 +29,7 @@ export const useMarcasStore = create((set, get) => ({
     set({ buscador: p });
   },
 
-  data: [],
+  dataMarcas: [],
   item: [],
   parametros: {},
   mostrarMarcas: async (p) => {
@@ -67,6 +67,6 @@ export const useMarcasStore = create((set, get) => ({
 
   searchMarcas: async (p) => {
     const response = await SearchMarcas(p);
-    set({ data: response });
+    set({ dataMarcas: response });
   },
 }));

@@ -4,7 +4,7 @@ import { MarcasTemplate } from "../components/templates/index";
 import { useMarcasStore } from "../store";
 
 export function Marcas() {
-  const { mostrarMarcas, data, searchMarcas, marcasTest, buscador } =
+  const { mostrarMarcas, dataMarcas, searchMarcas, marcasTest, buscador } =
     useMarcasStore();
   const { isLoading, error } = useQuery({
     queryKey: ["mostrar Marcassss", { id: marcasTest?.id }],
@@ -24,5 +24,5 @@ export function Marcas() {
     return <div>Error al cargar los datos</div>;
   }
 
-  return <MarcasTemplate data={data} />;
+  return <MarcasTemplate data={dataMarcas} />;
 }

@@ -9,49 +9,51 @@ import {
 import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import styled from "styled-components";
+import { useModelosStore } from "../../../store";
 import { v } from "../../../styles/index";
 import { Paginacion } from "./index";
+import Swal from "sweetalert2";
 
 export function TableModelos({
   data,
-  /*  setopenRegistro,
-    setdataSelect,
-    setAccion,*/
+  setopenRegistro,
+  setdataSelect,
+  setAccion,
 }) {
   const [, setPagina] = useState(1);
-  // const { borrarMarcas } = useMarcasStore();
-  /*const editar = (data) => {
-      setopenRegistro(true);
-      setdataSelect(data);
-      setAccion("Editar");
-    };*/
+  const { borrarModelos } = useModelosStore();
+  const editar = (data) => {
+    setopenRegistro(true);
+    setdataSelect(data);
+    setAccion("Editar");
+  };
 
-  /* const eliminar = (p) => {
-      //esto sirve para prevenir que se elimine una categoria por defecto
-       if (p.nombre === "generica") {
+  const eliminar = (p) => {
+    //esto sirve para prevenir que se elimine una categoria por defecto
+    /*if (p.nombre === "generica") {
         return Swal.fire({
           icon: "error",
           title: " Error",
           text: "No se puede eliminar una categoria generica",
         });
         return;
+      }*/
+
+    Swal.fire({
+      title: "¿Estas seguro de eliminar esto?",
+      text: "este cambio sera irreversible!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, eliminar",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await borrarModelos({ id: p.id });
+        Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
       }
-  
-      Swal.fire({
-        title: "¿Estas seguro de eliminar esto?",
-        text: "este cambio sera irreversible!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminar",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          await borrarMarcas({ id: p.id });
-          Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
-        }
-      });
-    };*/
+    });
+  };
   const columns = [
     {
       accessorKey: "nombre",
@@ -66,29 +68,29 @@ export function TableModelos({
       ),
     },
     {
-        accessorKey: "marca_id",
-        header: "Marca del modelo",
-        cell: (info) => (
-          <td
-            data-title="Marca"
-            className="ContentCell"
-          >
-            <span>{info.row.original.marcas.nombre}</span>
-          </td>
-        ),
-      },
-      {
-        accessorKey: "tipo_id",
-        header: "Tipo de modelo",
-        cell: (info) => (
-          <td
-            data-title="Marca"
-            className="ContentCell"
-          >
-            <span>{info.row.original.tipos.nombres}</span>
-          </td>
-        ),
-      },
+      accessorKey: "marca_id",
+      header: "Marca del modelo",
+      cell: (info) => (
+        <td
+          data-title="Marca"
+          className="ContentCell"
+        >
+          <span>{info.row.original.marcas.nombre}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "tipo_id",
+      header: "Tipo de modelo",
+      cell: (info) => (
+        <td
+          data-title="Marca"
+          className="ContentCell"
+        >
+          <span>{info.row.original.tipos.nombres}</span>
+        </td>
+      ),
+    },
     /* {
         accessorKey: "accionesMarcas",
         header: "Acciones Marcas",
