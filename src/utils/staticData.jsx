@@ -1,11 +1,11 @@
 import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";
-import equipos from "../assets/equipos.png";
-import inventario from "../assets/inventario.png";
-import mainMarcas from "../assets/mainMarcas.png";
+import { v } from "../styles/index";
 import marcasMenu from "../assets/marcas.png";
 import modelosMenu from "../assets/modelos.png";
+import mainMarcas from "../assets/mainMarcas.png";
+import inventario from "../assets/inventario.png";
+import equipos from "../assets/equipos.png";
 import monitores from "../assets/monitor.png";
-import { v } from "../styles/index";
 
 export const DesplegableUser = [
   {
@@ -112,5 +112,32 @@ export const MenuInventarioData = [
     subtitle: "Gestion de los monitores",
     icono: monitores,
     link: "/configurar/menuInventario/monitores",
+  },
+];
+
+//tipo usuario
+export const TipouserData = [
+  {
+    descripcion: "empleado",
+    icono: "🪖",
+  },
+  {
+    descripcion: "administrador",
+    icono: "👑",
+  },
+];
+//tipodoc
+export const TipoDocData = [
+  {
+    descripcion: "Dni",
+    icono: "🪖",
+  },
+  {
+    descripcion: "Libreta electoral",
+    icono: "👑",
+  },
+  {
+    descripcion: "Otros",
+    icono: "👑",
   },
 ];
