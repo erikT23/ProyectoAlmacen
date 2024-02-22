@@ -4,12 +4,15 @@ import { ErrorCard, SpinnerLoader } from "../components/molecules/index";
 import { ProtectedRoutes, UserAuth } from "../index";
 import {
   Configuracion,
+  Equipos,
   Home,
   Login,
   Marca,
   Marcas,
+  MenuInventario,
   MenuMarcas,
   Modelos,
+  Monitores,
 } from "../pages/index";
 import { useTestStore, useUserStore } from "../store/index";
 
@@ -80,6 +83,18 @@ export function MyRoutes() {
         <Route
           path="/configurar/menuMarcas/modelos"
           element={<Modelos />}
+        />
+        <Route
+          path="/configurar/menuInventario"
+          element={<MenuInventario />}
+        />
+        <Route
+          path="/configurar/menuInventario/equipos"
+          element={<Equipos />}
+        />
+        <Route
+          path="/configurar/menuInventario/monitores"
+          element={<Monitores />}
         />
       </Route>
     </Routes>

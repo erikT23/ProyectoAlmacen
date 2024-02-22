@@ -2,7 +2,10 @@ import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";
 import { v } from "../styles/index";
 import marcasMenu from "../assets/marcas.png";
 import modelosMenu from "../assets/modelos.png";
-import mainMarcas from "../assets/mainMarcas.png"
+import mainMarcas from "../assets/mainMarcas.png";
+import inventario from "../assets/inventario.png";
+import equipos from "../assets/equipos.png";
+import monitores from "../assets/monitor.png";
 
 export const DesplegableUser = [
   {
@@ -62,23 +65,10 @@ export const TemasData = [
 //data configuracion
 export const DataModulosConfiguracion = [
   {
-    title: "Productos",
-    subtitle: "registra tus productos",
-    icono: "https://i.ibb.co/85zJ6yG/caja-del-paquete.png",
-    link: "/configurar/productos",
-  },
-  {
-    title: "Personal",
-    subtitle: "ten el control de tu personal",
-    icono: "https://i.ibb.co/5vgZ0fX/hombre.png",
-    link: "/configurar/usuarios",
-  },
-
-  {
-    title: "Tu empresa",
-    subtitle: "configura tus opciones básicas",
-    icono: "https://i.ibb.co/x7mHPgm/administracion-de-empresas.png",
-    link: "/configurar/empresa",
+    title: "Inventario",
+    subtitle: "Gestion del inventario ",
+    icono: inventario,
+    link: "/configurar/menuInventario",
   },
   {
     title: "Marcas",
@@ -107,6 +97,21 @@ export const MenuMarcasData = [
     subtitle: "Gestion de modelos por marca",
     icono: modelosMenu,
     link: "/configurar/menuMarcas/modelos",
+  },
+];
+
+export const MenuInventarioData = [
+  {
+    title: "Equipos",
+    subtitle: "Gestion de los equipos",
+    icono: equipos,
+    link: "/configurar/menuInventario/equipos",
+  },
+  {
+    title: "Monitores",
+    subtitle: "Gestion de los monitores",
+    icono: monitores,
+    link: "/configurar/menuInventario/monitores",
   },
 ];
 
