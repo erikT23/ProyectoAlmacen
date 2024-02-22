@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { v } from "../../../styles/index";
 import Swal from "sweetalert2";
 import { useEquiposStore } from "../../../store/equiposStore";
-import { TableActions } from "../index";
+import { Paginacion, TableActions } from "../index";
 import {
   flexRender,
   getCoreRowModel,
@@ -251,7 +251,14 @@ export function TableEquipos({
             </tr>
           ))}
         </tbody>
-      </table>
+      </table>ed
+      <Paginacion
+        table={table}
+        irinicio={() => table.setPageIndex(0)}
+        pagina={table.getState().pagination.pageIndex + 1}
+        setPagina={setPagina}
+        maximo={table.getPageCount()}
+      />
     </Container>
   );
 }
