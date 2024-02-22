@@ -76,7 +76,7 @@ export const DeleteModelos = async (p) => {
 export const SearchModelos = async (p) => {
   const { error, data } = await supabase
     .from("modelos")
-    .select()
+    .select("*")
     .ilike("nombre", "%" + p.nombre + "%");
   if (error) {
     Swal.fire({

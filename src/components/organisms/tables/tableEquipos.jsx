@@ -1,3 +1,8 @@
+import styled from "styled-components";
+import { v } from "../../../styles/index";
+import Swal from "sweetalert2";
+import { useEquiposStore } from "../../../store/equiposStore";
+import { TableActions } from "../index";
 import {
   flexRender,
   getCoreRowModel,
@@ -6,23 +11,16 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
-import styled from "styled-components";
-import Swal from "sweetalert2";
-import { useModelosStore } from "../../../store";
-import { v } from "../../../styles/index";
-import { TableActions } from "../index";
-import { Paginacion } from "./index";
 
-export function TableModelos({
+export function TableEquipos({
   data,
   setopenRegistro,
   setdataSelect,
   setAccion,
 }) {
-  const [, setPagina] = useState(1);
-  const { borrarModelos } = useModelosStore();
+  const [setPagina] = useState(1);
+  const { borrarEquipos } = useEquiposStore();
   const editar = (data) => {
     setopenRegistro(true);
     setdataSelect(data);
@@ -30,16 +28,6 @@ export function TableModelos({
   };
 
   const eliminar = (p) => {
-    //esto sirve para prevenir que se elimine una categoria por defecto
-    /*if (p.nombre === "generica") {
-        return Swal.fire({
-          icon: "error",
-          title: " Error",
-          text: "No se puede eliminar una categoria generica",
-        });
-        return;
-      }*/
-
     Swal.fire({
       title: "¿Estas seguro de eliminar esto?",
       text: "este cambio sera irreversible!",
@@ -50,18 +38,19 @@ export function TableModelos({
       confirmButtonText: "Si, eliminar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await borrarModelos({ id: p.id });
+        await borrarEquipos({ id: p.id });
         Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
       }
     });
   };
+
   const columns = [
     {
-      accessorKey: "nombre",
-      header: "Nombre del modelo",
+      accessorKey: "nombre_equipo",
+      header: "Nombre del equipo",
       cell: (info) => (
         <td
-          data-title="Nombre"
+          data-title="Nombre del equipo"
           className="ContentCell"
         >
           <span>{info.getValue()}</span>
@@ -69,23 +58,95 @@ export function TableModelos({
       ),
     },
     {
-      accessorKey: "marca_id",
-      header: "Marca del modelo",
+      accessorKey: "nombre_usuario",
+      header: "Nombre del usuario",
       cell: (info) => (
         <td
-          data-title="Marca"
+          data-title="Nombre del usuario"
           className="ContentCell"
         >
-          <span>{info.row.original.marcas.nombre}</span>
+          <span>{info.getValue()}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "apellido_usuario",
+      header: "Apellido del usuario",
+      cell: (info) => (
+        <td
+          data-title="Apellido del usuario"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "numSerie",
+      header: "Numero de serie",
+      cell: (info) => (
+        <td
+          data-title="Numero de serie"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "inicio_garantia",
+      header: "Inicio de garantia",
+      cell: (info) => (
+        <td
+          data-title="Inicio de garantia"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "fin_garantia",
+      header: "Fin de garantia",
+      cell: (info) => (
+        <td
+          data-title="Fin de garantia"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "sistema_operativo",
+      header: "Sistema operativo",
+      cell: (info) => (
+        <td
+          data-title="Sistema operativo"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "direccion_ip",
+      header: "Direccion IP",
+      cell: (info) => (
+        <td
+          data-title="Direccion IP"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
         </td>
       ),
     },
     {
       accessorKey: "tipo_id",
-      header: "Tipo de modelo",
+      header: "Tipo de equipo",
       cell: (info) => (
         <td
-          data-title="Marca"
+          data-title="Tipo de equipo"
           className="ContentCell"
         >
           <span>{info.row.original.tipos.nombres}</span>
@@ -93,8 +154,44 @@ export function TableModelos({
       ),
     },
     {
-      accessorKey: "accionesMarcas",
-      header: "Acciones Marcas",
+      accessorKey: "marca_id",
+      header: "Marca del equipo",
+      cell: (info) => (
+        <td
+          data-title="Marca del equipo"
+          className="ContentCell"
+        >
+          <span>{info.row.original.marcas.nombre}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "centro_id",
+      header: "Centro del equipo",
+      cell: (info) => (
+        <td
+          data-title="Centro del equipo"
+          className="ContentCell"
+        >
+          <span>{info.row.original.centros.nombre}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "estado_id",
+      header: "Estado del equipo",
+      cell: (info) => (
+        <td
+          data-title="Estado del equipo"
+          className="ContentCell"
+        >
+          <span>{info.row.original.estados.nombre}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "accionesEquipos",
+      header: "Acciones Equipos",
       enableSorting: false,
       cell: (info) => (
         <td className="ContentCell">
@@ -155,13 +252,6 @@ export function TableModelos({
           ))}
         </tbody>
       </table>
-      <Paginacion
-        table={table}
-        irinicio={() => table.setPageIndex(0)}
-        pagina={table.getState().pagination.pageIndex + 1}
-        setPagina={setPagina}
-        maximo={table.getPageCount()}
-      />
     </Container>
   );
 }
