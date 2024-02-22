@@ -1,6 +1,6 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import fondocuadros from "../../assets/fondocuadros.svg";
-import { Link } from "react-router-dom";
 import { MenuInventarioData } from "../../utils/staticData";
 export function MenuInventarioTemplate() {
   return (
