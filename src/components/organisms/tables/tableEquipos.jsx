@@ -10,9 +10,10 @@ import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { useEquiposStore } from "../../../store/equiposStore";
+import { useEquiposStore } from "../../../store/index";
 import { v } from "../../../styles/index";
-import { Paginacion, TableActions } from "../index";
+import { TableActions } from "../index";
+import { Paginacion } from "./index";
 
 export function TableEquipos({
   data,
@@ -20,7 +21,7 @@ export function TableEquipos({
   setdataSelect,
   setAccion,
 }) {
-  const [setPagina] = useState(1);
+  const [, setPagina] = useState(1);
   const { borrarEquipos } = useEquiposStore();
   const editar = (data) => {
     setopenRegistro(true);
@@ -29,6 +30,16 @@ export function TableEquipos({
   };
 
   const eliminar = (p) => {
+    //esto sirve para prevenir que se elimine una categoria por defecto
+    /* if (p.nombre === "generica") {
+      return Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "No se puede eliminar una categoria generica",
+      });
+      return;
+    }*/
+
     Swal.fire({
       title: "¿Estas seguro de eliminar esto?",
       text: "este cambio sera irreversible!",
@@ -44,14 +55,19 @@ export function TableEquipos({
       }
     });
   };
-
   const columns = [
+    /*{
+      accessorKey: "id",
+      header: "ID",
+      cell: (info) => <span>{info.getValue()}</span>,
+    },*/
+
     {
       accessorKey: "nombre_equipo",
-      header: "Nombre del equipo",
+      header: "Nombre Equipo",
       cell: (info) => (
         <td
-          data-title="Nombre del equipo"
+          data-title="Nombre Equipo"
           className="ContentCell"
         >
           <span>{info.getValue()}</span>
@@ -60,10 +76,10 @@ export function TableEquipos({
     },
     {
       accessorKey: "nombre_usuario",
-      header: "Nombre del usuario",
+      header: "Nombre Usuario",
       cell: (info) => (
         <td
-          data-title="Nombre del usuario"
+          data-title="Nombre Usuario"
           className="ContentCell"
         >
           <span>{info.getValue()}</span>
@@ -72,10 +88,10 @@ export function TableEquipos({
     },
     {
       accessorKey: "apellido_usuario",
-      header: "Apellido del usuario",
+      header: "Apellido Usuario",
       cell: (info) => (
         <td
-          data-title="Apellido del usuario"
+          data-title="Apellido Usuario"
           className="ContentCell"
         >
           <span>{info.getValue()}</span>
@@ -84,10 +100,10 @@ export function TableEquipos({
     },
     {
       accessorKey: "numSerie",
-      header: "Numero de serie",
+      header: "Numero de Serie",
       cell: (info) => (
         <td
-          data-title="Numero de serie"
+          data-title="Numero de Serie"
           className="ContentCell"
         >
           <span>{info.getValue()}</span>
@@ -96,10 +112,10 @@ export function TableEquipos({
     },
     {
       accessorKey: "inicio_garantia",
-      header: "Inicio de garantia",
+      header: "Inicio de Garantia",
       cell: (info) => (
         <td
-          data-title="Inicio de garantia"
+          data-title="Inicio de Garantia"
           className="ContentCell"
         >
           <span>{info.getValue()}</span>
@@ -108,23 +124,34 @@ export function TableEquipos({
     },
     {
       accessorKey: "fin_garantia",
-      header: "Fin de garantia",
+      header: "Fin de Garantia",
       cell: (info) => (
         <td
-          data-title="Fin de garantia"
+          data-title="Fin de Garantia"
           className="ContentCell"
         >
           <span>{info.getValue()}</span>
         </td>
       ),
     },
-
+    {
+      accessorKey: "sistema_operativo",
+      header: "Sistema Operativo",
+      cell: (info) => (
+        <td
+          data-title="Sistema Operativo"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
+        </td>
+      ),
+    },
     {
       accessorKey: "direccion_ip",
       header: "Direccion IP",
       cell: (info) => (
         <td
-          data-title="Direccion IP"
+          data-title="Direccion ip"
           className="ContentCell"
         >
           <span>{info.getValue()}</span>
@@ -132,11 +159,23 @@ export function TableEquipos({
       ),
     },
     {
-      accessorKey: "marca_id",
-      header: "Marca del equipo",
+      accessorKey: "tipo_id",
+      header: "Tipo",
       cell: (info) => (
         <td
-          data-title="Marca del equipo"
+          data-title="Tipo"
+          className="ContentCell"
+        >
+          <span>{info.row.original.tipos.nombres}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "marca_id",
+      header: "Marca",
+      cell: (info) => (
+        <td
+          data-title="Marca"
           className="ContentCell"
         >
           <span>{info.row.original.marcas.nombre}</span>
@@ -144,44 +183,8 @@ export function TableEquipos({
       ),
     },
     {
-      accessorKey: "marca_id",
-      header: "Modelo del equipo",
-      cell: (info) => (
-        <td
-          data-title="Modelo del equipo"
-          className="ContentCell"
-        >
-          <span>{info.row.original.marcas.modelos.nombre}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "centro_id",
-      header: "Centro",
-      cell: (info) => (
-        <td
-          data-title="Centro del equipo"
-          className="ContentCell"
-        >
-          <span>{info.row.original.centros.nombre}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "centro_id",
-      header: "Departamento",
-      cell: (info) => (
-        <td
-          data-title="Estado del equipo"
-          className="ContentCell"
-        >
-          <span>{info.row.original.estados.nombre}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "accionesEquipos",
-      header: "Acciones Equipos",
+      accessorKey: "accionesMarcas",
+      header: "Acciones Marcas",
       enableSorting: false,
       cell: (info) => (
         <td className="ContentCell">

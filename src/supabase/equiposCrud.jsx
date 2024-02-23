@@ -2,7 +2,11 @@ import Swal from "sweetalert2";
 import { supabase } from "./index";
 
 export const ShowEquipos = async () => {
-  const { error, data } = await supabase.from("equipos").select("*");
+  const { error, data } = await supabase
+    .from("equipos")
+    .select(
+      "*,tipos(nombres),marcas(nombre),centros(nombres),estados(nombre),departamentos(nombre)"
+    );
   if (data) {
     return data;
   }
@@ -155,7 +159,9 @@ export const ShowEquiposByTipo = async (p) => {
 export const ShowEquiposByMarca = async (p) => {
   const { error, data } = await supabase
     .from("equipos")
-    .select("*")
+    .select(
+      "*,tipos(nombres),marcas(nombre),centros(nombres),estados(nombre),departamentos(nombre)"
+    )
     .eq("marca_id", p.marca_id);
   if (data) {
     return data;

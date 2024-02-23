@@ -1,14 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useEquiposStore } from "../../store/index";
+import { ContentFiltro, Title } from "../atoms/index";
 import {
   Buscador,
   Header,
-  RegistrarEquipos,
-  TableEquipos,
+  RegistrarMarca,
+  TableEquipos
 } from "../organisms/index";
-import { useEquiposStore } from "../../store";
-import { ContentFiltro, Title } from "../atoms/index";
-export function EquiposTemplate(data) {
+export function EquiposTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");
@@ -23,12 +23,13 @@ export function EquiposTemplate(data) {
   return (
     <Container>
       {openRegistro && (
-        <RegistrarEquipos
+        <RegistrarMarca
           dataSelect={dataSelect}
           accion={accion}
           onClose={() => setopenRegistro(!openRegistro)}
         />
       )}
+
       <header className="header">
         <Header
           stateConfig={{ state: state, setState: () => setState(!state) }}
@@ -55,7 +56,7 @@ export function EquiposTemplate(data) {
 }
 
 const Container = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
   background-color: ${(props) => props.theme.bgtotal};
   color: ${({ theme }) => theme.text};
@@ -70,25 +71,28 @@ const Container = styled.div`
 
   .header {
     grid-area: header;
-    background-color: rgba(103, 93, 241, 0.14);
+    // background-color: rgba(103, 93, 241, 0.14);
     display: flex;
     align-items: center;
   }
 
   .area1 {
     grid-area: area1;
-    background-color: rgba(229, 67, 26, 0.14);
+    //background-color: rgba(229, 67, 26, 0.14);
     display: flex;
     align-items: center;
   }
 
   .area2 {
     grid-area: area2;
-    background-color: rgba(77, 237, 106, 0.14);
+    //background-color: rgba(77, 237, 106, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: end;
   }
 
   .main {
     grid-area: main;
-    background-color: rgba(179, 46, 241, 0.14);
+    // background-color: rgba(179, 46, 241, 0.14);
   }
 `;
