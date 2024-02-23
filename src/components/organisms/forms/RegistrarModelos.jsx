@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import {
-  useModelosStore
+  useMarcasStore,
+  useModelosStore,
+  useTiposStore,
 } from "../../../store/index";
 import { v } from "../../../styles/variables";
 import { Capitalize } from "../../../utils/Conversiones";
@@ -11,6 +13,8 @@ import { InputText } from "../../organisms/index";
 
 export function RegistrarModelos({ onClose, dataSelect, accion }) {
   const { insertarModelos, editModelos } = useModelosStore();
+  const { data: marcasData } = useMarcasStore();
+  const { data: tiposData } = useTiposStore();
 
   const {
     register,
@@ -73,7 +77,9 @@ export function RegistrarModelos({ onClose, dataSelect, accion }) {
                 {errors.nombre?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
-
+            <article>
+              
+            </article>
             <div className="btnguardarContent">
               <Btnsave
                 icono={<v.iconoguardar />}

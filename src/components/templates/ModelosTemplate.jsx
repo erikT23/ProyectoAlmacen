@@ -1,17 +1,17 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useModelosStore } from "../../store/index";
+import { v } from "../../styles/variables";
 import { ContentFiltro, Title } from "../atoms/index";
+import { BtnAdd } from "../molecules/index";
 import {
   Buscador,
   Header,
   RegistrarModelos,
   TableModelos,
 } from "../organisms/index";
-import { BtnAdd } from "../molecules/index";
-import { v } from "../../styles/variables";
 
-export function ModelosTemplate({ data, marcas, tipos }) {
+export function ModelosTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");

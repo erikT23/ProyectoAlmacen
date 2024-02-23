@@ -167,3 +167,17 @@ export const ShowEquiposByMarca = async (p) => {
   });
 };
 
+export const ShowDepartamentoByEquipo = async (p) => {
+  const { error, data } = await supabase
+    .from("equipos")
+    .select("departamento_id")
+    .eq("id", p.id);
+  if (data) {
+    return data;
+  }
+  Swal.fire({
+    icon: "error",
+    title: " Error show equipos by departamento",
+    text: "error en el show equipos by departamento crud " + error.message,
+  });
+};

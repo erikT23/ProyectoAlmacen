@@ -1,8 +1,3 @@
-import styled from "styled-components";
-import { v } from "../../../styles/index";
-import Swal from "sweetalert2";
-import { useEquiposStore } from "../../../store/equiposStore";
-import { Paginacion, TableActions } from "../index";
 import {
   flexRender,
   getCoreRowModel,
@@ -11,7 +6,13 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
+import styled from "styled-components";
+import Swal from "sweetalert2";
+import { useEquiposStore } from "../../../store/equiposStore";
+import { v } from "../../../styles/index";
+import { Paginacion, TableActions } from "../index";
 
 export function TableEquipos({
   data,
@@ -117,18 +118,7 @@ export function TableEquipos({
         </td>
       ),
     },
-    {
-      accessorKey: "sistema_operativo",
-      header: "Sistema operativo",
-      cell: (info) => (
-        <td
-          data-title="Sistema operativo"
-          className="ContentCell"
-        >
-          <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
+
     {
       accessorKey: "direccion_ip",
       header: "Direccion IP",
@@ -138,18 +128,6 @@ export function TableEquipos({
           className="ContentCell"
         >
           <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "tipo_id",
-      header: "Tipo de equipo",
-      cell: (info) => (
-        <td
-          data-title="Tipo de equipo"
-          className="ContentCell"
-        >
-          <span>{info.row.original.tipos.nombres}</span>
         </td>
       ),
     },
@@ -166,8 +144,20 @@ export function TableEquipos({
       ),
     },
     {
+      accessorKey: "marca_id",
+      header: "Modelo del equipo",
+      cell: (info) => (
+        <td
+          data-title="Modelo del equipo"
+          className="ContentCell"
+        >
+          <span>{info.row.original.marcas.modelos.nombre}</span>
+        </td>
+      ),
+    },
+    {
       accessorKey: "centro_id",
-      header: "Centro del equipo",
+      header: "Centro",
       cell: (info) => (
         <td
           data-title="Centro del equipo"
@@ -178,8 +168,8 @@ export function TableEquipos({
       ),
     },
     {
-      accessorKey: "estado_id",
-      header: "Estado del equipo",
+      accessorKey: "centro_id",
+      header: "Departamento",
       cell: (info) => (
         <td
           data-title="Estado del equipo"

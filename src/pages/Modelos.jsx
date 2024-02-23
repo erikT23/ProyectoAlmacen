@@ -41,8 +41,7 @@ export function Modelos() {
   return (
     <ModelosTemplate
       data={dataModelos}
-      marcas={marcasTest}
-      tipos={tiposData}
+      
     />
   ); // Pasa los datos de las marcas y los tipos a ModelosTemplate
 }

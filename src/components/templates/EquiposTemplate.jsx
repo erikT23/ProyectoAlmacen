@@ -1,8 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Header } from "../organisms/index";
+import {
+  Buscador,
+  Header,
+  RegistrarEquipos,
+  TableEquipos,
+} from "../organisms/index";
 import { useEquiposStore } from "../../store";
-export function EquiposTemplate() {
+import { ContentFiltro, Title } from "../atoms/index";
+export function EquiposTemplate(data) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");
@@ -17,7 +23,7 @@ export function EquiposTemplate() {
   return (
     <Container>
       {openRegistro && (
-        <RegistrarEquipo
+        <RegistrarEquipos
           dataSelect={dataSelect}
           accion={accion}
           onClose={() => setopenRegistro(!openRegistro)}
@@ -28,9 +34,22 @@ export function EquiposTemplate() {
           stateConfig={{ state: state, setState: () => setState(!state) }}
         />
       </header>
-      <section className="area1"></section>
-      <section className="area2"></section>
-      <section className="main"></section>
+      <section className="area1">
+        <ContentFiltro>
+          <Title>Equipos</Title>
+        </ContentFiltro>
+      </section>
+      <section className="area2">
+        <Buscador setBuscador={setBuscador} />
+      </section>
+      <section className="main">
+        <TableEquipos
+          data={data}
+          setopenRegistro={setopenRegistro}
+          setdataSelect={setdataSelect}
+          setAccion={setAccion}
+        />
+      </section>
     </Container>
   );
 }
