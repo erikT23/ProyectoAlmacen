@@ -11,7 +11,7 @@ import {
 import { BtnAdd } from "../molecules/index";
 import { v } from "../../styles/variables";
 
-export function ModelosTemplate({ data }) {
+export function ModelosTemplate({ data, marcas, tipos }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");

@@ -4,3 +4,4 @@ export { useUserStore } from './UsersStore';
 export { useEquiposStore } from './equiposStore';
 export { useMarcasStore } from './marcasStore';
 export { useModelosStore } from './modelosStore';
+export { useTiposStore } from './tiposStore';

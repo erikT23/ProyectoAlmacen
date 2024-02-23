@@ -251,7 +251,7 @@ export function TableEquipos({
             </tr>
           ))}
         </tbody>
-      </table>ed
+      </table>
       <Paginacion
         table={table}
         irinicio={() => table.setPageIndex(0)}

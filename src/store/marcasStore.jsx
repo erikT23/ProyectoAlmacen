@@ -12,8 +12,8 @@ export const useMarcasStore = create((set, get) => ({
   marcasTest: [],
   marcasCount: [],
 
-  showMarcas: async (p) => {
-    const response = await ShowMarcas(p);
+  showMarcas: async () => {
+    const response = await ShowMarcas();
     set({ marcasTest: response });
     return response;
   },
@@ -35,7 +35,7 @@ export const useMarcasStore = create((set, get) => ({
   mostrarMarcas: async (p) => {
     const response = await ShowMarcas(p);
     set({ parametros: response });
-    set({ data: response });
+    set({ dataMarcas: response });
     set({ item: response[0] });
     return response;
   },

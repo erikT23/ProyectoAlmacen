@@ -1,10 +1,28 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Header } from "../organisms/index";
+import { useEquiposStore } from "../../store";
 export function EquiposTemplate() {
   const [state, setState] = useState(false);
+  const [dataSelect, setdataSelect] = useState([]);
+  const [accion, setAccion] = useState("");
+  const [openRegistro, setopenRegistro] = useState(false);
+  const nuevoRegistro = () => {
+    setopenRegistro(!openRegistro);
+    setAccion("Nuevo");
+    setdataSelect([]);
+  };
+  const { setBuscador } = useEquiposStore();
+
   return (
     <Container>
+      {openRegistro && (
+        <RegistrarEquipo
+          dataSelect={dataSelect}
+          accion={accion}
+          onClose={() => setopenRegistro(!openRegistro)}
+        />
+      )}
       <header className="header">
         <Header
           stateConfig={{ state: state, setState: () => setState(!state) }}

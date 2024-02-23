@@ -1,11 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import { SpinnerLoader } from "../components/molecules/index";
 import { ModelosTemplate } from "../components/templates/index";
-import { useMarcasStore, useModelosStore } from "../store";
+import { useMarcasStore, useModelosStore, useTiposStore } from "../store/index";
 
 export function Modelos() {
-  const { mostrarModelos, dataModelos, searchModelos, buscador } = useModelosStore();
-  const { dataMarcas } = useMarcasStore();
+  const { mostrarModelos, dataModelos, searchModelos, buscador } =
+    useModelosStore();
+  const { dataMarcas, showMarcas, marcasTest } = useMarcasStore();
+  const { tiposData, showTipos } = useTiposStore();
+
+  useQuery({
+    queryKey: ["data de marcas"],
+    queryFn: () => showMarcas(),
+  });
+
+  useQuery({
+    queryKey: ["data de tipos"],
+    queryFn: () => showTipos(),
+  });
 
   const { isLoading, error } = useQuery({
     queryKey: ["mostrar Modelos", { id: dataMarcas?.id }],
@@ -26,5 +38,11 @@ export function Modelos() {
     return <div>Error al cargar los datos</div>;
   }
 
-  return <ModelosTemplate data={dataModelos} />;
+  return (
+    <ModelosTemplate
+      data={dataModelos}
+      marcas={marcasTest}
+      tipos={tiposData}
+    />
+  ); // Pasa los datos de las marcas y los tipos a ModelosTemplate
 }

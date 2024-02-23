@@ -1,17 +1,14 @@
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import {
-  useModelosStore
-} from "../../../store/index";
-import { v } from "../../../styles/variables";
+import { useEquiposStore } from "../../../store/index";
+import { useForm } from "react-hook-form";
 import { Capitalize } from "../../../utils/Conversiones";
+import { useEffect } from "react";
+import { InputText } from "./index";
+import { v } from "../../../styles/variables";
 import { Btnsave } from "../../molecules/index";
-import { InputText } from "../../organisms/index";
 
-export function RegistrarModelos({ onClose, dataSelect, accion }) {
-  const { insertarModelos, editModelos } = useModelosStore();
-
+export function RegistrarEquipos({ onClose, dataSelect, accion }) {
+  const { insertarEquipos, editEquipos } = useEquiposStore();
   const {
     register,
     formState: { errors },
@@ -23,13 +20,13 @@ export function RegistrarModelos({ onClose, dataSelect, accion }) {
         id: dataSelect.id,
         nombre: Capitalize(data.nombre),
       };
-      await editModelos(p);
+      await editEquipos(p);
       onClose();
     } else {
       const p = {
         nombre: Capitalize(data.nombre),
       };
-      await insertarModelos(p);
+      await insertarEquipos(p);
       onClose();
     }
   }

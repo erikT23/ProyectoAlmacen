@@ -35,7 +35,7 @@ export const useEquiposStore = create((set, get) => ({
   mostrarEquipos: async (p) => {
     const response = await ShowEquipos(p);
     set({ parametros: response });
-    set({ data: response });
+    set({ dataEquipos: response });
     set({ item: response[0] });
     return response;
   },
