@@ -38,7 +38,7 @@ const Container = styled.div`
     outline: 0;
     font-size: 17px;
     color: ${(props) => props.theme.text};
-    padding: 7px 0;
+    padding: 15px 0;
     background: transparent;
     transition: border-color 0.2s;
     &.disabled {

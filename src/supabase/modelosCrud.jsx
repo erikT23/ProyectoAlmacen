@@ -88,3 +88,18 @@ export const SearchModelos = async (p) => {
 
   return data;
 };
+
+export const ShowModelosByMarca = async (p) => {
+  const { data, error } = await supabase
+    .from("modelos")
+    .select("nombre")
+    .eq("marcas_id", p);
+  if (data) {
+    return data;
+  }
+  Swal.fire({
+    icon: "error",
+    title: " Error show modelos by marca",
+    text: "error en el show modelos by marca crud " + error.message,
+  });
+}

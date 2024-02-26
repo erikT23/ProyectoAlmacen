@@ -57,12 +57,6 @@ export function TableMarcas({
   };
   const columns = [
     {
-      accessorKey: "id",
-      header: "ID",
-      cell: (info) => <span>{info.getValue()}</span>,
-    },
-
-    {
       accessorKey: "nombre",
       header: "Nombre",
       cell: (info) => (

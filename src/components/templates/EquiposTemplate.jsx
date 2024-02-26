@@ -1,13 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useEquiposStore } from "../../store/index";
+import { v } from "../../styles/variables";
 import { ContentFiltro, Title } from "../atoms/index";
+import { BtnAdd } from "../molecules/index";
 import {
   Buscador,
   Header,
-  RegistrarMarca,
+  RegistrarEquipos,
   TableEquipos
 } from "../organisms/index";
+
 export function EquiposTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
@@ -23,7 +26,7 @@ export function EquiposTemplate({ data }) {
   return (
     <Container>
       {openRegistro && (
-        <RegistrarMarca
+        <RegistrarEquipos
           dataSelect={dataSelect}
           accion={accion}
           onClose={() => setopenRegistro(!openRegistro)}
@@ -38,6 +41,12 @@ export function EquiposTemplate({ data }) {
       <section className="area1">
         <ContentFiltro>
           <Title>Equipos</Title>
+          <BtnAdd
+            bgColor={"#be1d1d"}
+            textColor={"#000"}
+            icono={<v.agregar />}
+            funcion={nuevoRegistro}
+          />
         </ContentFiltro>
       </section>
       <section className="area2">

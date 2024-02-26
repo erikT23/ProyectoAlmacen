@@ -6,8 +6,10 @@ import {
   Buscador,
   Header,
   RegistrarMarca,
-  TableMarcas
+  TableMarcas,
 } from "../organisms/index";
+import { v } from "../../styles/variables";
+import { BtnAdd } from "../molecules/index";
 export function MarcasTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
@@ -38,7 +40,12 @@ export function MarcasTemplate({ data }) {
       <section className="area1">
         <ContentFiltro>
           <Title>Marcas</Title>
-         
+          <BtnAdd
+            bgColor="#be1d1d"
+            textColor="#000"
+            icono={<v.agregar />}
+            funcion={nuevoRegistro}
+          />
         </ContentFiltro>
       </section>
       <section className="area2">

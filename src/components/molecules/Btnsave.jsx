@@ -28,6 +28,7 @@ const Container = styled.button`
   justify-content: center;
   align-items: center;
   text-decoration: none;
+  margin-top: 15px;
   border: none;
   gap: 10px;
   background-color: initial;

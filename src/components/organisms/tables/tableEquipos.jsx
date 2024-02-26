@@ -178,7 +178,19 @@ export function TableEquipos({
           data-title="Marca"
           className="ContentCell"
         >
-          <span>{info.row.original.marcas.nombre}</span>
+          <span>{info.row.original.modelos.marcas.nombre}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "modelo_id",
+      header: "Modelo",
+      cell: (info) => (
+        <td
+          data-title="Modelo"
+          className="ContentCell"
+        >
+          <span>{info.row.original.modelos.nombre}</span>
         </td>
       ),
     },
@@ -271,10 +283,10 @@ const Container = styled.div`
     margin-bottom: 1.5em;
     border-spacing: 0;
     @media (min-width: ${v.bpbart}) {
-      font-size: 0.9em;
+      font-size: 0.7em;
     }
     @media (min-width: ${v.bpmarge}) {
-      font-size: 1em;
+      font-size: 0.8em;
     }
     thead {
       position: absolute;
@@ -317,7 +329,7 @@ const Container = styled.div`
 
     th,
     td {
-      padding: 0.5em;
+      
       vertical-align: middle;
       @media (min-width: ${v.bplisa}) {
         padding: 0.75em 0.5em;
@@ -363,12 +375,12 @@ const Container = styled.div`
         }
       }
       .ContentCell {
-        text-align: right;
+        text-align: center;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 50px;
-
+        height: 30px;
+        width: 100%;
         border-bottom: 1px solid rgba(161, 161, 161, 0.32);
         @media (min-width: ${v.bpbart}) {
           justify-content: center;

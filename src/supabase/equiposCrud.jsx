@@ -5,7 +5,7 @@ export const ShowEquipos = async () => {
   const { error, data } = await supabase
     .from("equipos")
     .select(
-      "*,tipos(nombres),marcas(nombre),centros(nombres),estados(nombre),departamentos(nombre)"
+      "*,tipos(nombres),modelos(nombre,marcas(nombre)),centros(nombres),estados(nombre),departamentos(nombre)"
     );
   if (data) {
     return data;
