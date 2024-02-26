@@ -198,6 +198,18 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                 )}
               </InputText>
             </article>
+            <article>
+              <InputText icono={<v.iconomarca />}>
+                <input
+                  className="form__field"
+                  defaultValue={dataSelect.sistema_operativo}
+                  type="text"
+                  placeholder=""
+                  {...register("sistema_operativo")}
+                />
+                <label className="form__label">Sistema Operativo:</label>
+              </InputText>
+            </article>
             <div className="btnguardarContent">
               <Btnsave
                 icono={<v.iconoguardar />}

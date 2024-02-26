@@ -56,12 +56,6 @@ export function TableEquipos({
     });
   };
   const columns = [
-    /*{
-      accessorKey: "id",
-      header: "ID",
-      cell: (info) => <span>{info.getValue()}</span>,
-    },*/
-
     {
       accessorKey: "nombre_equipo",
       header: "Nombre Equipo",
@@ -191,6 +185,30 @@ export function TableEquipos({
           className="ContentCell"
         >
           <span>{info.row.original.modelos.nombre}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "centro_id",
+      header: "Centro",
+      cell: (info) => (
+        <td
+          data-title="Centro"
+          className="ContentCell"
+        >
+          <span>{info.row.original.centros.nombres}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "departamento_id",
+      header: "Departamento",
+      cell: (info) => (
+        <td
+          data-title="Departamento"
+          className="ContentCell"
+        >
+          <span>{info.row.original.departamentos.nombre}</span>
         </td>
       ),
     },
@@ -329,7 +347,6 @@ const Container = styled.div`
 
     th,
     td {
-      
       vertical-align: middle;
       @media (min-width: ${v.bplisa}) {
         padding: 0.75em 0.5em;
