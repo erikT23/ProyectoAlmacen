@@ -25,7 +25,7 @@ export function RegistrarAdmin({ setState }) {
       const p = {
         correo: data.correo,
         password: data.password,
-        rol: "admin",
+        rol: data.rol,
         nombre: data.nombre,
       };
       const dt = await insertAdminUser(p);
@@ -52,23 +52,23 @@ export function RegistrarAdmin({ setState }) {
         >
           <section>
             <article>
-              <article>
-                <InputText
-                  icono={<MdOutlineDriveFileRenameOutline color="#3AA597" />}
-                >
-                  <input
-                    className="form__field"
-                    style={{ textTransform: "lowercase" }}
-                    type="text"
-                    placeholder="nombre"
-                    {...register("nombre", {
-                      required: true,
-                    })}
-                  />
-                  <label className="form__label">Nombre</label>
-                  {errors.correo?.type === "required" && <p>Campo requerido</p>}
-                </InputText>
-              </article>
+              <InputText
+                icono={<MdOutlineDriveFileRenameOutline color="#3AA597" />}
+              >
+                <input
+                  className="form__field"
+                  style={{ textTransform: "lowercase" }}
+                  type="text"
+                  placeholder="nombre"
+                  {...register("nombre", {
+                    required: true,
+                  })}
+                />
+                <label className="form__label">Nombre</label>
+                {errors.correo?.type === "required" && <p>Campo requerido</p>}
+              </InputText>
+            </article>
+            <article>
               <InputText icono={<MdAlternateEmail color="#3AA597" />}>
                 <input
                   className="form__field"
@@ -85,6 +85,25 @@ export function RegistrarAdmin({ setState }) {
                   <p>El formato del correo es incorrecto</p>
                 )}
                 {errors.correo?.type === "required" && <p>Campo requerido</p>}
+              </InputText>
+            </article>
+            <article>
+              <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                <select
+                  className="form__field"
+                  {...register("rol", {
+                    required: true,
+                  })}
+                >
+                  <option value="">Selecciona una opción</option>
+                  <option value="admin">Administrador</option>
+                  <option value="it_lm">IT L&M</option>
+                  <option value="it_mb">IT M&B</option>
+                  <option value="it_grand">IT Grand</option>
+                  <option value="practicante">Practicante</option>
+                </select>
+                <label className="form__label">Rol</label>
+                {errors.option?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
             <article>

@@ -10,7 +10,6 @@ import { InputText } from "./index";
 export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   const { insertarEquipos, editEquipos } = useEquiposStore();
   const { showMarcas, marcasTest } = useMarcasStore();
-  console.log(dataSelect, "dataSelect");
   const {
     register,
     formState: { errors },
@@ -125,6 +124,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   {...register("numSerie", {
                     required: true,
                   })}
+                  disabled={accion === "Editar"}
                 />
                 <label className="form__label">Numero de serie:</label>
                 {errors.numSerie?.type === "required" && <p>Campo requerido</p>}
@@ -140,6 +140,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   {...register("inicio_garantia", {
                     required: true,
                   })}
+                  disabled={accion === "Editar"}
                 />
                 <label className="form__label">Inicio de garantia:</label>
                 {errors.inicio_garantia?.type === "required" && (
@@ -157,6 +158,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   {...register("fin_garantia", {
                     required: true,
                   })}
+                  disabled={accion === "Editar"}
                 />
                 <label className="form__label">Fin de garantia:</label>
                 {errors.fin_garantia?.type === "required" && (
@@ -198,18 +200,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                 )}
               </InputText>
             </article>
-            <article>
-              <InputText icono={<v.iconomarca />}>
-                <input
-                  className="form__field"
-                  defaultValue={dataSelect.sistema_operativo}
-                  type="text"
-                  placeholder=""
-                  {...register("sistema_operativo")}
-                />
-                <label className="form__label">Sistema Operativo:</label>
-              </InputText>
-            </article>
+           
             <div className="btnguardarContent">
               <Btnsave
                 icono={<v.iconoguardar />}

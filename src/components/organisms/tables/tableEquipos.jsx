@@ -213,6 +213,18 @@ export function TableEquipos({
       ),
     },
     {
+      accessorKey: "estado_id",
+      header: "Estado",
+      cell: (info) => (
+        <td
+          data-title="Estado"
+          className="ContentCell"
+        >
+          <span>{info.row.original.estados.nombre}</span>
+        </td>
+      ),
+    },
+    {
       accessorKey: "accionesMarcas",
       header: "Acciones Marcas",
       enableSorting: false,

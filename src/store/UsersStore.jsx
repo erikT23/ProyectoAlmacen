@@ -7,13 +7,19 @@ export const useUserStore = create((set) => ({
     const { data, error } = await supabase.auth.signUp({
       email: p.correo,
       password: p.password,
+      options: {
+        data: {
+          rol: p.rol,
+        },
+      },
     });
+    console.log("data del user", data);
     if (error) return;
 
     const dataUser = await InsertUser({
       idauth: data.user.id,
       fechaRegistro: new Date(),
-      rol: "admin",
+      rol: data.rol,
       correo: data.user.email,
       password: data.user.password,
     });
