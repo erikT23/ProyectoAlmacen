@@ -62,3 +62,17 @@ export const DeleteUser = async (p) => {
     });
   }
 };
+
+export const EditUser = async (p) => {
+  const { error } = await supabase
+    .from("usuarios")
+    .update(p)
+    .eq("idauth", p.idauth);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error",
+      text: "error al editar el usuario " + error.message,
+    });
+  }
+};

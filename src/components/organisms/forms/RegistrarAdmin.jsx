@@ -1,77 +1,89 @@
-import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import {
-  MdAlternateEmail,
-  MdOutlineDriveFileRenameOutline,
-} from "react-icons/md";
+import { MdAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useUserStore } from "../../../store/index";
 import { v } from "../../../styles/index";
+import { Capitalize } from "../../../utils/index";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "../forms/index";
 
-export function RegistrarAdmin({ setState }) {
-  const { insertAdminUser } = useUserStore();
-  const navigate = useNavigate();
+export function RegistrarAdmin({ onClose, dataSelect, accion }) {
+  const { insertAdminUser, editUser } = useUserStore();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const mutation = useMutation({
-    mutationFn: async (data) => {
+  async function insertar(data) {
+    if (accion === "Editar") {
       const p = {
+        nombre: Capitalize(data.nombre),
         correo: data.correo,
         password: data.password,
         rol: data.rol,
-        nombre: data.nombre,
       };
-      const dt = await insertAdminUser(p);
-      if (dt) {
-        navigate("/");
-      }
-    },
-  });
+      await editUser(p);
+      onClose();
+    } else {
+      const p = {
+        nombre: Capitalize(data.nombre),
+        correo: data.correo,
+        password: data.password,
+        rol: data.rol,
+      };
+      await insertAdminUser(p);
+      onClose();
+    }
+  }
+  useEffect(() => {
+    // eslint-disable-next-line no-empty
+    if (accion === "Editar") {
+    }
+  }, []);
   return (
     <Container>
-      <ContentClose>
-        <span onClick={setState}>x</span>
-      </ContentClose>
-      <section className="subcontainer">
+      <div className="sub-contenedor">
         <div className="headers">
           <section>
-            <h1>Registrar usuario</h1>
+            <h1>
+              {accion == "Editar"
+                ? "Editar usuario"
+                : "Registrar nuevo usuario"}
+            </h1>
+          </section>
+
+          <section>
+            <span onClick={onClose}>x</span>
           </section>
         </div>
 
         <form
           className="formulario"
-          onSubmit={handleSubmit(mutation.mutateAsync)}
+          onSubmit={handleSubmit(insertar)}
         >
           <section>
             <article>
-              <InputText
-                icono={<MdOutlineDriveFileRenameOutline color="#3AA597" />}
-              >
+              <InputText icono={<v.iconomarca />}>
                 <input
                   className="form__field"
-                  style={{ textTransform: "lowercase" }}
+                  defaultValue={dataSelect.nombre}
                   type="text"
-                  placeholder="nombre"
+                  placeholder=""
                   {...register("nombre", {
                     required: true,
                   })}
                 />
-                <label className="form__label">Nombre</label>
-                {errors.correo?.type === "required" && <p>Campo requerido</p>}
+                <label className="form__label">Nombre:</label>
+                {errors.nombre?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
             <article>
               <InputText icono={<MdAlternateEmail color="#3AA597" />}>
                 <input
                   className="form__field"
+                  defaultValue={dataSelect.correo}
                   style={{ textTransform: "lowercase" }}
                   type="text"
                   placeholder="correo"
@@ -136,63 +148,59 @@ export function RegistrarAdmin({ setState }) {
             </div>
           </section>
         </form>
-      </section>
+      </div>
     </Container>
   );
 }
 const Container = styled.div`
-  position: absolute;
-  height: 100%;
-  width: 100%;
+  transition: 0.5s;
   top: 0;
   left: 0;
-  border-radius: 20px;
-  background: #fff;
-  box-shadow: -10px 15px 30px rgba(10, 9, 9, 0.4);
-  padding: 13px 36px 20px 36px;
-  z-index: 100;
+  position: fixed;
+  background-color: rgba(10, 9, 9, 0.5);
   display: flex;
-
+  width: 100%;
+  min-height: 100vh;
   align-items: center;
-  .subcontainer {
-    width: 100%;
-  }
+  justify-content: center;
+  z-index: 1000;
 
-  .headers {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+  .sub-contenedor {
+    width: 500px;
+    max-width: 85%;
+    border-radius: 20px;
+    background: ${({ theme }) => theme.bgtotal};
+    box-shadow: -10px 15px 30px rgba(10, 9, 9, 0.4);
+    padding: 13px 36px 20px 36px;
+    z-index: 100;
 
-    h1 {
-      font-size: 30px;
-      font-weight: bold;
-    }
-    span {
-      font-size: 20px;
-      cursor: pointer;
-    }
-  }
-  .formulario {
-    section {
-      gap: 20px;
+    .headers {
       display: flex;
-      flex-direction: column;
-      .colorContainer {
-        .colorPickerContent {
-          padding-top: 15px;
-          min-height: 50px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      h1 {
+        font-size: 20px;
+        font-weight: 500;
+      }
+      span {
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+    .formulario {
+      section {
+        gap: 20px;
+        display: flex;
+        flex-direction: column;
+        .colorContainer {
+          .colorPickerContent {
+            padding-top: 15px;
+            min-height: 50px;
+          }
         }
       }
     }
   }
-`;
-
-const ContentClose = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 33px;
-  margin: 30px;
-  cursor: pointer;
 `;

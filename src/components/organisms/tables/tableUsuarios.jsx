@@ -22,22 +22,31 @@ export function TableUsuarios({
   setAccion,
 }) {
   const [, setPagina] = useState(1);
-  const { deleteUser } = useUserStore();
+  const { deleteUser, activeUser } = useUserStore();
   const editar = (data) => {
+    if (activeUser.rol !== "admin") {
+      return Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "No tienes permisos para editar usuarios",
+      });
+    }
+
+    
     setopenRegistro(true);
     setdataSelect(data);
     setAccion("Editar");
   };
 
   const eliminar = (p) => {
-    //esto sirve para prevenir que se elimine una categoria por defecto
-    if (p.rol === "admin") {
+    if (activeUser.rol !== "admin") {
       return Swal.fire({
         icon: "error",
         title: " Error",
-        text: "No se puede eliminar un usuario administrador",
+        text: "No tienes permisos para editar usuarios",
       });
     }
+    //esto sirve para prevenir que se elimine una categoria por defecto
 
     Swal.fire({
       title: "¿Estas seguro de eliminar esto?",
@@ -59,6 +68,7 @@ export function TableUsuarios({
       accessorKey: "nombre",
       header: "Nombre",
       cell: (info) => (
+
         <td
           data-title="Nombre"
           className="ContentCell"
@@ -92,8 +102,8 @@ export function TableUsuarios({
       ),
     },
     {
-      accessorKey: "accionesMarcas",
-      header: "Acciones Marcas",
+      accessorKey: "accionesUsuarios",
+      header: "Acciones Usuarios",
       enableSorting: false,
       cell: (info) => (
         <td className="ContentCell">

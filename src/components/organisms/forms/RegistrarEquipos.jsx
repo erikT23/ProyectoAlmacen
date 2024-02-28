@@ -18,7 +18,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   async function insertar(data) {
     if (accion === "Editar") {
       const p = {
-        id: dataSelect.id,
+       
         nombre_equipo: Capitalize(data.nombre_equipo),
         nombre_usuario: Capitalize(data.nombre_usuario),
         apellido_usuario: Capitalize(data.apellido_usuario),
@@ -32,7 +32,15 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
       onClose();
     } else {
       const p = {
-        nombre: Capitalize(data.nombre),
+       
+        nombre_equipo: Capitalize(data.nombre_equipo),
+        nombre_usuario: Capitalize(data.nombre_usuario),
+        apellido_usuario: Capitalize(data.apellido_usuario),
+        numSerie: data.numSerie,
+        inicio_garantia: data.inicio_garantia,
+        fin_garantia: data.fin_garantia,
+        sistema_operativo: Capitalize(data.sistema_operativo),
+        direccion_ip: data.direccion_ip,
       };
       await insertarEquipos(p);
       onClose();
@@ -200,7 +208,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                 )}
               </InputText>
             </article>
-           
+
             <div className="btnguardarContent">
               <Btnsave
                 icono={<v.iconoguardar />}
