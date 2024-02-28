@@ -13,6 +13,7 @@ import {
   MenuMarcas,
   Modelos,
   Monitores,
+  Usuarios,
 } from "../pages/index";
 import { useTestStore, useUserStore } from "../store/index";
 
@@ -71,6 +72,10 @@ export function MyRoutes() {
         <Route
           path="/configurar/marca"
           element={<Marca />}
+        />
+        <Route
+          path="/configurar/usuarios"
+          element={<Usuarios />}
         />
         <Route
           path="/configurar/menuMarcas"

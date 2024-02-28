@@ -36,3 +36,29 @@ export const ShowUsers = async () => {
     text: "error al mostrar los usuarios " + error.message,
   });
 };
+
+export const ShowAllUsers = async () => {
+  const { error, data } = await supabase.from("usuarios").select();
+  if (data) {
+    return data;
+  }
+  Swal.fire({
+    icon: "error",
+    title: " Error",
+    text: "error al mostrar los usuarios " + error.message,
+  });
+};
+
+export const DeleteUser = async (p) => {
+  const { error: error2 } = await supabase
+    .from("usuarios")
+    .delete()
+    .eq("idauth", p.idauth);
+  if (error2) {
+    Swal.fire({
+      icon: "error",
+      title: " Error",
+      text: "error al eliminar el usuario " + error2.message,
+    });
+  }
+};

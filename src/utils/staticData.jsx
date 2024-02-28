@@ -6,6 +6,7 @@ import mainMarcas from "../assets/mainMarcas.png";
 import inventario from "../assets/inventario.png";
 import equipos from "../assets/equipos.png";
 import monitores from "../assets/monitor.png";
+import usaurio from "../assets/usaurio.png";
 
 export const DesplegableUser = [
   {
@@ -76,6 +77,12 @@ export const DataModulosConfiguracion = [
     //  icono: "https://i.ibb.co/VYbMRLZ/categoria.png",
     icono: mainMarcas,
     link: "/configurar/menuMarcas",
+  },
+  {
+    title: "Usaurios",
+    subtitle: "Gestiona a tus Usaurios",
+    icono: usaurio,
+    link: "/configurar/usuarios",
   },
   {
     title: "tests",

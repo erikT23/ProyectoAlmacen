@@ -9,3 +9,4 @@ export { MenuMarcas } from './MenuMarcas';
 export { Modelos } from './Modelos';
 export { Monitores } from './Monitores';
 export { PageBase } from './PageBase';
+export { Usuarios } from './Usuarios';

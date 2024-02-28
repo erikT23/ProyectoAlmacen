@@ -9,3 +9,4 @@ export { MenuMarcasTemplate } from './MenuMarcasTemplate';
 export { ModelosTemplate } from './ModelosTemplate';
 export { MonitoresTemplate } from './MonitoresTemplate';
 export { PlantillaBase } from './PlantillaBase';
+export { UsuariosTemplate } from './UsuariosTemplate';
