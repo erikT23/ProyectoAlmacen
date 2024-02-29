@@ -24,6 +24,7 @@ export function TableUsuarios({
   const [, setPagina] = useState(1);
   const { deleteUser, activeUser } = useUserStore();
   const editar = (data) => {
+    console.log("data en editar", data);
     if (activeUser.rol !== "admin") {
       return Swal.fire({
         icon: "error",
@@ -32,7 +33,6 @@ export function TableUsuarios({
       });
     }
 
-    
     setopenRegistro(true);
     setdataSelect(data);
     setAccion("Editar");
@@ -68,7 +68,6 @@ export function TableUsuarios({
       accessorKey: "nombre",
       header: "Nombre",
       cell: (info) => (
-
         <td
           data-title="Nombre"
           className="ContentCell"

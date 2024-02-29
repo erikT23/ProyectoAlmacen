@@ -22,7 +22,7 @@ export function RegistrarAdmin({ onClose, dataSelect, accion }) {
         nombre: Capitalize(data.nombre),
         correo: data.correo,
         password: data.password,
-        rol: data.rol,
+        rol: Capitalize(data.rol),
       };
       await editUser(p);
       onClose();
@@ -31,7 +31,7 @@ export function RegistrarAdmin({ onClose, dataSelect, accion }) {
         nombre: Capitalize(data.nombre),
         correo: data.correo,
         password: data.password,
-        rol: data.rol,
+        rol: Capitalize(data.rol),
       };
       await insertAdminUser(p);
       onClose();
@@ -41,7 +41,7 @@ export function RegistrarAdmin({ onClose, dataSelect, accion }) {
     // eslint-disable-next-line no-empty
     if (accion === "Editar") {
     }
-  }, []);
+  });
   return (
     <Container>
       <div className="sub-contenedor">

@@ -1,18 +1,28 @@
+import { createClient } from "@supabase/supabase-js";
 import Swal from "sweetalert2";
 import { create } from "zustand";
-import { EditUser, supabase } from "../index";
+import { EditUser } from "../index";
 import {
   DeleteUser,
   InsertUser,
-  ShowUsers,
   ShowAllUsers,
+  ShowUsers,
 } from "../supabase/index";
-import { createClient } from "@supabase/supabase-js";
 
 export const useUserStore = create((set, get) => ({
   insertAdminUser: async (p) => {
-    console.log("data de p en store", p);
-    const { data, error } = await supabase.auth.signUp({
+    const supabaseAdmin = createClient(
+      import.meta.env.VITE_APP_SUPABASE_URL,
+      import.meta.env.VITE_APP_SUPABASE_SERVICE_ROLE,
+      {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false,
+        },
+      }
+    );
+
+    const { data, error } = await supabaseAdmin.auth.admin.createUser({
       email: p.correo,
       password: p.password,
       options: {
@@ -22,15 +32,16 @@ export const useUserStore = create((set, get) => ({
       },
     });
     if (error) return;
-
     const dataUser = await InsertUser({
       idauth: data.user.id,
       fechaRegistro: new Date(),
-      rol: data.rol,
+      rol: p.rol,
       correo: data.user.email,
       password: data.user.password,
+      nombre: p.nombre,
     });
-    console.log("data del datauser en store", dataUser);
+    supabaseAdmin.auth.signOut();
+
     return dataUser;
   },
   userData: [],
@@ -45,10 +56,32 @@ export const useUserStore = create((set, get) => ({
   },
 
   editUser: async (p) => {
+    const supabaseAdmin = createClient(
+      import.meta.env.VITE_APP_SUPABASE_URL,
+      import.meta.env.VITE_APP_SUPABASE_SERVICE_ROLE,
+      {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false,
+        },
+      }
+    );
+
+    const { error } = await supabaseAdmin.auth.admin.updateUserById(p.idauth, {
+      password: p.password,
+    });
+    if (error) {
+      Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "error al editar el usuario " + error.message,
+      });
+    }
     await EditUser(p);
     const { showAllUsers } = get();
     const { parametros } = get();
     set(showAllUsers(parametros));
+    supabaseAdmin.auth.signOut();
   },
 
   idUser: 0,
@@ -84,5 +117,6 @@ export const useUserStore = create((set, get) => ({
     const { showAllUsers } = get();
     const { parametros } = get();
     set(showAllUsers(parametros));
+    supabaseAdmin.auth.signOut();
   },
 }));
