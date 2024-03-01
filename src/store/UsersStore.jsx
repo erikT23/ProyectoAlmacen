@@ -30,8 +30,16 @@ export const useUserStore = create((set, get) => ({
           rol: p.rol,
         },
       },
+      email_confirm: true,
     });
-    if (error) return;
+    if (error) {
+      Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "error al crear el usuario " + error.message,
+      });
+      return;
+    }
     const dataUser = await InsertUser({
       idauth: data.user.id,
       fechaRegistro: new Date(),

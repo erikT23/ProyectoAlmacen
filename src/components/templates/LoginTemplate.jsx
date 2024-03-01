@@ -20,6 +20,8 @@ export function LoginTemplate() {
   const { signInWithEmail } = useAuthStore();
   const [state, setState] = useState(false);
   const [stateInicio, setStateInicio] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
   const {
     register,
@@ -82,7 +84,7 @@ export function LoginTemplate() {
             <InputText icono={<v.iconopass color="#3AA597" />}>
               <input
                 className="form__field"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="contraseña"
                 {...register("pass", {
                   required: true,
@@ -90,6 +92,12 @@ export function LoginTemplate() {
               />
               <label className="form__label">Contraseña</label>
               {errors.pass?.type === "required" && <p>Campo requerido</p>}
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "Ocultar" : "Mostrar"}
+              </button>
             </InputText>
             <ContainerBtn>
               <Btnsave

@@ -5,15 +5,28 @@ import { ContentFiltro, Title } from "../atoms/index";
 import { BtnAdd } from "../molecules/index";
 import {
   Header,
+  InputRetraso,
   RegistrarAdmin,
-  TableUsuarios
+  TableUsuarios,
 } from "../organisms/index";
+import { useUserStore } from "../../store";
+import Swal from "sweetalert2";
 export function UsuariosTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");
   const [openRegistro, setopenRegistro] = useState(false);
+  const [globalFilter, setGlobalFilter] = useState("");
+
+  const { activeUser } = useUserStore();
   const nuevoRegistro = () => {
+    if (activeUser.rol !== "admin") {
+      return Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "Solo un administrador puede agregar usuarios",
+      });
+    }
     setopenRegistro(!openRegistro);
     setAccion("Nuevo");
     setdataSelect([]);
@@ -45,13 +58,20 @@ export function UsuariosTemplate({ data }) {
           />
         </ContentFiltro>
       </section>
-      <section className="area2"></section>
+      <section className="area2">
+        <InputRetraso
+          value={globalFilter ?? ""}
+          onChange={(value) => setGlobalFilter(String(value))}
+          placeholder="Buscador"
+        />
+      </section>
       <section className="main">
         <TableUsuarios
           data={data}
           setopenRegistro={setopenRegistro}
           setdataSelect={setdataSelect}
           setAccion={setAccion}
+          globalFilter={globalFilter}
         />
       </section>
     </Container>

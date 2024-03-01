@@ -1,13 +1,17 @@
+import { compareItems, rankItem } from "@tanstack/match-sorter-utils";
 import {
   flexRender,
   getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  sortingFns,
   useReactTable,
 } from "@tanstack/react-table";
+
 import { useState } from "react";
-import { FaSortDown, FaSortUp } from "react-icons/fa";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { useUserStore } from "../../../store/index";
@@ -20,16 +24,48 @@ export function TableUsuarios({
   setopenRegistro,
   setdataSelect,
   setAccion,
+  globalFilter,
 }) {
+  const cambiosFiltro = (e) => {
+    const value = e.target.value || undefined;
+    setFiltro(value);
+  };
+  function fuzzyFilter(row, columnId, value, addMeta) {
+    // Rank the item
+    const itemRank = rankItem(row.getValue(columnId), value);
+
+    // Store the itemRank info
+    addMeta({
+      itemRank,
+    });
+
+    // Return if the item should be filtered in/out
+    return itemRank.passed;
+  }
+
+  function fuzzySort(rowA, rowB, columnId) {
+    let dir = 0;
+
+    // Only sort by rank if the column has ranking information
+    if (rowA.columnFiltersMeta[columnId]) {
+      dir = compareItems(
+        rowA.columnFiltersMeta[columnId]?.itemRank,
+        rowB.columnFiltersMeta[columnId]?.itemRank
+      );
+    }
+
+    // Provide an alphanumeric fallback for when the item ranks are equal
+    return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir;
+  }
+  const [columnFilters, setColumnFilters] = useState([]);
   const [, setPagina] = useState(1);
   const { deleteUser, activeUser } = useUserStore();
   const editar = (data) => {
-    console.log("data en editar", data);
     if (activeUser.rol !== "admin") {
       return Swal.fire({
         icon: "error",
         title: " Error",
-        text: "No tienes permisos para editar usuarios",
+        text: "Solo un administrador puede editar usuarios",
       });
     }
 
@@ -43,7 +79,7 @@ export function TableUsuarios({
       return Swal.fire({
         icon: "error",
         title: " Error",
-        text: "No tienes permisos para editar usuarios",
+        text: "Solo un administrador puede eliminar usuarios",
       });
     }
     //esto sirve para prevenir que se elimine una categoria por defecto
@@ -118,10 +154,22 @@ export function TableUsuarios({
   const table = useReactTable({
     data,
     columns,
+    filterFns: {
+      fuzzy: fuzzyFilter,
+    },
+    state: {
+      columnFilters,
+      globalFilter,
+    },
+    onColumnFiltersChange: setColumnFilters,
+    globalFilterFn: fuzzyFilter,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    debugAll: true,
   });
   return (
     <Container>
@@ -131,21 +179,31 @@ export function TableUsuarios({
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th key={header.id}>
-                  {header.column.columnDef.header}
-                  {header.column.getCanSort() && (
-                    <span
-                      style={{ cursor: "pointer" }}
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      <FaSortDown />
-                    </span>
-                  )}
-                  {
-                    {
-                      asc: <FaSortUp />,
-                      des: <FaSortDown />,
-                    }[header.column.getIsSorted()]
-                  }
+                  <div
+                    {...{
+                      className: header.column.getCanSort()
+                        ? "cursor-pointer select-none"
+                        : "",
+                      onClick: header.column.getToggleSortingHandler(),
+                    }}
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    {{
+                      asc: " 🔼",
+                      desc: " 🔽",
+                    }[header.column.getIsSorted()] ?? null}
+                  </div>
+                  {header.column.getCanFilter() ? (
+                    <div>
+                      <Filter
+                        column={header.column}
+                        table={table}
+                      />
+                    </div>
+                  ) : null}
                 </th>
               ))}
             </tr>
@@ -173,6 +231,8 @@ export function TableUsuarios({
     </Container>
   );
 }
+
+function Filter() {}
 
 const Container = styled.div`
   position: relative;

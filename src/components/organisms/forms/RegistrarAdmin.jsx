@@ -108,10 +108,10 @@ export function RegistrarAdmin({ onClose, dataSelect, accion }) {
                   })}
                 >
                   <option value="">Selecciona una opción</option>
-                  <option value="admin">Administrador</option>
-                  <option value="it_lm">IT L&M</option>
-                  <option value="it_mb">IT M&B</option>
-                  <option value="it_grand">IT Grand</option>
+                  <option value="Administrador">Administrador</option>
+                  <option value="IT Lindo Maya">IT Lindo Maya</option>
+                  <option value="IT Mar Beach">IT Mar Beach</option>
+                  <option value="IT Grand">IT Grand</option>
                   <option value="practicante">Practicante</option>
                 </select>
                 <label className="form__label">Rol</label>

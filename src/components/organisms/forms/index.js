@@ -1,3 +1,4 @@
+export { InputRetraso } from './InputRetraso';
 export { InputText } from './InputText';
 export { RegistrarAdmin } from './RegistrarAdmin';
 export { RegistrarEquipos } from './RegistrarEquipos';
