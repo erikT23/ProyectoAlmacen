@@ -11,13 +11,14 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { useUserStore } from "../../../store/index";
 import { v } from "../../../styles/index";
-import { TableActions } from "../index";
+import { InputRetraso, TableActions } from "../index";
 import { Paginacion } from "./index";
+import { FaSortDown, FaSortUp } from "react-icons/fa";
 
 export function TableUsuarios({
   data,
@@ -192,8 +193,8 @@ export function TableUsuarios({
                       header.getContext()
                     )}
                     {{
-                      asc: " 🔼",
-                      desc: " 🔽",
+                      asc: <FaSortUp />,
+                      desc: <FaSortDown />,
                     }[header.column.getIsSorted()] ?? null}
                   </div>
                   {header.column.getCanFilter() ? (
@@ -232,7 +233,78 @@ export function TableUsuarios({
   );
 }
 
-function Filter() {}
+function Filter({ column, table }) {
+  const firstValue = table
+    .getPreFilteredRowModel()
+    .flatRows[0]?.getValue(column.id);
+  const columnFilterValue = column.getFilterValue();
+
+  const sortedUniqueValues = useMemo(
+    () =>
+      typeof firstValue === "number"
+        ? []
+        : Array.from(column.getFacetedUniqueValues().keys()).sort(),
+    [column.getFacetedUniqueValues()]
+  );
+
+  return typeof firstValue === "number" ? (
+    <div>
+      <div className="flex space-x-2">
+        <InputRetraso
+          type="number"
+          min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+          max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+          value={(columnFilterValue ?? [])[0] ?? ""}
+          onChange={(value) =>
+            column.setFilterValue((old) => [value, old?.[1]])
+          }
+          placeholder={`Min ${
+            column.getFacetedMinMaxValues()?.[0]
+              ? `(${column.getFacetedMinMaxValues()?.[0]})`
+              : ""
+          }`}
+          className="w-24 border shadow rounded"
+        />
+        <InputRetraso
+          type="number"
+          min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+          max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+          value={(columnFilterValue ?? [])[1] ?? ""}
+          onChange={(value) =>
+            column.setFilterValue((old) => [old?.[0], value])
+          }
+          placeholder={`Max ${
+            column.getFacetedMinMaxValues()?.[1]
+              ? `(${column.getFacetedMinMaxValues()?.[1]})`
+              : ""
+          }`}
+          className="w-24 border shadow rounded"
+        />
+      </div>
+      <div className="h-1" />
+    </div>
+  ) : (
+    <>
+      <datalist id={column.id + "list"}>
+        {sortedUniqueValues.slice(0, 5000).map((value) => (
+          <option
+            value={value}
+            key={value}
+          />
+        ))}
+      </datalist>
+      <InputRetraso
+        type="text"
+        value={columnFilterValue ?? ""}
+        onChange={(value) => column.setFilterValue(value)}
+        placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
+        className="w-36 border shadow rounded"
+        list={column.id + "list"}
+      />
+      <div className="h-1" />
+    </>
+  );
+}
 
 const Container = styled.div`
   position: relative;

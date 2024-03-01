@@ -38,9 +38,9 @@ export function InputRetraso({
 
 const Container = styled.div`
   //background-color: ${(props) => props.theme.bg};
-  width: fit-content;
+  width: 200px;
   border-radius: 10px;
-  height: 60px;
+  height: 40px;
   align-items: center;
   display: flex;
   color: ${(props) => props.theme.text};
@@ -57,7 +57,7 @@ const Container = styled.div`
     }
 
     input {
-      font-size: 18px;
+      font-size: 15px;
       width: 100%;
       outline: none;
       background: none;

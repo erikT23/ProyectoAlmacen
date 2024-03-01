@@ -22,7 +22,7 @@ export function RegistrarAdmin({ onClose, dataSelect, accion }) {
         nombre: Capitalize(data.nombre),
         correo: data.correo,
         password: data.password,
-        rol: Capitalize(data.rol),
+        rol: data.rol,
       };
       await editUser(p);
       onClose();
