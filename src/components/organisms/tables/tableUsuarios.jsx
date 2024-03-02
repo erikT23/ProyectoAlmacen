@@ -141,6 +141,7 @@ export function TableUsuarios({
       accessorKey: "accionesUsuarios",
       header: "Acciones Usuarios",
       enableSorting: false,
+      
       cell: (info) => (
         <td className="ContentCell">
           <TableActions
@@ -170,7 +171,6 @@ export function TableUsuarios({
     getPaginationRowModel: getPaginationRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
-    debugAll: true,
   });
   return (
     <Container>

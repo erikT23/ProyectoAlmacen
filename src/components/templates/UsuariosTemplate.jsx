@@ -39,6 +39,7 @@ export function UsuariosTemplate({ data }) {
           dataSelect={dataSelect}
           accion={accion}
           onClose={() => setopenRegistro(!openRegistro)}
+          dataUser={activeUser}
         />
       )}
 
