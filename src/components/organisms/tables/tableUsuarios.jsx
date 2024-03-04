@@ -1,4 +1,4 @@
-import { compareItems, rankItem } from "@tanstack/match-sorter-utils";
+import { rankItem } from "@tanstack/match-sorter-utils";
 import {
   flexRender,
   getCoreRowModel,
@@ -7,18 +7,17 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  sortingFns,
   useReactTable,
 } from "@tanstack/react-table";
 
 import { useMemo, useState } from "react";
+import { FaSortDown, FaSortUp } from "react-icons/fa";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { useUserStore } from "../../../store/index";
 import { v } from "../../../styles/index";
 import { InputRetraso, TableActions } from "../index";
 import { Paginacion } from "./index";
-import { FaSortDown, FaSortUp } from "react-icons/fa";
 
 export function TableUsuarios({
   data,
@@ -27,10 +26,6 @@ export function TableUsuarios({
   setAccion,
   globalFilter,
 }) {
-  const cambiosFiltro = (e) => {
-    const value = e.target.value || undefined;
-    setFiltro(value);
-  };
   function fuzzyFilter(row, columnId, value, addMeta) {
     // Rank the item
     const itemRank = rankItem(row.getValue(columnId), value);
@@ -44,25 +39,11 @@ export function TableUsuarios({
     return itemRank.passed;
   }
 
-  function fuzzySort(rowA, rowB, columnId) {
-    let dir = 0;
-
-    // Only sort by rank if the column has ranking information
-    if (rowA.columnFiltersMeta[columnId]) {
-      dir = compareItems(
-        rowA.columnFiltersMeta[columnId]?.itemRank,
-        rowB.columnFiltersMeta[columnId]?.itemRank
-      );
-    }
-
-    // Provide an alphanumeric fallback for when the item ranks are equal
-    return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir;
-  }
   const [columnFilters, setColumnFilters] = useState([]);
   const [, setPagina] = useState(1);
   const { deleteUser, activeUser } = useUserStore();
   const editar = (data) => {
-    if (activeUser.rol !== "admin") {
+    if (activeUser.roles.nombre !== "Administrador") {
       return Swal.fire({
         icon: "error",
         title: " Error",
@@ -76,7 +57,7 @@ export function TableUsuarios({
   };
 
   const eliminar = (p) => {
-    if (activeUser.rol !== "admin") {
+    if (activeUser.roles.nombre !== "Administrador") {
       return Swal.fire({
         icon: "error",
         title: " Error",
@@ -114,14 +95,14 @@ export function TableUsuarios({
       ),
     },
     {
-      accessorKey: "rol",
+      accessorKey: "roles",
       header: "Rol",
       cell: (info) => (
         <td
           data-title="Rol"
           className="ContentCell"
         >
-          <span>{info.getValue()}</span>
+          <span>{info.row.original.roles.nombre}</span>
         </td>
       ),
     },
@@ -141,7 +122,7 @@ export function TableUsuarios({
       accessorKey: "accionesUsuarios",
       header: "Acciones Usuarios",
       enableSorting: false,
-      
+
       cell: (info) => (
         <td className="ContentCell">
           <TableActions
@@ -244,7 +225,7 @@ function Filter({ column, table }) {
       typeof firstValue === "number"
         ? []
         : Array.from(column.getFacetedUniqueValues().keys()).sort(),
-    [column.getFacetedUniqueValues()]
+    [column, firstValue]
   );
 
   return typeof firstValue === "number" ? (
@@ -286,10 +267,10 @@ function Filter({ column, table }) {
   ) : (
     <>
       <datalist id={column.id + "list"}>
-        {sortedUniqueValues.slice(0, 5000).map((value) => (
+        {sortedUniqueValues.slice(0, 5000).map((value, index) => (
           <option
             value={value}
-            key={value}
+            key={index}
           />
         ))}
       </datalist>

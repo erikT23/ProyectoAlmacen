@@ -1,3 +1,4 @@
+export {  } from './Filtro';
 export { Paginacion } from './paginacion';
 export { TableEquipos } from './tableEquipos';
 export { TableMarcas } from './tableMarcas';

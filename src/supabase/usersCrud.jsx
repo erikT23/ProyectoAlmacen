@@ -24,7 +24,7 @@ export const ShowUsers = async () => {
   const idAuthSupabase = await GetIdAuthSupabase();
   const { error, data } = await supabase
     .from("usuarios")
-    .select()
+    .select("*,roles(nombre)")
     .eq("idauth", idAuthSupabase)
     .maybeSingle();
   if (data) {
@@ -38,7 +38,9 @@ export const ShowUsers = async () => {
 };
 
 export const ShowAllUsers = async () => {
-  const { error, data } = await supabase.from("usuarios").select();
+  const { error, data } = await supabase
+    .from("usuarios")
+    .select("*,roles(nombre)");
   if (data) {
     return data;
   }

@@ -3,6 +3,7 @@ export { CountEquipos, DeleteEquipos, EditEquipos, InsertEquipos, SearchEquipos,
 export { GetIdAuthSupabase } from './globalSupabase';
 export { CountMarcas, DeleteMarcas, EditMarcas, InsertMarcas, SearchMarcas, ShowMarcas } from './marcasCrud';
 export { CountModelos, DeleteModelos, EditModelos, InsertModelos, SearchModelos, ShowModelos, ShowModelosByMarca } from './modelosCrud';
+export { ShowRoles } from './rolesCrud';
 export { supabase } from './supabase.config';
 export { CountTest, DeleteTest, EditTest, InsertTest, InsertWithIDTest, SearchTest, ShowTest } from './testCrud';
 export { SearchTipos, ShowTipos } from './tiposCrud';

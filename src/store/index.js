@@ -1,4 +1,5 @@
 export { useAuthStore } from './AuthStore';
+export { useRolesStore } from './RolesStore';
 export { useTestStore } from './TestStore';
 export { useUserStore } from './UsersStore';
 export { useEquiposStore } from './equiposStore';

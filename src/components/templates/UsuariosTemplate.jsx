@@ -20,7 +20,7 @@ export function UsuariosTemplate({ data }) {
 
   const { activeUser } = useUserStore();
   const nuevoRegistro = () => {
-    if (activeUser.rol !== "admin") {
+    if (activeUser.roles.nombre !== "Administrador") {
       return Swal.fire({
         icon: "error",
         title: " Error",

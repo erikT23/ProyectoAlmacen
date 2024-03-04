@@ -1,3 +1,3 @@
 export * from "./sidebar";
 export * from "./forms";
-export * from './tables';
+export * from './tables';

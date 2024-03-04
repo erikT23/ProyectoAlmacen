@@ -11,7 +11,6 @@ import { InputText } from "../forms/index";
 
 export function RegistrarAdmin({ onClose, dataSelect, accion, dataUser }) {
   const { insertAdminUser, editUser } = useUserStore();
-  console.log("data user", dataUser);
   const {
     register,
     formState: { errors },

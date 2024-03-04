@@ -1,3 +1,4 @@
+export * from './tables';
 export { Banner } from './Banner';
 export { Buscador } from './Buscador';
 export { FooterLogin } from './FooterLogin';
@@ -8,4 +9,3 @@ export { TableActions } from './TableActions';
 export { ToggleTema } from './ToogleTema';
 export * from './forms';
 export * from './sidebar';
-export * from './tables';
