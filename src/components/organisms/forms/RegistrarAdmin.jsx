@@ -3,14 +3,20 @@ import { useForm } from "react-hook-form";
 import { MdAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import styled from "styled-components";
-import { useUserStore } from "../../../store/index";
+import { useRolesStore, useUserStore } from "../../../store/index";
 import { v } from "../../../styles/index";
 import { Capitalize } from "../../../utils/index";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "../forms/index";
+import { useQuery } from "@tanstack/react-query";
 
-export function RegistrarAdmin({ onClose, dataSelect, accion, dataUser }) {
+export function RegistrarAdmin({ onClose, dataSelect, accion }) {
   const { insertAdminUser, editUser } = useUserStore();
+  const { showRoles, rolesData } = useRolesStore();
+  useQuery({
+    queryKey: ["mostrar roles"],
+    queryFn: () => showRoles(),
+  });
   const {
     register,
     formState: { errors },
@@ -21,8 +27,9 @@ export function RegistrarAdmin({ onClose, dataSelect, accion, dataUser }) {
       const p = {
         nombre: Capitalize(data.nombre),
         correo: data.correo,
+        rol_id: data.rol_id,
+        idauth: dataSelect.idauth,
         password: data.password,
-        rol: data.rol,
       };
       await editUser(p);
       onClose();
@@ -31,7 +38,7 @@ export function RegistrarAdmin({ onClose, dataSelect, accion, dataUser }) {
         nombre: Capitalize(data.nombre),
         correo: data.correo,
         password: data.password,
-        rol: Capitalize(data.rol),
+        rol_id: data.rol_id,
       };
       await insertAdminUser(p);
       onClose();
@@ -103,16 +110,19 @@ export function RegistrarAdmin({ onClose, dataSelect, accion, dataUser }) {
               <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
                 <select
                   className="form__field"
-                  {...register("rol", {
+                  {...register("rol_id", {
                     required: true,
                   })}
                 >
                   <option value="">Selecciona una opción</option>
-                  <option value="Administrador">Administrador</option>
-                  <option value="IT Lindo Maya">IT Lindo Maya</option>
-                  <option value="IT Mar Beach">IT Mar Beach</option>
-                  <option value="IT Grand">IT Grand</option>
-                  <option value="practicante">Practicante</option>
+                  {rolesData.map((rol, index) => (
+                    <option
+                      key={index}
+                      value={rol.id}
+                    >
+                      {rol.nombre}
+                    </option>
+                  ))}
                 </select>
                 <label className="form__label">Rol</label>
                 {errors.option?.type === "required" && <p>Campo requerido</p>}

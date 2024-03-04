@@ -1,4 +1,4 @@
-import { rankItem } from "@tanstack/match-sorter-utils";
+  import { rankItem } from "@tanstack/match-sorter-utils";
 import {
   flexRender,
   getCoreRowModel,
@@ -27,20 +27,15 @@ export function TableUsuarios({
   globalFilter,
 }) {
   function fuzzyFilter(row, columnId, value, addMeta) {
-    // Rank the item
     const itemRank = rankItem(row.getValue(columnId), value);
-
-    // Store the itemRank info
     addMeta({
       itemRank,
     });
-
-    // Return if the item should be filtered in/out
     return itemRank.passed;
   }
 
   const [columnFilters, setColumnFilters] = useState([]);
-  const [, setPagina] = useState(1);
+  const [setPagina] = useState(1);
   const { deleteUser, activeUser } = useUserStore();
   const editar = (data) => {
     if (activeUser.roles.nombre !== "Administrador") {

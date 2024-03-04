@@ -1,14 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useModelosStore } from "../../store/index";
 import { v } from "../../styles/variables";
 import { ContentFiltro, Title } from "../atoms/index";
 import { BtnAdd } from "../molecules/index";
 import {
-  Buscador,
   Header,
+  InputRetraso,
   RegistrarModelos,
-  TableModelos,
+  TableModelos
 } from "../organisms/index";
 
 export function ModelosTemplate({ data }) {
@@ -16,12 +15,13 @@ export function ModelosTemplate({ data }) {
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");
   const [openRegistro, setopenRegistro] = useState(false);
+  const [globalFilter, setGlobalFilter] = useState("");
+
   const nuevoRegistro = () => {
     setopenRegistro(!openRegistro);
     setAccion("Nuevo");
     setdataSelect([]);
   };
-  const { setBuscador } = useModelosStore();
   return (
     <Container>
       {openRegistro && (
@@ -49,7 +49,11 @@ export function ModelosTemplate({ data }) {
         </ContentFiltro>
       </section>
       <section className="area2">
-        <Buscador setBuscador={setBuscador} />
+        <InputRetraso
+          value={globalFilter ?? ""}
+          onChange={(value) => setGlobalFilter(String(value))}
+          placeholder="Buscador"
+        />
       </section>
       <section className="main">
         <TableModelos
@@ -57,6 +61,7 @@ export function ModelosTemplate({ data }) {
           setopenRegistro={setopenRegistro}
           setdataSelect={setdataSelect}
           setAccion={setAccion}
+          globalFilter={globalFilter}
         />
       </section>
     </Container>

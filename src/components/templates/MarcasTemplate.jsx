@@ -1,26 +1,36 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useMarcasStore } from "../../store/index";
-import { ContentFiltro, Title } from "../atoms/index";
-import {
-  Buscador,
-  Header,
-  RegistrarMarca,
-  TableMarcas,
-} from "../organisms/index";
+import Swal from "sweetalert2";
+import { useUserStore } from "../../store/index";
 import { v } from "../../styles/variables";
+import { ContentFiltro, Title } from "../atoms/index";
 import { BtnAdd } from "../molecules/index";
+import {
+  Header,
+  InputRetraso,
+  RegistrarMarca,
+  TableMarcas
+} from "../organisms/index";
 export function MarcasTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");
+  const [globalFilter, setGlobalFilter] = useState("");
+  const { activeUser } = useUserStore();
+
   const [openRegistro, setopenRegistro] = useState(false);
   const nuevoRegistro = () => {
+    if (activeUser.roles.nombre !== "Administrador") {
+      return Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "Solo un administrador puede agregar usuarios",
+      });
+    }
     setopenRegistro(!openRegistro);
     setAccion("Nuevo");
     setdataSelect([]);
   };
-  const { setBuscador } = useMarcasStore();
 
   return (
     <Container>
@@ -29,6 +39,7 @@ export function MarcasTemplate({ data }) {
           dataSelect={dataSelect}
           accion={accion}
           onClose={() => setopenRegistro(!openRegistro)}
+          dataUser={activeUser}
         />
       )}
 
@@ -49,7 +60,11 @@ export function MarcasTemplate({ data }) {
         </ContentFiltro>
       </section>
       <section className="area2">
-        <Buscador setBuscador={setBuscador} />
+        <InputRetraso
+          value={globalFilter ?? ""}
+          onChange={(value) => setGlobalFilter(String(value))}
+          placeholder="Buscador"
+        />
       </section>
       <section className="main">
         <TableMarcas
@@ -57,6 +72,7 @@ export function MarcasTemplate({ data }) {
           setopenRegistro={setopenRegistro}
           setdataSelect={setdataSelect}
           setAccion={setAccion}
+          globalFilter={globalFilter}
         />
       </section>
     </Container>

@@ -43,7 +43,7 @@ export const useUserStore = create((set, get) => ({
     const dataUser = await InsertUser({
       idauth: data.user.id,
       fechaRegistro: new Date(),
-      rol: p.rol,
+      rol_id: p.rol_id,
       correo: data.user.email,
       password: data.user.password,
       nombre: p.nombre,
@@ -82,10 +82,12 @@ export const useUserStore = create((set, get) => ({
       Swal.fire({
         icon: "error",
         title: " Error",
-        text: "error al editar el usuario " + error.message,
+        text: "error al editar el usuario en supabase " + error.message,
       });
     }
-    await EditUser(p);
+    const pWithoutPassword = { ...p };
+    delete pWithoutPassword.password;
+    await EditUser(pWithoutPassword);
     const { showAllUsers } = get();
     const { parametros } = get();
     set(showAllUsers(parametros));

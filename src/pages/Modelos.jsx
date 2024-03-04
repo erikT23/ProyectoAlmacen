@@ -4,10 +4,9 @@ import { ModelosTemplate } from "../components/templates/index";
 import { useMarcasStore, useModelosStore, useTiposStore } from "../store/index";
 
 export function Modelos() {
-  const { mostrarModelos, dataModelos, searchModelos, buscador } =
-    useModelosStore();
-  const { dataMarcas, showMarcas, marcasTest } = useMarcasStore();
-  const { tiposData, showTipos } = useTiposStore();
+  const { mostrarModelos, dataModelos } = useModelosStore();
+  const { dataMarcas, showMarcas } = useMarcasStore();
+  const { showTipos } = useTiposStore();
 
   useQuery({
     queryKey: ["data de marcas"],
@@ -25,12 +24,6 @@ export function Modelos() {
     enabled: !!dataMarcas?.id != null,
   });
 
-  useQuery({
-    queryKey: ["buscar Modelo", { id: dataMarcas.id, nombre: buscador }],
-    queryFn: () => searchModelos({ id: dataMarcas.id, nombre: buscador }),
-    enabled: !!dataMarcas?.id != null,
-  });
-
   if (isLoading) {
     return <SpinnerLoader />;
   }
@@ -38,10 +31,5 @@ export function Modelos() {
     return <div>Error al cargar los datos</div>;
   }
 
-  return (
-    <ModelosTemplate
-      data={dataModelos}
-      
-    />
-  ); // Pasa los datos de las marcas y los tipos a ModelosTemplate
+  return <ModelosTemplate data={dataModelos} />; // Pasa los datos de las marcas y los tipos a ModelosTemplate
 }
