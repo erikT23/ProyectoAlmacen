@@ -19,8 +19,8 @@ export function Modelos() {
   });
 
   const { isLoading, error } = useQuery({
-    queryKey: ["mostrar Modelos", { id: dataMarcas?.id }],
-    queryFn: () => mostrarModelos({ id: dataMarcas?.id }),
+    queryKey: ["mostrar Modelos"],
+    queryFn: () => mostrarModelos(),
     enabled: !!dataMarcas?.id != null,
   });
 

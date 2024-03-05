@@ -4,7 +4,7 @@ import { supabase } from "./index";
 export const ShowModelos = async () => {
   const { data, error } = await supabase
     .from("modelos")
-    .select("nombre,marcas(nombre),tipos(nombres)");
+    .select("*,marcas(nombre),tipos(nombres)");
   if (data) {
     return data;
   }

@@ -7,8 +7,10 @@ import {
   Header,
   InputRetraso,
   RegistrarModelos,
-  TableModelos
+  TableModelos,
 } from "../organisms/index";
+import { useUserStore } from "../../store";
+import Swal from "sweetalert2";
 
 export function ModelosTemplate({ data }) {
   const [state, setState] = useState(false);
@@ -17,7 +19,16 @@ export function ModelosTemplate({ data }) {
   const [openRegistro, setopenRegistro] = useState(false);
   const [globalFilter, setGlobalFilter] = useState("");
 
+  const { activeUser } = useUserStore();
+
   const nuevoRegistro = () => {
+    if (activeUser.roles.nombre !== "Administrador") {
+      return Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "Solo un administrador puede agregar Modelos",
+      });
+    }
     setopenRegistro(!openRegistro);
     setAccion("Nuevo");
     setdataSelect([]);
@@ -29,6 +40,7 @@ export function ModelosTemplate({ data }) {
           dataSelect={dataSelect}
           accion={accion}
           onClose={() => setopenRegistro(!openRegistro)}
+          dataUser={activeUser}
         />
       )}
 

@@ -31,8 +31,8 @@ export const useModelosStore = create((set, get) => ({
   dataModelos: [],
   item: [],
   parametros: {},
-  mostrarModelos: async (p) => {
-    const response = await ShowModelos(p);
+  mostrarModelos: async () => {
+    const response = await ShowModelos();
     set({ parametros: response });
     set({ dataModelos: response });
     set({ item: response[0] });
@@ -64,8 +64,5 @@ export const useModelosStore = create((set, get) => ({
     set(mostrarModelos(parametros));
   },
 
-  searchModelos: async (p) => {
-    const response = await ShowModelos(p);
-    set({ dataModelos: response });
-  },
+  
 }));
