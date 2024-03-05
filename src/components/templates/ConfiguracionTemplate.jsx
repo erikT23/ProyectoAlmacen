@@ -164,7 +164,7 @@ const Container = styled.div`
 
     img {
       transition: 0.3s;
-      height: 70%;
+      height: 100%;
       filter: grayscale(100%);
     }
   }

@@ -1,5 +1,6 @@
 export { Configuracion } from './Configuracion';
 export { Equipos } from './Equipos';
+export { Eqeuipos } from './Equipos copy';
 export { Home } from './Home';
 export { Login } from './Login';
 export { Marca } from './Marca';
