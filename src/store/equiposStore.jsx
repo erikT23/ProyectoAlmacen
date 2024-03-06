@@ -1,11 +1,12 @@
 import { create } from "zustand";
 import {
-    CountEquipos,
-    DeleteEquipos,
-    EditEquipos,
-    InsertEquipos,
-    SearchEquipos,
-    ShowEquipos,
+  CountEquipos,
+  DeleteEquipos,
+  EditEquipos,
+  InsertEquipos,
+  SearchEquipos,
+  ShowEquipos,
+  ShowEquiposComunes
 } from "../supabase/index";
 
 export const useEquiposStore = create((set, get) => ({
@@ -68,6 +69,12 @@ export const useEquiposStore = create((set, get) => ({
   searchEquipos: async (p) => {
     const response = await SearchEquipos(p);
     set({ data: response });
+    return response;
+  },
+
+  showEquiposComunes: async () => {
+    const response = await ShowEquiposComunes();
+    set({ dataEquipos: response });
     return response;
   },
 }));

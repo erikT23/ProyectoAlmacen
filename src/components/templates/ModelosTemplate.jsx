@@ -18,7 +18,6 @@ export function ModelosTemplate({ data }) {
   const [accion, setAccion] = useState("");
   const [openRegistro, setopenRegistro] = useState(false);
   const [globalFilter, setGlobalFilter] = useState("");
-
   const { activeUser } = useUserStore();
 
   const nuevoRegistro = () => {

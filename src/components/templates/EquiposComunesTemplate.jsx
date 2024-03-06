@@ -1,27 +1,37 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useEquiposStore } from "../../store/index";
+import Swal from "sweetalert2";
+import { useUserStore } from "../../store";
 import { v } from "../../styles/variables";
 import { ContentFiltro, Title } from "../atoms/index";
 import { BtnAdd } from "../molecules/index";
 import {
-  Buscador,
   Header,
+  InputRetraso,
   RegistrarEquipos,
-  TableEquipos
+  TableEquipos,
 } from "../organisms/index";
 
-export function EquipoesTemplate({ data }) {
+export function EquiposComunesTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");
   const [openRegistro, setopenRegistro] = useState(false);
+  const [globalFilter, setGlobalFilter] = useState("");
+  const { activeUser } = useUserStore();
+
   const nuevoRegistro = () => {
+    if (activeUser.roles.nombre !== "Administrador") {
+      return Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "Solo un administrador puede agregar Modelos",
+      });
+    }
     setopenRegistro(!openRegistro);
     setAccion("Nuevo");
     setdataSelect([]);
   };
-  const { setBuscador } = useEquiposStore();
 
   return (
     <Container>
@@ -40,7 +50,7 @@ export function EquipoesTemplate({ data }) {
       </header>
       <section className="area1">
         <ContentFiltro>
-          <Title>Equipos</Title>
+          <Title>Equipos en comunes</Title>
           <BtnAdd
             bgColor={"#be1d1d"}
             textColor={"#000"}
@@ -50,7 +60,11 @@ export function EquipoesTemplate({ data }) {
         </ContentFiltro>
       </section>
       <section className="area2">
-        <Buscador setBuscador={setBuscador} />
+        <InputRetraso
+          value={globalFilter ?? ""}
+          onChange={(value) => setGlobalFilter(String(value))}
+          placeholder="Buscador"
+        />{" "}
       </section>
       <section className="main">
         <TableEquipos
@@ -58,6 +72,7 @@ export function EquipoesTemplate({ data }) {
           setopenRegistro={setopenRegistro}
           setdataSelect={setdataSelect}
           setAccion={setAccion}
+          globalFilter={globalFilter}
         />
       </section>
     </Container>

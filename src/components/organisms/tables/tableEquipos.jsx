@@ -1,6 +1,9 @@
+import { rankItem } from "@tanstack/match-sorter-utils";
 import {
   flexRender,
   getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
@@ -10,26 +13,51 @@ import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { useEquiposStore } from "../../../store/index";
+import { useEquiposStore, useUserStore } from "../../../store/index";
 import { v } from "../../../styles/index";
 import { TableActions } from "../index";
-import { Paginacion } from "./index";
+import { Filter, Paginacion } from "./index";
 
 export function TableEquipos({
   data,
   setopenRegistro,
   setdataSelect,
   setAccion,
+  globalFilter,
 }) {
-  const [, setPagina] = useState(1);
+  function fuzzyFilter(row, columnId, value, addMeta) {
+    const itemRank = rankItem(row.getValue(columnId), value);
+    addMeta({
+      itemRank,
+    });
+    return itemRank.passed;
+  }
+
+  const [columnFilters, setColumnFilters] = useState([]);
+  const [setPagina] = useState(1);
   const { borrarEquipos } = useEquiposStore();
+  const { activeUser } = useUserStore();
   const editar = (data) => {
+    if (activeUser.roles.nombre !== "Administrador") {
+      return Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "Solo un administrador puede editar usuarios",
+      });
+    }
     setopenRegistro(true);
     setdataSelect(data);
     setAccion("Editar");
   };
 
   const eliminar = (p) => {
+    if (activeUser.roles.nombre !== "Administrador") {
+      return Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "Solo un administrador puede eliminar usuarios",
+      });
+    }
     //esto sirve para prevenir que se elimine una categoria por defecto
     /* if (p.nombre === "generica") {
       return Swal.fire({
@@ -83,6 +111,8 @@ export function TableEquipos({
     {
       accessorKey: "apellido_usuario",
       header: "Apellido Usuario",
+      enableColumnFilter: false,
+
       cell: (info) => (
         <td
           data-title="Apellido Usuario"
@@ -104,33 +134,62 @@ export function TableEquipos({
         </td>
       ),
     },
+
     {
-      accessorKey: "inicio_garantia",
-      header: "Inicio de Garantia",
+      accessorKey: "marcas.nombre",
+      header: "Marca",
       cell: (info) => (
         <td
-          data-title="Inicio de Garantia"
+          data-title="Marca"
           className="ContentCell"
         >
-          <span>{info.getValue()}</span>
+          <span>{info.row.original.modelos.marcas.nombre}</span>
         </td>
       ),
     },
     {
-      accessorKey: "fin_garantia",
-      header: "Fin de Garantia",
+      accessorKey: "modelos.nombre",
+      header: "Modelo",
       cell: (info) => (
         <td
-          data-title="Fin de Garantia"
+          data-title="Modelo"
           className="ContentCell"
         >
-          <span>{info.getValue()}</span>
+          <span>{info.row.original.modelos.nombre}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "centros.nombre",
+      header: "Centro",
+      enableColumnFilter: false,
+
+      cell: (info) => (
+        <td
+          data-title="Centro"
+          className="ContentCell"
+        >
+          <span>{info.row.original.centros.nombres}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "departamentos.nombre",
+      header: "Departamento",
+      cell: (info) => (
+        <td
+          data-title="Departamento"
+          className="ContentCell"
+        >
+          <span>{info.row.original.departamentos.nombre}</span>
         </td>
       ),
     },
     {
       accessorKey: "sistema_operativo",
       header: "Sistema Operativo",
+      enableColumnFilter: false,
+
       cell: (info) => (
         <td
           data-title="Sistema Operativo"
@@ -143,6 +202,8 @@ export function TableEquipos({
     {
       accessorKey: "direccion_ip",
       header: "Direccion IP",
+      enableColumnFilter: false,
+
       cell: (info) => (
         <td
           data-title="Direccion ip"
@@ -153,8 +214,38 @@ export function TableEquipos({
       ),
     },
     {
-      accessorKey: "tipo_id",
+      accessorKey: "inicio_garantia",
+      header: "Inicio de Garantia",
+      enableColumnFilter: false,
+      cell: (info) => (
+        <td
+          data-title="Inicio de Garantia"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "fin_garantia",
+      header: "Fin de Garantia",
+      enableColumnFilter: false,
+
+      cell: (info) => (
+        <td
+          data-title="Fin de Garantia"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
+        </td>
+      ),
+    },
+
+    {
+      accessorKey: "tipos.nombres",
       header: "Tipo",
+      enableColumnFilter: false,
+
       cell: (info) => (
         <td
           data-title="Tipo"
@@ -165,56 +256,10 @@ export function TableEquipos({
       ),
     },
     {
-      accessorKey: "marca_id",
-      header: "Marca",
-      cell: (info) => (
-        <td
-          data-title="Marca"
-          className="ContentCell"
-        >
-          <span>{info.row.original.modelos.marcas.nombre}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "modelo_id",
-      header: "Modelo",
-      cell: (info) => (
-        <td
-          data-title="Modelo"
-          className="ContentCell"
-        >
-          <span>{info.row.original.modelos.nombre}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "centro_id",
-      header: "Centro",
-      cell: (info) => (
-        <td
-          data-title="Centro"
-          className="ContentCell"
-        >
-          <span>{info.row.original.centros.nombres}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "departamento_id",
-      header: "Departamento",
-      cell: (info) => (
-        <td
-          data-title="Departamento"
-          className="ContentCell"
-        >
-          <span>{info.row.original.departamentos.nombre}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "estado_id",
+      accessorKey: "estado.nombre",
       header: "Estado",
+      enableColumnFilter: false,
+
       cell: (info) => (
         <td
           data-title="Estado"
@@ -228,6 +273,8 @@ export function TableEquipos({
       accessorKey: "accionesMarcas",
       header: "Acciones Marcas",
       enableSorting: false,
+      enableColumnFilter: false,
+
       cell: (info) => (
         <td className="ContentCell">
           <TableActions
@@ -242,10 +289,21 @@ export function TableEquipos({
   const table = useReactTable({
     data,
     columns,
+    filterFns: {
+      fuzzy: fuzzyFilter,
+    },
+    state: {
+      columnFilters,
+      globalFilter,
+    },
+    onColumnFiltersChange: setColumnFilters,
+    globalFilterFn: fuzzyFilter,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
   });
   return (
     <Container>
@@ -255,21 +313,38 @@ export function TableEquipos({
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th key={header.id}>
-                  {header.column.columnDef.header}
-                  {header.column.getCanSort() && (
-                    <span
-                      style={{ cursor: "pointer" }}
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      <FaSortDown />
-                    </span>
-                  )}
-                  {
-                    {
+                  <div
+                    {...{
+                      className: header.column.getCanSort()
+                        ? "cursor-pointer select-none"
+                        : "",
+                      onClick: header.column.getToggleSortingHandler(),
+                    }}
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    {{
                       asc: <FaSortUp />,
-                      des: <FaSortDown />,
-                    }[header.column.getIsSorted()]
-                  }
+                      desc: <FaSortDown />,
+                    }[header.column.getIsSorted()] ?? null}
+                  </div>
+                  {header.column.getCanFilter() ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "180px",
+                      }}
+                    >
+                      <Filter
+                        column={header.column}
+                        table={table}
+                      />
+                    </div>
+                  ) : null}
                 </th>
               ))}
             </tr>

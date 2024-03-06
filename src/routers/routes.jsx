@@ -5,6 +5,7 @@ import { ProtectedRoutes, UserAuth } from "../index";
 import {
   Configuracion,
   Equipos,
+  EquiposComunes,
   Home,
   Login,
   Marca,
@@ -96,6 +97,10 @@ export function MyRoutes() {
         <Route
           path="/configurar/menuInventario/equipos"
           element={<Equipos />}
+        />
+        <Route
+          path="/configurar/menuInventario/equipos/comunes"
+          element={<EquiposComunes />}
         />
         <Route
           path="/configurar/menuInventario/monitores"

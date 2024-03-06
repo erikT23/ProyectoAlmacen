@@ -96,11 +96,13 @@ export const DeleteEquipos = async (p) => {
   }
 };
 
-export const ShowEquiposByCentro = async (p) => {
+export const ShowEquiposComunes = async () => {
   const { error, data } = await supabase
     .from("equipos")
-    .select("*")
-    .eq("centro_id", p.centro_id);
+    .select(
+      "*,tipos(nombres),modelos(nombre,marcas(nombre)),centros(nombres),estados(nombre),departamentos(nombre)"
+    )
+    .eq("centro_id", 3);
   if (data) {
     return data;
   }

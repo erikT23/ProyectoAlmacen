@@ -1,6 +1,6 @@
 export { ConfiguracionTemplate } from './ConfiguracionTemplate';
+export { EquiposComunesTemplate } from './EquiposComunesTemplate';
 export { EquiposTemplate } from './EquiposTemplate';
-export { EquipoesTemplate } from './EquiposTemplate copy';
 export { HomeTemplate } from './HomeTemplate';
 export { LoginTemplate } from './LoginTemplate';
 export { MarcaTemplate } from './MarcaTemplate';
