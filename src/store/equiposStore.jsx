@@ -4,7 +4,6 @@ import {
   DeleteEquipos,
   EditEquipos,
   InsertEquipos,
-  SearchEquipos,
   ShowEquipos,
   ShowEquiposComunes
 } from "../supabase/index";
@@ -64,12 +63,6 @@ export const useEquiposStore = create((set, get) => ({
     const { mostrarEquipos } = get();
     const { parametros } = get();
     set(mostrarEquipos(parametros));
-  },
-
-  searchEquipos: async (p) => {
-    const response = await SearchEquipos(p);
-    set({ data: response });
-    return response;
   },
 
   showEquiposComunes: async () => {

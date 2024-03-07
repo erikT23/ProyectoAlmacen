@@ -1,4 +1,4 @@
-export { ConfiguracionTemplate } from './ConfiguracionTemplate';
+export { ConfiguracionTemplate } from './ConfiguracionTemplate';
 export { EquiposComunesTemplate } from './EquiposComunesTemplate';
 export { EquiposTemplate } from './EquiposTemplate';
 export { HomeTemplate } from './HomeTemplate';

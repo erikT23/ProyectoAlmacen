@@ -1,5 +1,6 @@
 export { useMarcasStore } from '../store/marcasStore';
-export { CountEquipos, DeleteEquipos, EditEquipos, InsertEquipos, SearchEquipos, ShowDepartamentoByEquipo, ShowEquipos, ShowEquiposByEstado, ShowEquiposByMarca, ShowEquiposByTipo, ShowEquiposComunes } from './equiposCrud';
+export { ShowDepartamentosConCentros } from './centrosCrud';
+export { CountEquipos, DeleteEquipos, EditEquipos, InsertEquipos, ShowDepartamentoByEquipo, ShowEquipos, ShowEquiposByEstado, ShowEquiposByMarca, ShowEquiposByTipo, ShowEquiposComunes } from './equiposCrud';
 export { GetIdAuthSupabase } from './globalSupabase';
 export { CountMarcas, DeleteMarcas, EditMarcas, InsertMarcas, SearchMarcas, ShowMarcas } from './marcasCrud';
 export { CountModelos, DeleteModelos, EditModelos, InsertModelos, SearchModelos, ShowModelos, ShowModelosByMarca } from './modelosCrud';

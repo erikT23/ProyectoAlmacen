@@ -1,4 +1,4 @@
-export { Filter } from './Filtro';
+export { Filter } from './Filtro';
 export { Paginacion } from './paginacion';
 export { TableEquipos } from './tableEquipos';
 export { TableMarcas } from './tableMarcas';

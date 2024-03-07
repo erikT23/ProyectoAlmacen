@@ -1,24 +1,42 @@
-import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { RiLockPasswordLine } from "react-icons/ri";
 import styled from "styled-components";
-import { useEquiposStore, useMarcasStore } from "../../../store/index";
+import {
+  useEquiposStore,
+  useModelosStore,
+  useTiposStore,
+  useUserStore,
+} from "../../../store/index";
 import { v } from "../../../styles/variables";
 import { Capitalize } from "../../../utils/Conversiones";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
 
 export function RegistrarEquipos({ onClose, dataSelect, accion }) {
+  const [marcaId, setMarcaId] = useState(null);
   const { insertarEquipos, editEquipos } = useEquiposStore();
-  const { showMarcas, marcasTest } = useMarcasStore();
+  const { showModelos, modelosData } = useModelosStore();
+  const { showTipos, tiposData } = useTiposStore();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+  useQuery({
+    queryKey: ["mostrar modelos"],
+    queryFn: () => showModelos(),
+  });
+  useQuery({
+    queryKey: ["mostrar tipos"],
+    queryFn: () => showTipos(),
+  });
+  const { activeUser } = useUserStore();
+
   async function insertar(data) {
     if (accion === "Editar") {
       const p = {
-       
         nombre_equipo: Capitalize(data.nombre_equipo),
         nombre_usuario: Capitalize(data.nombre_usuario),
         apellido_usuario: Capitalize(data.apellido_usuario),
@@ -27,12 +45,17 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         fin_garantia: data.fin_garantia,
         sistema_operativo: Capitalize(data.sistema_operativo),
         direccion_ip: data.direccion_ip,
+        tipo_id: data.tipo_id,
+        modelo_id: data.modelo_id,
+        marca_id: marcaId,
+        centro_id: data.centro_id,
+        estado_id: data.estado_id,
+        departamento_id: data.departamento_id,
       };
       await editEquipos(p);
       onClose();
     } else {
       const p = {
-       
         nombre_equipo: Capitalize(data.nombre_equipo),
         nombre_usuario: Capitalize(data.nombre_usuario),
         apellido_usuario: Capitalize(data.apellido_usuario),
@@ -41,6 +64,12 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         fin_garantia: data.fin_garantia,
         sistema_operativo: Capitalize(data.sistema_operativo),
         direccion_ip: data.direccion_ip,
+        tipo_id: data.tipo_id,
+        modelo_id: data.modelo_id,
+        marca_id: marcaId,
+        centro_id: data.centro_id,
+        estado_id: data.estado_id,
+        departamento_id: data.departamento_id,
       };
       await insertarEquipos(p);
       onClose();
@@ -57,7 +86,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         <div className="headers">
           <section>
             <h1>
-              {accion == "Editar" ? "Editar dato" : "Registrar nuevo dato"}
+              {accion == "Editar" ? "Editar equipo" : "Registrar nuevo equipo"}
             </h1>
           </section>
 
@@ -65,159 +94,212 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
             <span onClick={onClose}>x</span>
           </section>
         </div>
-
-        <form
-          className="formulario"
-          onSubmit={handleSubmit(insertar)}
-        >
-          <section>
-            <article>
-              <InputText icono={<v.iconomarca />}>
-                <input
-                  className="form__field"
-                  defaultValue={dataSelect.nombre_equipo}
-                  type="text"
-                  placeholder=""
-                  {...register("nombre_equipo", {
-                    required: true,
-                  })}
+        <div className="formulario">
+          <form
+            className="formulario"
+            onSubmit={handleSubmit(insertar)}
+          >
+            <section>
+              <article>
+                <InputText icono={<v.iconomarca />}>
+                  <input
+                    className="form__field"
+                    defaultValue={dataSelect.nombre_equipo}
+                    type="text"
+                    placeholder=""
+                    {...register("nombre_equipo", {
+                      required: true,
+                    })}
+                  />
+                  <label className="form__label">Nombre del equipo:</label>
+                  {errors.nombre_equipo?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<v.iconomarca />}>
+                  <input
+                    className="form__field"
+                    defaultValue={dataSelect.nombre_usuario}
+                    type="text"
+                    placeholder=""
+                    {...register("nombre_usuario", {
+                      required: true,
+                    })}
+                  />
+                  <label className="form__label">Nombre del usuario:</label>
+                  {errors.nombre_usuario?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<v.iconomarca />}>
+                  <input
+                    className="form__field"
+                    defaultValue={dataSelect.apellido_usuario}
+                    type="text"
+                    placeholder=""
+                    {...register("apellido_usuario", {
+                      required: true,
+                    })}
+                  />
+                  <label className="form__label">Apellido del usuario:</label>
+                  {errors.apellido_usuario?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<v.iconomarca />}>
+                  <input
+                    className="form__field"
+                    defaultValue={dataSelect.numSerie}
+                    type="text"
+                    placeholder=""
+                    {...register("numSerie", {
+                      required: true,
+                    })}
+                    disabled={accion === "Editar"}
+                  />
+                  <label className="form__label">Numero de serie:</label>
+                  {errors.numSerie?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<v.iconomarca />}>
+                  <input
+                    className="form__field"
+                    defaultValue={dataSelect.inicio_garantia}
+                    type="date"
+                    placeholder=""
+                    {...register("inicio_garantia", {
+                      required: true,
+                    })}
+                    disabled={accion === "Editar"}
+                  />
+                  <label className="form__label">Inicio de garantia:</label>
+                  {errors.inicio_garantia?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<v.iconomarca />}>
+                  <input
+                    className="form__field"
+                    defaultValue={dataSelect.fin_garantia}
+                    type="date"
+                    placeholder=""
+                    {...register("fin_garantia", {
+                      required: true,
+                    })}
+                    disabled={accion === "Editar"}
+                  />
+                  <label className="form__label">Fin de garantia:</label>
+                  {errors.fin_garantia?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<v.iconomarca />}>
+                  <input
+                    className="form__field"
+                    defaultValue={dataSelect.sistema_operativo}
+                    type="text"
+                    placeholder=""
+                    {...register("sistema_operativo")}
+                  />
+                  <label className="form__label">Sistema Operativo:</label>
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<v.iconomarca />}>
+                  <input
+                    className="form__field"
+                    defaultValue={dataSelect.direccion_ip}
+                    type="text"
+                    placeholder=""
+                    {...register("direccion_ip", {
+                      required: true,
+                      pattern:
+                        /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
+                    })}
+                  />
+                  <label className="form__label">Direccion Ip:</label>
+                  {errors.direccion_ip?.type === "pattern" && (
+                    <p>El formato de la ip es incorrecto</p>
+                  )}
+                  {errors.direccion_ip?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<v.iconomarca />}>
+                  <select
+                    className="form__field"
+                    {...register("modelo_id", {
+                      required: true,
+                    })}
+                    onChange={(e) => {
+                      const selectedModelo = modelosData.find(
+                        (modelo) => modelo.id === e.target.value
+                      );
+                      setMarcaId(
+                        selectedModelo ? selectedModelo.marca_id : null
+                      );
+                    }}
+                  >
+                    <option value="">-- Seleccione un modelo --</option>
+                    {modelosData.map((modelo) => (
+                      <option
+                        key={modelo.id}
+                        value={modelo.id}
+                      >
+                        {modelo.nombre} ({modelo.marcas.nombre})
+                      </option>
+                    ))}
+                  </select>
+                  <label className="form__label">Modelo:</label>
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                  <select
+                    className="form__field"
+                    {...register("tipo_id", {
+                      required: true,
+                    })}
+                  >
+                    <option value="">Selecciona una opción</option>
+                    {tiposData.map((tipo, index) => (
+                      <option
+                        key={index}
+                        value={tipo.id}
+                      >
+                        {tipo.nombres}
+                      </option>
+                    ))}
+                  </select>
+                  <label className="form__label">Tipo</label>
+                  {errors.option?.type === "required" && <p>Campo requerido</p>}
+                </InputText>
+              </article>
+              <div className="btnguardarContent">
+                <Btnsave
+                  icono={<v.iconoguardar />}
+                  titulo="Guardar"
+                  bgcolor="#3AA597"
                 />
-                <label className="form__label">Nombre del equipo:</label>
-                {errors.nombre_equipo?.type === "required" && (
-                  <p>Campo requerido</p>
-                )}
-              </InputText>
-            </article>
-            <article>
-              <InputText icono={<v.iconomarca />}>
-                <input
-                  className="form__field"
-                  defaultValue={dataSelect.nombre_usuario}
-                  type="text"
-                  placeholder=""
-                  {...register("nombre_usuario", {
-                    required: true,
-                  })}
-                />
-                <label className="form__label">Nombre del usuario:</label>
-                {errors.nombre_usuario?.type === "required" && (
-                  <p>Campo requerido</p>
-                )}
-              </InputText>
-            </article>
-            <article>
-              <InputText icono={<v.iconomarca />}>
-                <input
-                  className="form__field"
-                  defaultValue={dataSelect.apellido_usuario}
-                  type="text"
-                  placeholder=""
-                  {...register("apellido_usuario", {
-                    required: true,
-                  })}
-                />
-                <label className="form__label">Apellido del usuario:</label>
-                {errors.apellido_usuario?.type === "required" && (
-                  <p>Campo requerido</p>
-                )}
-              </InputText>
-            </article>
-            <article>
-              <InputText icono={<v.iconomarca />}>
-                <input
-                  className="form__field"
-                  defaultValue={dataSelect.numSerie}
-                  type="text"
-                  placeholder=""
-                  {...register("numSerie", {
-                    required: true,
-                  })}
-                  disabled={accion === "Editar"}
-                />
-                <label className="form__label">Numero de serie:</label>
-                {errors.numSerie?.type === "required" && <p>Campo requerido</p>}
-              </InputText>
-            </article>
-            <article>
-              <InputText icono={<v.iconomarca />}>
-                <input
-                  className="form__field"
-                  defaultValue={dataSelect.inicio_garantia}
-                  type="date"
-                  placeholder=""
-                  {...register("inicio_garantia", {
-                    required: true,
-                  })}
-                  disabled={accion === "Editar"}
-                />
-                <label className="form__label">Inicio de garantia:</label>
-                {errors.inicio_garantia?.type === "required" && (
-                  <p>Campo requerido</p>
-                )}
-              </InputText>
-            </article>
-            <article>
-              <InputText icono={<v.iconomarca />}>
-                <input
-                  className="form__field"
-                  defaultValue={dataSelect.fin_garantia}
-                  type="date"
-                  placeholder=""
-                  {...register("fin_garantia", {
-                    required: true,
-                  })}
-                  disabled={accion === "Editar"}
-                />
-                <label className="form__label">Fin de garantia:</label>
-                {errors.fin_garantia?.type === "required" && (
-                  <p>Campo requerido</p>
-                )}
-              </InputText>
-            </article>
-            <article>
-              <InputText icono={<v.iconomarca />}>
-                <input
-                  className="form__field"
-                  defaultValue={dataSelect.sistema_operativo}
-                  type="text"
-                  placeholder=""
-                  {...register("sistema_operativo")}
-                />
-                <label className="form__label">Sistema Operativo:</label>
-              </InputText>
-            </article>
-            <article>
-              <InputText icono={<v.iconomarca />}>
-                <input
-                  className="form__field"
-                  defaultValue={dataSelect.direccion_ip}
-                  type="text"
-                  placeholder=""
-                  {...register("direccion_ip", {
-                    required: true,
-                    pattern:
-                      /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
-                  })}
-                />
-                <label className="form__label">Direccion Ip:</label>
-                {errors.direccion_ip?.type === "pattern" && (
-                  <p>El formato de la ip es incorrecto</p>
-                )}
-                {errors.direccion_ip?.type === "required" && (
-                  <p>Campo requerido</p>
-                )}
-              </InputText>
-            </article>
-
-            <div className="btnguardarContent">
-              <Btnsave
-                icono={<v.iconoguardar />}
-                titulo="Guardar"
-                bgcolor="#3AA597"
-              />
-            </div>
-          </section>
-        </form>
+              </div>
+            </section>
+          </form>
+        </div>
       </div>
     </Container>
   );
@@ -236,7 +318,7 @@ const Container = styled.div`
   z-index: 1000;
 
   .sub-contenedor {
-    width: 500px;
+    width: -webkit-fill-available;
     max-width: 85%;
     border-radius: 20px;
     background: ${({ theme }) => theme.bgtotal};
@@ -261,9 +343,9 @@ const Container = styled.div`
     }
     .formulario {
       section {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 20px;
-        display: flexbox;
-        flex-direction: column;
         margin-bottom: 10px;
       }
     }

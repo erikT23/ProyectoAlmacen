@@ -45,6 +45,7 @@ export const InsertEquipos = async (p) => {
       direccion_ip: p.direccion_ip,
       tipo_id: p.tipo_id,
       marca_id: p.marca_id,
+      modelo_id: p.modelo_id,
       centro_id: p.centro_id,
       estado_id: p.estado_id,
     },
@@ -101,8 +102,8 @@ export const ShowEquiposComunes = async () => {
     .from("equipos")
     .select(
       "*,tipos(nombres),modelos(nombre,marcas(nombre)),centros(nombres),estados(nombre),departamentos(nombre)"
-    )
-    .eq("centro_id", 3);
+    );
+
   if (data) {
     return data;
   }
@@ -110,21 +111,6 @@ export const ShowEquiposComunes = async () => {
     icon: "error",
     title: " Error show equipos by centro",
     text: "error en el show equipos by centro crud " + error.message,
-  });
-};
-
-export const SearchEquipos = async (p) => {
-  const { error, data } = await supabase
-    .from("equipos")
-    .select("*")
-    .ilike("nombre_equipo", `%${p.nombre_equipo}%`);
-  if (data) {
-    return data;
-  }
-  Swal.fire({
-    icon: "error",
-    title: " Error search equipos",
-    text: "error en el search equipos crud " + error.message,
   });
 };
 

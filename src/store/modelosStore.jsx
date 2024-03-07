@@ -11,8 +11,8 @@ export const useModelosStore = create((set, get) => ({
   modelosData: [],
   modelosCount: [],
 
-  showMarcas: async (p) => {
-    const response = await ShowModelos(p);
+  showModelos: async () => {
+    const response = await ShowModelos();
     set({ modelosData: response });
     return response;
   },
