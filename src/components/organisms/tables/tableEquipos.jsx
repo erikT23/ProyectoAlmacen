@@ -49,25 +49,28 @@ export function TableEquipos({
     setdataSelect(data);
     setAccion("Editar");
   };
-
+  // Mapeo de roles a centros permitidos
+  const rolesACentros = {
+    4: [5, 7], // Lindo Maya: PLI y PMY
+    3: [6, 4], // Mar Beach: PMA y PBE
+    5: [5], // Grand: GHP
+  };
   const eliminar = (p) => {
-    if (activeUser.roles.nombre !== "Administrador") {
-      return Swal.fire({
-        icon: "error",
-        title: " Error",
-        text: "Solo un administrador puede eliminar usuarios",
-      });
+    if (activeUser.rol_id !== 1) {
+      // 1 es el ID del rol "Administrador"
+      const centrosPermitidos = rolesACentros[activeUser.rol_id];
+      if (centrosPermitidos && centrosPermitidos.includes(p.centro_id)) {
+        // El usuario tiene un rol permitido y el equipo está asignado a un centro permitido
+      } else {
+        return Swal.fire({
+          icon: "error",
+          title: " Error",
+          text: "No tienes permiso para eliminar este equipo",
+        });
+      }
     }
-    //esto sirve para prevenir que se elimine una categoria por defecto
-    /* if (p.nombre === "generica") {
-      return Swal.fire({
-        icon: "error",
-        title: " Error",
-        text: "No se puede eliminar una categoria generica",
-      });
-      return;
-    }*/
 
+    // El resto de tu código de eliminación aquí...
     Swal.fire({
       title: "¿Estas seguro de eliminar esto?",
       text: "este cambio sera irreversible!",
@@ -219,6 +222,7 @@ export function TableEquipos({
       enableColumnFilter: false,
       cell: (info) => (
         <td
+          style={{ width: "100px" }}
           data-title="Inicio de Garantia"
           className="ContentCell"
         >
@@ -233,6 +237,7 @@ export function TableEquipos({
 
       cell: (info) => (
         <td
+          style={{ width: "100px" }}
           data-title="Fin de Garantia"
           className="ContentCell"
         >

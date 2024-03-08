@@ -5,7 +5,6 @@ import { ProtectedRoutes, UserAuth } from "../index";
 import {
   Configuracion,
   Equipos,
-  EquiposComunes,
   Home,
   Login,
   Marca,
@@ -14,7 +13,7 @@ import {
   MenuMarcas,
   Modelos,
   Monitores,
-  Usuarios,
+  Usuarios
 } from "../pages/index";
 import { useTestStore, useUserStore } from "../store/index";
 
@@ -99,9 +98,8 @@ export function MyRoutes() {
           element={<Equipos />}
         />
         <Route
-          path="/configurar/menuInventario/equipos/comunes"
-          element={<EquiposComunes />}
-        />
+          path="/configurar/menuInventario/monitores"
+          element={<Monitores />}/>
         <Route
           path="/configurar/menuInventario/monitores"
           element={<Monitores />}

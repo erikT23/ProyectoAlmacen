@@ -1,6 +1,7 @@
 export { useMarcasStore } from '../store/marcasStore';
-export { ShowDepartamentosConCentros } from './centrosCrud';
+export { ShowDepartamentosConCentros } from './centrosCrud';
 export { CountEquipos, DeleteEquipos, EditEquipos, InsertEquipos, ShowDepartamentoByEquipo, ShowEquipos, ShowEquiposByEstado, ShowEquiposByMarca, ShowEquiposByTipo, ShowEquiposComunes } from './equiposCrud';
+export { ShowEstados } from './estadosCrud';
 export { GetIdAuthSupabase } from './globalSupabase';
 export { CountMarcas, DeleteMarcas, EditMarcas, InsertMarcas, SearchMarcas, ShowMarcas } from './marcasCrud';
 export { CountModelos, DeleteModelos, EditModelos, InsertModelos, SearchModelos, ShowModelos, ShowModelosByMarca } from './modelosCrud';

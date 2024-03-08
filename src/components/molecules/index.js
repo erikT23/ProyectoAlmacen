@@ -1,4 +1,4 @@
-export { BtnAdd } from './BtnAdd';
+export { BtnAdd } from './BtnAdd';
 export { BtnCircular } from './BtnCircular';
 export { Btnsave } from './Btnsave';
 export { CardData } from './CardData';

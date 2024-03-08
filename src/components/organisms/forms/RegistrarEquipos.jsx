@@ -4,7 +4,9 @@ import { useForm } from "react-hook-form";
 import { RiLockPasswordLine } from "react-icons/ri";
 import styled from "styled-components";
 import {
+  useCentrosStore,
   useEquiposStore,
+  useEstadoStore,
   useModelosStore,
   useTiposStore,
   useUserStore,
@@ -13,17 +15,29 @@ import { v } from "../../../styles/variables";
 import { Capitalize } from "../../../utils/Conversiones";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
+import Swal from "sweetalert2";
 
 export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   const [marcaId, setMarcaId] = useState(null);
   const { insertarEquipos, editEquipos } = useEquiposStore();
   const { showModelos, modelosData } = useModelosStore();
   const { showTipos, tiposData } = useTiposStore();
+  const { showCentros, centrosData } = useCentrosStore();
+  const { showEstados, estadosData } = useEstadoStore();
+  const [departamentos, setDepartamentos] = useState([]);
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+  useQuery({
+    queryKey: ["mostrar estados"],
+    queryFn: () => showEstados(),
+  });
+  useQuery({
+    queryKey: ["mostrar centros"],
+    queryFn: () => showCentros(),
+  });
   useQuery({
     queryKey: ["mostrar modelos"],
     queryFn: () => showModelos(),
@@ -33,8 +47,26 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     queryFn: () => showTipos(),
   });
   const { activeUser } = useUserStore();
+  console.log("activeUser", activeUser);
+  const rolesACentros = {
+    4: [5, 7], // Lindo Maya: PLI y PMY
+    3: [6, 4], // Mar Beach: PMA y PBE
+    5: [5], // Grand: GHP
+  };
 
   async function insertar(data) {
+    // Verificar si el usuario tiene permiso para insertar un equipo en el centro especificado
+    if (activeUser.rol_id !== 1) {
+      // 1 es el ID del rol "Administrador"
+      const centrosPermitidos = rolesACentros[activeUser.rol_id];
+      if (!centrosPermitidos || !centrosPermitidos.includes(data.centro_id)) {
+        return Swal.fire({
+          icon: "error",
+          title: " Error",
+          text: "No tienes permiso para insertar un equipo en este centro",
+        });
+      }
+    }
     if (accion === "Editar") {
       const p = {
         nombre_equipo: Capitalize(data.nombre_equipo),
@@ -79,6 +111,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     // eslint-disable-next-line no-empty
     if (accion === "Editar") {
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Container>
@@ -161,7 +194,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     {...register("numSerie", {
                       required: true,
                     })}
-                    disabled={accion === "Editar"}
+                  
                   />
                   <label className="form__label">Numero de serie:</label>
                   {errors.numSerie?.type === "required" && (
@@ -179,7 +212,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     {...register("inicio_garantia", {
                       required: true,
                     })}
-                    disabled={accion === "Editar"}
+                   
                   />
                   <label className="form__label">Inicio de garantia:</label>
                   {errors.inicio_garantia?.type === "required" && (
@@ -197,7 +230,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     {...register("fin_garantia", {
                       required: true,
                     })}
-                    disabled={accion === "Editar"}
+                  
                   />
                   <label className="form__label">Fin de garantia:</label>
                   {errors.fin_garantia?.type === "required" && (
@@ -276,7 +309,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       required: true,
                     })}
                   >
-                    <option value="">Selecciona una opción</option>
+                    <option value="">-- Seleccione un tipo --</option>
                     {tiposData.map((tipo, index) => (
                       <option
                         key={index}
@@ -287,6 +320,81 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     ))}
                   </select>
                   <label className="form__label">Tipo</label>
+                  {errors.option?.type === "required" && <p>Campo requerido</p>}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                  <select
+                    className="form__field"
+                    {...register("centro_id", {
+                      required: true,
+                    })}
+                    onChange={(e) => {
+                      const selectedCentro = centrosData.find(
+                        (centro) => centro.id === Number(e.target.value)
+                      );
+                      console.log("selectedCentro", selectedCentro);
+                      setDepartamentos(
+                        selectedCentro ? selectedCentro.departamentos : []
+                      );
+                    }}
+                  >
+                    <option value="">-- Seleccione un centro --</option>
+                    {centrosData.map((centro, index) => (
+                      <option
+                        key={index}
+                        value={centro.id}
+                      >
+                        {centro.nombres}
+                      </option>
+                    ))}
+                  </select>
+                  <label className="form__label">Centro</label>
+                  {errors.option?.type === "required" && <p>Campo requerido</p>}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                  <select
+                    className="form__field"
+                    {...register("departamento_id", {
+                      required: true,
+                    })}
+                  >
+                    <option value="">-- Seleccione un departamento --</option>
+                    {departamentos.map((departamentos, index) => (
+                      <option
+                        key={index}
+                        value={departamentos.id}
+                      >
+                        {departamentos.nombre}
+                      </option>
+                    ))}
+                  </select>
+                  <label className="form__label">Departamento</label>
+                  {errors.option?.type === "required" && <p>Campo requerido</p>}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                  <select
+                    className="form__field"
+                    {...register("estado_id", {
+                      required: true,
+                    })}
+                  >
+                    <option value="">-- Seleccione un estado --</option>
+                    {estadosData.map((estado, index) => (
+                      <option
+                        key={index}
+                        value={estado.id}
+                      >
+                        {estado.nombre}
+                      </option>
+                    ))}
+                  </select>
+                  <label className="form__label">Estado</label>
                   {errors.option?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>

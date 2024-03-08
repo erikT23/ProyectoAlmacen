@@ -2,7 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { SpinnerLoader } from "../components/molecules";
 import { EquiposTemplate } from "../components/templates/index";
-import { useEquiposStore, useMarcasStore } from "../store/index";
+import {
+  useEquiposStore,
+  useMarcasStore
+} from "../store/index";
 
 export function Equipos() {
   const { dataEquipos, showEquiposComunes } = useEquiposStore();
@@ -15,7 +18,7 @@ export function Equipos() {
   });
 
   const { isLoading, error } = useQuery({
-    queryKey: ["mostrar Equipos en comunes"],
+    queryKey: ["mostrar Equipos"],
     queryFn: () => showEquiposComunes(),
     enabled: !!dataMarcas?.id != null,
   });

@@ -1,4 +1,4 @@
-export { Configuracion } from './Configuracion';
+export { Configuracion } from './Configuracion';
 export { Equipos } from './Equipos';
 export { EquiposComunes } from './EquiposComunes';
 export { Home } from './Home';
