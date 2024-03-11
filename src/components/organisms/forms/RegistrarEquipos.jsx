@@ -47,7 +47,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     queryFn: () => showTipos(),
   });
   const { activeUser } = useUserStore();
-  console.log("activeUser", activeUser);
   const rolesACentros = {
     4: [5, 7], // Lindo Maya: PLI y PMY
     3: [6, 4], // Mar Beach: PMA y PBE
@@ -55,6 +54,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   };
 
   async function insertar(data) {
+    console.log("activeUser", activeUser);
     // Verificar si el usuario tiene permiso para insertar un equipo en el centro especificado
     if (activeUser.rol_id !== 1) {
       // 1 es el ID del rol "Administrador"
@@ -69,6 +69,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     }
     if (accion === "Editar") {
       const p = {
+        id: dataSelect.id,
         nombre_equipo: Capitalize(data.nombre_equipo),
         nombre_usuario: Capitalize(data.nombre_usuario),
         apellido_usuario: Capitalize(data.apellido_usuario),
@@ -85,6 +86,11 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         departamento_id: data.departamento_id,
       };
       await editEquipos(p);
+      Swal.fire({
+        icon: "success",
+        title: "Guardado",
+        text: "Equipo editado con exito",
+      });
       onClose();
     } else {
       const p = {
@@ -104,6 +110,11 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         departamento_id: data.departamento_id,
       };
       await insertarEquipos(p);
+      Swal.fire({
+        icon: "success",
+        title: "Guardado",
+        text: "Equipo agregado con exito",
+      });
       onClose();
     }
   }
@@ -194,7 +205,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     {...register("numSerie", {
                       required: true,
                     })}
-                  
                   />
                   <label className="form__label">Numero de serie:</label>
                   {errors.numSerie?.type === "required" && (
@@ -212,7 +222,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     {...register("inicio_garantia", {
                       required: true,
                     })}
-                   
                   />
                   <label className="form__label">Inicio de garantia:</label>
                   {errors.inicio_garantia?.type === "required" && (
@@ -230,7 +239,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     {...register("fin_garantia", {
                       required: true,
                     })}
-                  
                   />
                   <label className="form__label">Fin de garantia:</label>
                   {errors.fin_garantia?.type === "required" && (
@@ -334,7 +342,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       const selectedCentro = centrosData.find(
                         (centro) => centro.id === Number(e.target.value)
                       );
-                      console.log("selectedCentro", selectedCentro);
                       setDepartamentos(
                         selectedCentro ? selectedCentro.departamentos : []
                       );

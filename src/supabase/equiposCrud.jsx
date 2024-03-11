@@ -73,6 +73,7 @@ export const EditEquipos = async (p) => {
       direccion_ip: p.direccion_ip,
       tipo_id: p.tipo_id,
       marca_id: p.marca_id,
+      modelo_id: p.modelo_id,
       centro_id: p.centro_id,
       estado_id: p.estado_id,
     })
@@ -102,7 +103,8 @@ export const ShowEquiposComunes = async () => {
     .from("equipos")
     .select(
       "*,tipos(nombres),modelos(nombre,marcas(nombre)),centros(nombres),estados(nombre),departamentos(nombre)"
-    );
+    )
+    .neq("tipo_id", 3);
 
   if (data) {
     return data;
@@ -173,5 +175,23 @@ export const ShowDepartamentoByEquipo = async (p) => {
     icon: "error",
     title: " Error show equipos by departamento",
     text: "error en el show equipos by departamento crud " + error.message,
+  });
+};
+
+export const ShowMonitores = async () => {
+  const { error, data } = await supabase
+    .from("equipos")
+    .select(
+      "*,tipos(nombres),modelos(nombre,marcas(nombre)),centros(nombres),estados(nombre),departamentos(nombre)"
+    )
+    .eq("tipo_id", 3);
+
+  if (data) {
+    return data;
+  }
+  Swal.fire({
+    icon: "error",
+    title: " Error show equipos by centro",
+    text: "error en el show equipos by centro crud " + error.message,
   });
 };
