@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { RiLockPasswordLine } from "react-icons/ri";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import {
   useCentrosStore,
   useEquiposStore,
@@ -15,7 +16,6 @@ import { v } from "../../../styles/variables";
 import { Capitalize } from "../../../utils/Conversiones";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
-import Swal from "sweetalert2";
 
 export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   const [marcaId, setMarcaId] = useState(null);

@@ -1,3 +1,4 @@
+export { Centros } from './Centros';
 export { Configuracion } from './Configuracion';
 export { Equipos } from './Equipos';
 export { EquiposComunes } from './EquiposComunes';

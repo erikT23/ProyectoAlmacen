@@ -1,3 +1,4 @@
+export { CentrosTemplate } from './CentrosTemplate';
 export { ConfiguracionTemplate } from './ConfiguracionTemplate';
 export { EquiposComunesTemplate } from './EquiposComunesTemplate';
 export { EquiposTemplate } from './EquiposTemplate';

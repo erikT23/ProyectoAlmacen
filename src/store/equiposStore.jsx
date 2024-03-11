@@ -5,7 +5,8 @@ import {
   EditEquipos,
   InsertEquipos,
   ShowEquipos,
-  ShowEquiposComunes
+  ShowEquiposComunes,
+  ShowMonitores,
 } from "../supabase/index";
 
 export const useEquiposStore = create((set, get) => ({
@@ -22,11 +23,6 @@ export const useEquiposStore = create((set, get) => ({
     const response = await CountEquipos(p);
     set({ equiposCount: response });
     return response;
-  },
-
-  buscador: "",
-  setBuscador: (p) => {
-    set({ buscador: p });
   },
 
   dataEquipos: [],
@@ -67,6 +63,12 @@ export const useEquiposStore = create((set, get) => ({
 
   showEquiposComunes: async () => {
     const response = await ShowEquiposComunes();
+    set({ dataEquipos: response });
+    return response;
+  },
+
+  showMonitores: async () => {
+    const response = await ShowMonitores();
     set({ dataEquipos: response });
     return response;
   },

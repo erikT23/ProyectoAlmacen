@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { ErrorCard, SpinnerLoader } from "../components/molecules/index";
 import { ProtectedRoutes, UserAuth } from "../index";
 import {
+  Centros,
   Configuracion,
   Equipos,
   Home,
@@ -13,7 +14,7 @@ import {
   MenuMarcas,
   Modelos,
   Monitores,
-  Usuarios
+  Usuarios,
 } from "../pages/index";
 import { useTestStore, useUserStore } from "../store/index";
 
@@ -78,6 +79,10 @@ export function MyRoutes() {
           element={<Usuarios />}
         />
         <Route
+          path="/configurar/centros"
+          element={<Centros />}
+        />
+        <Route
           path="/configurar/menuMarcas"
           element={<MenuMarcas />}
         />
@@ -99,7 +104,8 @@ export function MyRoutes() {
         />
         <Route
           path="/configurar/menuInventario/monitores"
-          element={<Monitores />}/>
+          element={<Monitores />}
+        />
         <Route
           path="/configurar/menuInventario/monitores"
           element={<Monitores />}

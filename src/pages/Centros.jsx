@@ -1,17 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { SpinnerLoader } from "../components/molecules";
-import { EquiposTemplate } from "../components/templates/index";
-import { useEquiposStore } from "../store/index";
+import { CentrosTemplate } from "../components/templates/index";
+import { useCentrosStore } from "../store";
 
-export function Equipos() {
-  const { dataEquipos, showEquiposComunes } = useEquiposStore();
+export function Centros() {
+  const { showCentros, centrosData } = useCentrosStore();
 
   const { isLoading, error } = useQuery({
-    queryKey: ["mostrar Equipos"],
-    queryFn: () => showEquiposComunes(),
+    queryKey: ["mostrar Centros"],
+    queryFn: () => showCentros(),
   });
-
   if (isLoading) {
     return <SpinnerLoader />;
   }
@@ -22,5 +21,5 @@ export function Equipos() {
       text: "Error al cargar los datos " + error,
     });
   }
-  return <EquiposTemplate data={dataEquipos} />;
+  return <CentrosTemplate data={centrosData} />;
 }

@@ -89,6 +89,12 @@ export const DataModulosConfiguracion = [
     link: "/configurar/usuarios",
   },
   {
+    title: "Centros",
+    subtitle: "Gestiona los centros y departamentos",
+    icono: usaurio,
+    link: "/configurar/centros",
+  },
+  {
     title: "tests",
     subtitle: "gestiona tus marcas",
     icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
