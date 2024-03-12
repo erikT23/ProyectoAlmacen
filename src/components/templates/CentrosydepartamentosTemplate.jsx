@@ -8,11 +8,11 @@ import { BtnAdd } from "../molecules/index";
 import {
   Header,
   InputRetraso,
-  RegistrarDepartamentos,
-  TableDepartamentos
+  RegistrarCentrosyDeps,
+  TableCentrosyDeps
 } from "../organisms/index";
 
-export function DepartamentosTemplate({ data }) {
+export function CentrosydepartamentosTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");
@@ -36,7 +36,7 @@ export function DepartamentosTemplate({ data }) {
   return (
     <Container>
       {openRegistro && (
-        <RegistrarDepartamentos
+        <RegistrarCentrosyDeps
           dataSelect={dataSelect}
           accion={accion}
           onClose={() => setopenRegistro(!openRegistro)}
@@ -50,7 +50,7 @@ export function DepartamentosTemplate({ data }) {
       </header>
       <section className="area1">
         <ContentFiltro>
-          <Title>Departamentos</Title>
+          <Title>Departamentos en los Centros</Title>
           <BtnAdd
             bgColor={"#be1d1d"}
             textColor={"#000"}
@@ -67,7 +67,7 @@ export function DepartamentosTemplate({ data }) {
         />{" "}
       </section>
       <section className="main">
-        <TableDepartamentos
+        <TableCentrosyDeps
           data={data}
           setopenRegistro={setopenRegistro}
           setdataSelect={setdataSelect}

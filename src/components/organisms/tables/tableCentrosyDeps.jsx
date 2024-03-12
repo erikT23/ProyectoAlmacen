@@ -18,7 +18,7 @@ import { v } from "../../../styles/index";
 import { TableActions } from "../index";
 import { Filter, Paginacion } from "./index";
 
-export function TableCentros({
+export function TableCentrosyDeps({
   data,
   setopenRegistro,
   setdataSelect,
@@ -81,14 +81,26 @@ export function TableCentros({
   };
   const columns = [
     {
-      accessorKey: "nombres",
-      header: "Nombre Centro",
+      accessorKey: "centros.nombres",
+      header: "Nombre Centros",
       cell: (info) => (
         <td
           data-title="Nombre Centro"
           className="ContentCell"
         >
-          <span>{info.getValue()}</span>
+          <span>{info.row.original.centros.nombres}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "departamentos.nombre",
+      header: "Nombre Departamentos",
+      cell: (info) => (
+        <td
+          data-title="Nombre Centro"
+          className="ContentCell"
+        >
+          <span>{info.row.original.departamentos.nombre}</span>
         </td>
       ),
     },

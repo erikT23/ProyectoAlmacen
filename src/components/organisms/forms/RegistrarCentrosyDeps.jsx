@@ -3,14 +3,14 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { useCentrosStore, useUserStore } from "../../../store/index";
+import { useDepartamentosStore, useUserStore } from "../../../store/index";
 import { v } from "../../../styles/variables";
-import { EditCentros, InsertCentros } from "../../../supabase";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
 
-export function RegistrarCentros({ onClose, dataSelect, accion }) {
-  const { showCentros } = useCentrosStore();
+export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
+  const { showDepartamentos, editarDepartamentos, insertarDepartamentos } =
+    useDepartamentosStore();
   const {
     register,
     formState: { errors },
@@ -19,7 +19,7 @@ export function RegistrarCentros({ onClose, dataSelect, accion }) {
 
   useQuery({
     queryKey: ["mostrar centros"],
-    queryFn: () => showCentros(),
+    queryFn: () => showDepartamentos(),
   });
 
   const { activeUser } = useUserStore();
@@ -37,9 +37,9 @@ export function RegistrarCentros({ onClose, dataSelect, accion }) {
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,
-        nombres: data.nombres,
+        nombre: data.nombre,
       };
-      await EditCentros(p);
+      await editarDepartamentos(p);
       Swal.fire({
         icon: "success",
         title: "Guardado",
@@ -48,9 +48,9 @@ export function RegistrarCentros({ onClose, dataSelect, accion }) {
       onClose();
     } else {
       const p = {
-        nombres: data.nombres,
+        nombre: data.nombre,
       };
-      await InsertCentros(p);
+      await insertarDepartamentos(p);
       Swal.fire({
         icon: "success",
         title: "Guardado",
@@ -72,8 +72,8 @@ export function RegistrarCentros({ onClose, dataSelect, accion }) {
           <section>
             <h1>
               {accion == "Editar"
-                ? "Editar centros"
-                : "Registrar nuevo centros"}
+                ? "Editar departamentos"
+                : "Registrar nuevo departamentos"}
             </h1>
           </section>
 
@@ -91,17 +91,17 @@ export function RegistrarCentros({ onClose, dataSelect, accion }) {
                 <InputText icono={<v.iconomarca />}>
                   <input
                     className="form__field"
-                    defaultValue={dataSelect.nombres}
+                    defaultValue={dataSelect.nombre}
                     type="text"
                     placeholder=""
-                    {...register("nombres", {
+                    {...register("nombre", {
                       required: true,
                     })}
                   />
-                  <label className="form__label">Nombre del Centro:</label>
-                  {errors.nombres?.type === "required" && (
-                    <p>Campo requerido</p>
-                  )}
+                  <label className="form__label">
+                    Nombre del Departamento:
+                  </label>
+                  {errors.nombre?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>
               <div className="btnguardarContent">

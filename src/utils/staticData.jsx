@@ -14,8 +14,6 @@ import grand from "../assets/grand.png";
 import centros from "../assets/centros.png";
 import departamentos from "../assets/departamentos.png";
 
-
-
 export const DesplegableUser = [
   {
     text: "Mi perfil",
@@ -103,6 +101,12 @@ export const DataModulosConfiguracion = [
     subtitle: "Gestiona los centros",
     icono: departamentos,
     link: "/configurar/departamentos",
+  },
+  {
+    title: "Departamentos en centros",
+    subtitle: "Gestiona la relacion entre los departamentos y los centros",
+    icono: departamentos,
+    link: "/configurar/centrosydepartamentos",
   },
   {
     title: "tests",

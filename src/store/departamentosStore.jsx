@@ -1,9 +1,13 @@
 import { create } from "zustand";
 import {
-  DeleteEquipos,
+  DeleteDepartamentos,
+  DeleteDepartamentoyCentros,
   EditDepartamentos,
+  EditDepartamentosyCentros,
   InsertDepartamentos,
+  InsertDepartamentosyCentros,
   ShowDepartamentos,
+  ShowDepartamentosyCentros,
 } from "../supabase/index";
 
 export const useDepartamentosStore = create((set, get) => ({
@@ -33,17 +37,50 @@ export const useDepartamentosStore = create((set, get) => ({
     set(mostrarDepartamentos(parametros));
   },
 
-  borrarEquipos: async (p) => {
-    await DeleteEquipos(p);
+  deleteDepartamentos: async (p) => {
+    await DeleteDepartamentos(p);
     const { mostrarDepartamentos } = get();
     const { parametros } = get();
     set(mostrarDepartamentos(parametros));
   },
 
+
+  
   editarDepartamentos: async (p) => {
     await EditDepartamentos(p);
     const { mostrarDepartamentos } = get();
     const { parametros } = get();
     set(mostrarDepartamentos(parametros));
+  },
+
+  dataDepartamentosyCentros: [],
+
+  mostrarDepartamentosyCentros: async () => {
+    const response = await ShowDepartamentosyCentros();
+    set({ parametros: response });
+    set({ dataDepartamentosyCentros: response });
+    set({ item: response[0] });
+    return response;
+  },
+
+  insertarDepartamentosyCentros: async (p) => {
+    await InsertDepartamentosyCentros(p);
+    const { mostrarDepartamentosyCentros } = get();
+    const { parametros } = get();
+    set(mostrarDepartamentosyCentros(parametros));
+  },
+
+  borrarDepartamentosyCentros: async (p) => {
+    await DeleteDepartamentoyCentros(p);
+    const { mostrarDepartamentosyCentros } = get();
+    const { parametros } = get();
+    set(mostrarDepartamentosyCentros(parametros));
+  },
+
+  editarDepartamentosyCentros: async (p) => {
+    await EditDepartamentosyCentros(p);
+    const { mostrarDepartamentosyCentros } = get();
+    const { parametros } = get();
+    set(mostrarDepartamentosyCentros(parametros));
   },
 }));

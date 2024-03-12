@@ -1,6 +1,6 @@
 export { useMarcasStore } from '../store/marcasStore';
 export { DeleteCentros, EditCentros, InsertCentros, ShowCentros } from './centrosCrud';
-export { DeleteDepartamentos, EditDepartamentos, InsertDepartamentos, ShowDepartamentos } from './departamentosCrud';
+export { DeleteDepartamentos, DeleteDepartamentoyCentros, EditDepartamentos, EditDepartamentosyCentros, InsertDepartamentos, InsertDepartamentosyCentros, ShowDepartamentos, ShowDepartamentosyCentros } from './departamentosCrud';
 export { CountEquipos, DeleteEquipos, EditEquipos, InsertEquipos, ShowDepartamentoByEquipo, ShowEquipos, ShowEquiposByEstado, ShowEquiposByMarca, ShowEquiposByTipo, ShowEquiposComunes, ShowMonitores } from './equiposCrud';
 export { ShowEstados } from './estadosCrud';
 export { GetIdAuthSupabase } from './globalSupabase';

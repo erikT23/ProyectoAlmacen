@@ -1,19 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { RiLockPasswordLine } from "react-icons/ri";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { useCentrosStore, useUserStore } from "../../../store/index";
+import { useDepartamentosStore, useUserStore } from "../../../store/index";
 import { v } from "../../../styles/variables";
-import { Capitalize } from "../../../utils/Conversiones";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
-import { EditCentros, InsertCentros } from "../../../supabase";
 
 export function RegistrarDepartamentos({ onClose, dataSelect, accion }) {
-  const { showCentros, centrosData } = useCentrosStore();
-  const [centros, setCentros] = useState([]);
+  const { showDepartamentos, editarDepartamentos, insertarDepartamentos } =
+    useDepartamentosStore();
   const {
     register,
     formState: { errors },
@@ -22,13 +19,12 @@ export function RegistrarDepartamentos({ onClose, dataSelect, accion }) {
 
   useQuery({
     queryKey: ["mostrar centros"],
-    queryFn: () => showCentros(),
+    queryFn: () => showDepartamentos(),
   });
 
   const { activeUser } = useUserStore();
 
   async function insertar(data) {
-    console.log("activeUser", activeUser);
     // Verificar si el usuario tiene permiso para insertar un centros en el centro especificado
     if (activeUser.rol_id !== 1) {
       return Swal.fire({
@@ -41,9 +37,9 @@ export function RegistrarDepartamentos({ onClose, dataSelect, accion }) {
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,
-        nombres: data.nombres,
+        nombre: data.nombre,
       };
-      await EditCentros(p);
+      await editarDepartamentos(p);
       Swal.fire({
         icon: "success",
         title: "Guardado",
@@ -51,8 +47,10 @@ export function RegistrarDepartamentos({ onClose, dataSelect, accion }) {
       });
       onClose();
     } else {
-      const p = {};
-      await InsertCentros(p);
+      const p = {
+        nombre: data.nombre,
+      };
+      await insertarDepartamentos(p);
       Swal.fire({
         icon: "success",
         title: "Guardado",
@@ -74,8 +72,8 @@ export function RegistrarDepartamentos({ onClose, dataSelect, accion }) {
           <section>
             <h1>
               {accion == "Editar"
-                ? "Editar centros"
-                : "Registrar nuevo centros"}
+                ? "Editar departamentos"
+                : "Registrar nuevo departamentos"}
             </h1>
           </section>
 
@@ -90,97 +88,20 @@ export function RegistrarDepartamentos({ onClose, dataSelect, accion }) {
           >
             <section>
               <article>
-                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
-                  <select
+                <InputText icono={<v.iconomarca />}>
+                  <input
                     className="form__field"
-                    {...register("tipo_id", {
+                    defaultValue={dataSelect.nombre}
+                    type="text"
+                    placeholder=""
+                    {...register("nombre", {
                       required: true,
                     })}
-                  >
-                    <option value="">-- Seleccione un tipo --</option>
-                    {centrosData.map((tipo, index) => (
-                      <option
-                        key={index}
-                        value={tipo.id}
-                      >
-                        {tipo.nombres}
-                      </option>
-                    ))}
-                  </select>
-                  <label className="form__label">Tipo</label>
-                  {errors.option?.type === "required" && <p>Campo requerido</p>}
-                </InputText>
-              </article>
-              <article>
-                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
-                  <select
-                    className="form__field"
-                    {...register("centro_id", {
-                      required: true,
-                    })}
-                    onChange={(e) => {
-                      const selectedCentro = centrosData.find(
-                        (centro) => centro.id === Number(e.target.value)
-                      );
-                      setCentros(selectedCentro ? selectedCentro.centros : []);
-                    }}
-                  >
-                    <option value="">-- Seleccione un centro --</option>
-                    {centrosData.map((centro, index) => (
-                      <option
-                        key={index}
-                        value={centro.id}
-                      >
-                        {centro.nombres}
-                      </option>
-                    ))}
-                  </select>
-                  <label className="form__label">Centro</label>
-                  {errors.option?.type === "required" && <p>Campo requerido</p>}
-                </InputText>
-              </article>
-              <article>
-                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
-                  <select
-                    className="form__field"
-                    {...register("departamento_id", {
-                      required: true,
-                    })}
-                  >
-                    <option value="">-- Seleccione un departamento --</option>
-                    {centros.map((centros, index) => (
-                      <option
-                        key={index}
-                        value={centros.id}
-                      >
-                        {centros.nombre}
-                      </option>
-                    ))}
-                  </select>
-                  <label className="form__label">Departamento</label>
-                  {errors.option?.type === "required" && <p>Campo requerido</p>}
-                </InputText>
-              </article>
-              <article>
-                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
-                  <select
-                    className="form__field"
-                    {...register("estado_id", {
-                      required: true,
-                    })}
-                  >
-                    <option value="">-- Seleccione un estado --</option>
-                    {centrosData.map((estado, index) => (
-                      <option
-                        key={index}
-                        value={estado.id}
-                      >
-                        {estado.nombre}
-                      </option>
-                    ))}
-                  </select>
-                  <label className="form__label">Estado</label>
-                  {errors.option?.type === "required" && <p>Campo requerido</p>}
+                  />
+                  <label className="form__label">
+                    Nombre del Departamento:
+                  </label>
+                  {errors.nombre?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>
               <div className="btnguardarContent">
@@ -197,9 +118,10 @@ export function RegistrarDepartamentos({ onClose, dataSelect, accion }) {
     </Container>
   );
 }
+
 const Container = styled.div`
   transition: 0.5s;
-  top: 10px;
+  top: 0;
   left: 0;
   position: fixed;
   background-color: rgba(10, 9, 9, 0.5);
@@ -211,7 +133,7 @@ const Container = styled.div`
   z-index: 1000;
 
   .sub-contenedor {
-    width: -webkit-fill-available;
+    width: 500px;
     max-width: 85%;
     border-radius: 20px;
     background: ${({ theme }) => theme.bgtotal};
@@ -236,10 +158,15 @@ const Container = styled.div`
     }
     .formulario {
       section {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 20px;
-        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        .colorContainer {
+          .colorPickerContent {
+            padding-top: 15px;
+            min-height: 50px;
+          }
+        }
       }
     }
   }

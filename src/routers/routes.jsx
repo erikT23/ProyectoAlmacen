@@ -4,6 +4,7 @@ import { ErrorCard, SpinnerLoader } from "../components/molecules/index";
 import { ProtectedRoutes, UserAuth } from "../index";
 import {
   Centros,
+  Centrosydepartamentos,
   Configuracion,
   Departamentos,
   Equipos,
@@ -86,6 +87,10 @@ export function MyRoutes() {
         <Route
           path="/configurar/departamentos"
           element={<Departamentos />}
+        />
+        <Route
+          path="/configurar/centrosydepartamentos"
+          element={<Centrosydepartamentos />}
         />
         <Route
           path="/configurar/menuMarcas"

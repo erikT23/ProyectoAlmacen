@@ -60,7 +60,7 @@ const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    max-width: 916px;
+    max-width: 1500px;
     width: calc(100% - 20px);
   }
 

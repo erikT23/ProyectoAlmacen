@@ -54,7 +54,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   };
 
   async function insertar(data) {
-    console.log("activeUser", activeUser);
     // Verificar si el usuario tiene permiso para insertar un equipo en el centro especificado
     if (activeUser.rol_id !== 1) {
       // 1 es el ID del rol "Administrador"

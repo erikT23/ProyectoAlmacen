@@ -1,4 +1,5 @@
 export { Centros } from './Centros';
+export { Centrosydepartamentos } from './Centrosydepartamentos';
 export { Configuracion } from './Configuracion';
 export { Departamentos } from './Departamentos';
 export { Equipos } from './Equipos';

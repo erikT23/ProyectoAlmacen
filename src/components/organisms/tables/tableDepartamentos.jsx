@@ -13,12 +13,15 @@ import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { useCentrosStore, useUserStore } from "../../../store/index";
+import {
+  useDepartamentosStore,
+  useUserStore
+} from "../../../store/index";
 import { v } from "../../../styles/index";
 import { TableActions } from "../index";
 import { Filter, Paginacion } from "./index";
 
-export function TableCentros({
+export function TableDepartamentos({
   data,
   setopenRegistro,
   setdataSelect,
@@ -35,7 +38,7 @@ export function TableCentros({
 
   const [columnFilters, setColumnFilters] = useState([]);
   const [setPagina] = useState(1);
-  const { borrarCentros } = useCentrosStore();
+  const { deleteDepartamentos } = useDepartamentosStore();
   const { activeUser } = useUserStore();
 
   const editar = (data) => {
@@ -74,18 +77,18 @@ export function TableCentros({
       confirmButtonText: "Si, eliminar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await borrarCentros({ id: p.id });
+        await deleteDepartamentos({ id: p.id });
         Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
       }
     });
   };
   const columns = [
     {
-      accessorKey: "nombres",
-      header: "Nombre Centro",
+      accessorKey: "nombre",
+      header: "Nombre Departamento",
       cell: (info) => (
         <td
-          data-title="Nombre Centro"
+          data-title="Nombre Departamento"
           className="ContentCell"
         >
           <span>{info.getValue()}</span>

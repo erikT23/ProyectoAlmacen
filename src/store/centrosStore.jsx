@@ -1,9 +1,9 @@
 import { create } from "zustand";
 import {
-  DeleteEquipos,
+  DeleteCentros,
   EditCentros,
   InsertCentros,
-  ShowCentros,
+  ShowCentros
 } from "../supabase/index";
 
 export const useCentrosStore = create((set, get) => ({
@@ -33,8 +33,8 @@ export const useCentrosStore = create((set, get) => ({
     set(mostrarCentros(parametros));
   },
 
-  borrarEquipos: async (p) => {
-    await DeleteEquipos(p);
+  borrarCentros: async (p) => {
+    await DeleteCentros(p);
     const { mostrarCentros } = get();
     const { parametros } = get();
     set(mostrarCentros(parametros));
