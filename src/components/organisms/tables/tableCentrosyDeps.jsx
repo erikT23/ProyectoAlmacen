@@ -13,7 +13,11 @@ import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { useCentrosStore, useUserStore } from "../../../store/index";
+import {
+  useCentrosStore,
+  useDepartamentosStore,
+  useUserStore,
+} from "../../../store/index";
 import { v } from "../../../styles/index";
 import { TableActions } from "../index";
 import { Filter, Paginacion } from "./index";
@@ -35,11 +39,10 @@ export function TableCentrosyDeps({
 
   const [columnFilters, setColumnFilters] = useState([]);
   const [setPagina] = useState(1);
-  const { borrarCentros } = useCentrosStore();
+  const { borrarDepartamentosyCentros } = useDepartamentosStore();
   const { activeUser } = useUserStore();
 
   const editar = (data) => {
-    console.log(data, "data edit");
     if (activeUser.rol_id !== 1) {
       return Swal.fire({
         icon: "error",
@@ -53,7 +56,6 @@ export function TableCentrosyDeps({
   };
 
   const eliminar = (p) => {
-    console.log(p, "data eliminar");
     if (activeUser.rol_id !== 1) {
       // 1 es el ID del rol "Administrador"
 
@@ -74,7 +76,7 @@ export function TableCentrosyDeps({
       confirmButtonText: "Si, eliminar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await borrarCentros({ id: p.id });
+        await borrarDepartamentosyCentros({ id: p.id });
         Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
       }
     });
@@ -84,15 +86,12 @@ export function TableCentrosyDeps({
       accessorKey: "centros.nombres",
       header: "Nombre Centros",
       cell: (info) => (
-        console.log(info, "info"),
-        (
-          <td
-            data-title="Nombre Centro"
-            className="ContentCell"
-          >
-            <span>{info.row.original.centros.nombres}</span>
-          </td>
-        )
+        <td
+          data-title="Nombre Centro"
+          className="ContentCell"
+        >
+          <span>{info.row.original.centros.nombres}</span>
+        </td>
       ),
     },
     {

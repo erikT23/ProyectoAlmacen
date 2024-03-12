@@ -55,7 +55,7 @@ export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
         departamento_id: data.departamento_id,
         centro_id: data.centro_id,
       };
-      console.log(p, "data")
+      console.log(p, "data");
       await editarDepartamentosyCentros(p);
       Swal.fire({
         icon: "success",
@@ -68,7 +68,7 @@ export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
         departamento_id: data.departamento_id,
         centro_id: data.centro_id,
       };
-      console.log(p, "data insertar")
+      console.log(p, "data insertar");
       await insertarDepartamentosyCentros(p);
       Swal.fire({
         icon: "success",
@@ -113,6 +113,7 @@ export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
                     {...register("departamento_id", {
                       required: true,
                     })}
+                    defaultValue={dataSelect.departamento_id}
                   >
                     <option value="">-- Seleccione un departamento --</option>
                     {departamentosData.map((departamentos, index) => (

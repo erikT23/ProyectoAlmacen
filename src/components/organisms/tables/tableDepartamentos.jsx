@@ -42,7 +42,6 @@ export function TableDepartamentos({
   const { activeUser } = useUserStore();
 
   const editar = (data) => {
-    console.log(data, "data edit");
     if (activeUser.rol_id !== 1) {
       return Swal.fire({
         icon: "error",
@@ -56,7 +55,6 @@ export function TableDepartamentos({
   };
 
   const eliminar = (p) => {
-    console.log(p, "data eliminar");
     if (activeUser.rol_id !== 1) {
       // 1 es el ID del rol "Administrador"
 

@@ -44,8 +44,6 @@ export const useDepartamentosStore = create((set, get) => ({
     set(mostrarDepartamentos(parametros));
   },
 
-
-  
   editarDepartamentos: async (p) => {
     await EditDepartamentos(p);
     const { mostrarDepartamentos } = get();
