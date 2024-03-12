@@ -84,17 +84,20 @@ export function TableCentrosyDeps({
       accessorKey: "centros.nombres",
       header: "Nombre Centros",
       cell: (info) => (
-        <td
-          data-title="Nombre Centro"
-          className="ContentCell"
-        >
-          <span>{info.row.original.centros.nombres}</span>
-        </td>
+        console.log(info, "info"),
+        (
+          <td
+            data-title="Nombre Centro"
+            className="ContentCell"
+          >
+            <span>{info.row.original.centros.nombres}</span>
+          </td>
+        )
       ),
     },
     {
       accessorKey: "departamentos.nombre",
-      header: "Nombre Departamentos",
+      header: "Nombre Departamentos ",
       cell: (info) => (
         <td
           data-title="Nombre Centro"

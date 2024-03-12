@@ -3,14 +3,24 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { useDepartamentosStore, useUserStore } from "../../../store/index";
+import {
+  useCentrosStore,
+  useDepartamentosStore,
+  useUserStore,
+} from "../../../store/index";
 import { v } from "../../../styles/variables";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
-  const { showDepartamentos, editarDepartamentos, insertarDepartamentos } =
-    useDepartamentosStore();
+  const {
+    showDepartamentos,
+    editarDepartamentosyCentros,
+    insertarDepartamentosyCentros,
+    departamentosData,
+  } = useDepartamentosStore();
+  const { showCentros, centrosData } = useCentrosStore();
   const {
     register,
     formState: { errors },
@@ -18,8 +28,13 @@ export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
   } = useForm();
 
   useQuery({
-    queryKey: ["mostrar centros"],
+    queryKey: ["mostrar departamentos"],
     queryFn: () => showDepartamentos(),
+  });
+
+  useQuery({
+    queryKey: ["mostrar centros"],
+    queryFn: () => showCentros(),
   });
 
   const { activeUser } = useUserStore();
@@ -37,9 +52,11 @@ export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,
-        nombre: data.nombre,
+        departamento_id: data.departamento_id,
+        centro_id: data.centro_id,
       };
-      await editarDepartamentos(p);
+      console.log(p, "data")
+      await editarDepartamentosyCentros(p);
       Swal.fire({
         icon: "success",
         title: "Guardado",
@@ -48,9 +65,11 @@ export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
       onClose();
     } else {
       const p = {
-        nombre: data.nombre,
+        departamento_id: data.departamento_id,
+        centro_id: data.centro_id,
       };
-      await insertarDepartamentos(p);
+      console.log(p, "data insertar")
+      await insertarDepartamentosyCentros(p);
       Swal.fire({
         icon: "success",
         title: "Guardado",
@@ -88,20 +107,47 @@ export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
           >
             <section>
               <article>
-                <InputText icono={<v.iconomarca />}>
-                  <input
+                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                  <select
                     className="form__field"
-                    defaultValue={dataSelect.nombre}
-                    type="text"
-                    placeholder=""
-                    {...register("nombre", {
+                    {...register("departamento_id", {
                       required: true,
                     })}
-                  />
-                  <label className="form__label">
-                    Nombre del Departamento:
-                  </label>
-                  {errors.nombre?.type === "required" && <p>Campo requerido</p>}
+                  >
+                    <option value="">-- Seleccione un departamento --</option>
+                    {departamentosData.map((departamentos, index) => (
+                      <option
+                        key={index}
+                        value={departamentos.id}
+                      >
+                        {departamentos.nombre}
+                      </option>
+                    ))}
+                  </select>
+                  <label className="form__label">Departamentos</label>
+                  {errors.option?.type === "required" && <p>Campo requerido</p>}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                  <select
+                    className="form__field"
+                    {...register("centro_id", {
+                      required: true,
+                    })}
+                  >
+                    <option value="">-- Seleccione un centro --</option>
+                    {centrosData.map((centros, index) => (
+                      <option
+                        key={index}
+                        value={centros.id}
+                      >
+                        {centros.nombres}
+                      </option>
+                    ))}
+                  </select>
+                  <label className="form__label">Centros</label>
+                  {errors.option?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>
               <div className="btnguardarContent">
