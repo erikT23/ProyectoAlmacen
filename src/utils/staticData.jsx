@@ -11,6 +11,10 @@ import comunes from "../assets/comunes.png";
 import mar from "../assets/mar.png";
 import maya from "../assets/maya.png";
 import grand from "../assets/grand.png";
+import centros from "../assets/centros.png";
+import departamentos from "../assets/departamentos.png";
+
+
 
 export const DesplegableUser = [
   {
@@ -90,9 +94,15 @@ export const DataModulosConfiguracion = [
   },
   {
     title: "Centros",
-    subtitle: "Gestiona los centros y departamentos",
-    icono: usaurio,
+    subtitle: "Gestiona los centros",
+    icono: centros,
     link: "/configurar/centros",
+  },
+  {
+    title: "Departamentos",
+    subtitle: "Gestiona los centros",
+    icono: departamentos,
+    link: "/configurar/departamentos",
   },
   {
     title: "tests",
@@ -170,7 +180,6 @@ export const MenuMonitoresData = [
     link: "/configurar/menuInventario/monitores/grand",
   },
 ];
-
 
 export const MenuInventarioData = [
   {

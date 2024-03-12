@@ -5,6 +5,7 @@ import { ProtectedRoutes, UserAuth } from "../index";
 import {
   Centros,
   Configuracion,
+  Departamentos,
   Equipos,
   Home,
   Login,
@@ -81,6 +82,10 @@ export function MyRoutes() {
         <Route
           path="/configurar/centros"
           element={<Centros />}
+        />
+        <Route
+          path="/configurar/departamentos"
+          element={<Departamentos />}
         />
         <Route
           path="/configurar/menuMarcas"

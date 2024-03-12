@@ -1,5 +1,6 @@
 export { Centros } from './Centros';
 export { Configuracion } from './Configuracion';
+export { Departamentos } from './Departamentos';
 export { Equipos } from './Equipos';
 export { EquiposComunes } from './EquiposComunes';
 export { Home } from './Home';

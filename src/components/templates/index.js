@@ -1,5 +1,6 @@
 export { CentrosTemplate } from './CentrosTemplate';
 export { ConfiguracionTemplate } from './ConfiguracionTemplate';
+export { DepartamentosTemplate } from './DepartamentosTemplate';
 export { EquiposComunesTemplate } from './EquiposComunesTemplate';
 export { EquiposTemplate } from './EquiposTemplate';
 export { HomeTemplate } from './HomeTemplate';

@@ -38,23 +38,13 @@ export function TableCentros({
   const { borrarEquipos } = useEquiposStore();
   const { activeUser } = useUserStore();
 
-  const rolesACentros = {
-    4: [5, 7], // Lindo Maya: PLI y PMY
-    3: [6, 4], // Mar Beach: PMA y PBE
-    5: [5], // Grand: GHP
-  };
   const editar = (data) => {
     if (activeUser.rol_id !== 1) {
-      const centrosPermitidos = rolesACentros[activeUser.rol_id];
-      if (centrosPermitidos && centrosPermitidos.includes(data.centro_id)) {
-        // El usuario tiene un rol permitido y el equipo está asignado a un centro permitido
-      } else {
-        return Swal.fire({
-          icon: "error",
-          title: " Error",
-          text: "No tienes permiso para eliminar este equipo",
-        });
-      }
+      return Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "No tienes permiso para editar este centro",
+      });
     }
     setopenRegistro(true);
     setdataSelect(data);
@@ -64,19 +54,14 @@ export function TableCentros({
   const eliminar = (p) => {
     if (activeUser.rol_id !== 1) {
       // 1 es el ID del rol "Administrador"
-      const centrosPermitidos = rolesACentros[activeUser.rol_id];
-      if (centrosPermitidos && centrosPermitidos.includes(p.centro_id)) {
-        // El usuario tiene un rol permitido y el equipo está asignado a un centro permitido
-      } else {
-        return Swal.fire({
-          icon: "error",
-          title: " Error",
-          text: "No tienes permiso para eliminar este equipo",
-        });
-      }
+
+      return Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "No tienes permiso para eliminar este centro",
+      });
     }
 
-    // El resto de tu código de eliminación aquí...
     Swal.fire({
       title: "¿Estas seguro de eliminar esto?",
       text: "este cambio sera irreversible!",
@@ -94,189 +79,14 @@ export function TableCentros({
   };
   const columns = [
     {
-      accessorKey: "nombre_equipo",
-      header: "Nombre Equipo",
+      accessorKey: "nombres",
+      header: "Nombre Centro",
       cell: (info) => (
         <td
-          data-title="Nombre Equipo"
+          data-title="Nombre Centro"
           className="ContentCell"
         >
           <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "nombre_usuario",
-      header: "Nombre Usuario",
-      cell: (info) => (
-        <td
-          data-title="Nombre Usuario"
-          className="ContentCell"
-        >
-          <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "apellido_usuario",
-      header: "Apellido Usuario",
-      enableColumnFilter: false,
-
-      cell: (info) => (
-        <td
-          data-title="Apellido Usuario"
-          className="ContentCell"
-        >
-          <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "numSerie",
-      header: "Numero de Serie",
-      cell: (info) => (
-        <td
-          data-title="Numero de Serie"
-          className="ContentCell"
-        >
-          <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
-
-    {
-      accessorKey: "marcas.nombre",
-      header: "Marca",
-      cell: (info) => (
-        <td
-          data-title="Marca"
-          className="ContentCell"
-        >
-          <span>{info.row.original.modelos.marcas.nombre}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "modelos.nombre",
-      header: "Modelo",
-      cell: (info) => (
-        <td
-          data-title="Modelo"
-          className="ContentCell"
-        >
-          <span>{info.row.original.modelos.nombre}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "centros.nombre",
-      header: "Centro",
-      enableColumnFilter: false,
-
-      cell: (info) => (
-        <td
-          data-title="Centro"
-          className="ContentCell"
-        >
-          <span>{info.row.original.centros.nombres}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "departamentos.nombre",
-      header: "Departamento",
-      cell: (info) => (
-        <td
-          data-title="Departamento"
-          className="ContentCell"
-        >
-          <span>{info.row.original.departamentos.nombre}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "sistema_operativo",
-      header: "Sistema Operativo",
-      enableColumnFilter: false,
-
-      cell: (info) => (
-        <td
-          data-title="Sistema Operativo"
-          className="ContentCell"
-        >
-          <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "direccion_ip",
-      header: "Direccion IP",
-      enableColumnFilter: false,
-
-      cell: (info) => (
-        <td
-          data-title="Direccion ip"
-          className="ContentCell"
-        >
-          <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "inicio_garantia",
-      header: "Inicio de Garantia",
-      enableColumnFilter: false,
-      cell: (info) => (
-        <td
-          style={{ width: "100px" }}
-          data-title="Inicio de Garantia"
-          className="ContentCell"
-        >
-          <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "fin_garantia",
-      header: "Fin de Garantia",
-      enableColumnFilter: false,
-
-      cell: (info) => (
-        <td
-          style={{ width: "100px" }}
-          data-title="Fin de Garantia"
-          className="ContentCell"
-        >
-          <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
-
-    {
-      accessorKey: "tipos.nombres",
-      header: "Tipo",
-      enableColumnFilter: false,
-
-      cell: (info) => (
-        <td
-          data-title="Tipo"
-          className="ContentCell"
-        >
-          <span>{info.row.original.tipos.nombres}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "estado.nombre",
-      header: "Estado",
-      enableColumnFilter: false,
-
-      cell: (info) => (
-        <td
-          data-title="Estado"
-          className="ContentCell"
-        >
-          <span>{info.row.original.estados.nombre}</span>
         </td>
       ),
     },
@@ -347,7 +157,6 @@ export function TableCentros({
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                        width: "180px",
                       }}
                     >
                       <Filter
@@ -399,10 +208,10 @@ const Container = styled.div`
     margin-bottom: 1.5em;
     border-spacing: 0;
     @media (min-width: ${v.bpbart}) {
-      font-size: 0.7em;
+      font-size: 0.9em;
     }
     @media (min-width: ${v.bpmarge}) {
-      font-size: 0.8em;
+      font-size: 1em;
     }
     thead {
       position: absolute;
@@ -445,6 +254,7 @@ const Container = styled.div`
 
     th,
     td {
+      padding: 0.5em;
       vertical-align: middle;
       @media (min-width: ${v.bplisa}) {
         padding: 0.75em 0.5em;
@@ -489,13 +299,18 @@ const Container = styled.div`
           color: ${({ theme }) => theme.text};
         }
       }
+      .filter {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
       .ContentCell {
-        text-align: center;
+        text-align: right;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 30px;
-        width: 100%;
+        height: 50px;
+
         border-bottom: 1px solid rgba(161, 161, 161, 0.32);
         @media (min-width: ${v.bpbart}) {
           justify-content: center;

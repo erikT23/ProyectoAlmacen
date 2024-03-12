@@ -11,7 +11,7 @@ import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
 import { EditCentros, InsertCentros } from "../../../supabase";
 
-export function RegistrarCentros({ onClose, dataSelect, accion }) {
+export function RegistrarDepartamentos({ onClose, dataSelect, accion }) {
   const { showCentros, centrosData } = useCentrosStore();
   const [centros, setCentros] = useState([]);
   const {

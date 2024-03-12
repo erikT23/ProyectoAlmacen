@@ -3,6 +3,7 @@ export { useRolesStore } from './RolesStore';
 export { useTestStore } from './TestStore';
 export { useUserStore } from './UsersStore';
 export { useCentrosStore } from './centrosStore';
+export { useDepartamentosStore } from './departamentosStore';
 export { useEquiposStore } from './equiposStore';
 export { useEstadoStore } from './estadosStore';
 export { useMarcasStore } from './marcasStore';

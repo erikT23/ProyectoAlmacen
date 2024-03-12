@@ -1,8 +1,8 @@
 import Swal from "sweetalert2";
 import { supabase } from "./index";
 
-export const ShowCentros = async () => {
-  const { error, data } = await supabase.from("centros").select("*");
+export const ShowDepartamentos = async () => {
+  const { error, data } = await supabase.from("departamentos").select("*");
   if (data) {
     return data;
   }
@@ -13,10 +13,8 @@ export const ShowCentros = async () => {
   });
 };
 
-export const InsertCentros = async (p) => {
-  const { error } = await supabase
-    .from("centros")
-    .insert([{ nombres: p.nombres }]);
+export const InsertDepartamentos = async (p) => {
+  const { error } = await supabase.from("departamentos").insert(p);
   if (error) {
     Swal.fire({
       icon: "error",
@@ -26,8 +24,8 @@ export const InsertCentros = async (p) => {
   }
 };
 
-export const EditCentros = async (p) => {
-  const { error } = await supabase.from("centros").update(p).eq("id", p.id);
+export const EditDepartamentos = async (p) => {
+  const { error } = await supabase.from("departamentos").update(p).eq("id", p.id);
   if (error) {
     Swal.fire({
       icon: "error",
@@ -37,8 +35,8 @@ export const EditCentros = async (p) => {
   }
 };
 
-export const DeleteCentros = async (p) => {
-  const { error } = await supabase.from("centros").delete().eq("id", p.id);
+export const DeleteDepartamentos = async (p) => {
+  const { error } = await supabase.from("departamentos").delete().eq("id", p.id);
   if (error) {
     Swal.fire({
       icon: "error",
