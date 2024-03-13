@@ -255,7 +255,19 @@ export function TableEquipos({
         </td>
       ),
     },
-
+    {
+      accessorKey: "monitor_serie",
+      header: "Monitor",
+    
+      cell: (info) => (
+        <td
+          data-title="Monitor Serie"
+          className="ContentCell"
+        >
+          <span>{info.row.original.monitor_serie || "N/A"}</span>
+        </td>
+      ),
+    },
     {
       accessorKey: "tipos.nombres",
       header: "Tipo",

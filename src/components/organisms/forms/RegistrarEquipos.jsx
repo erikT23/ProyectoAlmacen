@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Swal from "sweetalert2";
 import {
   useCentrosStore,
+  useDepartamentosStore,
   useEquiposStore,
   useEstadoStore,
   useModelosStore,
@@ -19,9 +20,13 @@ import { InputText } from "./index";
 
 export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   const [marcaId, setMarcaId] = useState(null);
-  const { insertarEquipos, editEquipos } = useEquiposStore();
+  const { insertarEquipos, editEquipos, showMonitores, dataMonitores } =
+    useEquiposStore();
+  console.log("dataMonitores", dataMonitores);
   const { showModelos, modelosData } = useModelosStore();
   const { showTipos, tiposData } = useTiposStore();
+  const { mostrarDepartamentosyCentros, dataDepartamentosyCentros } =
+    useDepartamentosStore();
   const { showCentros, centrosData } = useCentrosStore();
   const { showEstados, estadosData } = useEstadoStore();
   const [departamentos, setDepartamentos] = useState([]);
@@ -30,6 +35,12 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  useQuery({
+    queryKey: ["mostrar departamentos"],
+    queryFn: () => mostrarDepartamentosyCentros(),
+  });
+
   useQuery({
     queryKey: ["mostrar estados"],
     queryFn: () => showEstados(),
@@ -39,9 +50,14 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     queryFn: () => showCentros(),
   });
   useQuery({
+    queryKey: ["mostrar monitores"],
+    queryFn: () => showMonitores(),
+  });
+  useQuery({
     queryKey: ["mostrar modelos"],
     queryFn: () => showModelos(),
   });
+
   useQuery({
     queryKey: ["mostrar tipos"],
     queryFn: () => showTipos(),
@@ -338,12 +354,16 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       required: true,
                     })}
                     onChange={(e) => {
-                      const selectedCentro = centrosData.find(
-                        (centro) => centro.id === Number(e.target.value)
+                      const selectedCentro = dataDepartamentosyCentros.find(
+                        (centros) => centros.id === Number(e.target.value)
                       );
+                      console.log("selectedCentro", selectedCentro);
                       setDepartamentos(
-                        selectedCentro ? selectedCentro.departamentos : []
+                        selectedCentro
+                          ? selectedCentro.departamentos.nombre
+                          : []
                       );
+                      console.log("departamentos", departamentos);
                     }}
                   >
                     <option value="">-- Seleccione un centro --</option>
@@ -379,6 +399,26 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     ))}
                   </select>
                   <label className="form__label">Departamento</label>
+                  {errors.option?.type === "required" && <p>Campo requerido</p>}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                  <select
+                    className="form__field"
+                    {...register("monitor_serie")}
+                  >
+                    <option value="">-- Seleccione un monitor --</option>
+                    {dataMonitores.map((monitor, index) => (
+                      <option
+                        key={index}
+                        value={monitor.id}
+                      >
+                        {monitor.numSerie}
+                      </option>
+                    ))}
+                  </select>
+                  <label className="form__label">Monitor</label>
                   {errors.option?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>

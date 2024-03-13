@@ -15,9 +15,7 @@ import centros from "../assets/centros.png";
 import departamentos from "../assets/departamentos.png";
 import DepCent from "../assets/DepCent.png";
 
-
-
-DepCent
+DepCent;
 
 export const DesplegableUser = [
   {
@@ -133,60 +131,6 @@ export const MenuMarcasData = [
     subtitle: "Gestion de modelos por marca",
     icono: modelosMenu,
     link: "/configurar/menuMarcas/modelos",
-  },
-];
-
-export const MenuModelosData = [
-  {
-    title: "Comunes",
-    subtitle: "Gestion de los equipos en comunes",
-    icono: comunes,
-    link: "/configurar/menuInventario/equipos/comunes",
-  },
-  {
-    title: "Mar y Beach",
-    subtitle: "Gestion de los equipos en mar y beach",
-    icono: mar,
-    link: "/configurar/menuInventario/equipos/myb",
-  },
-  {
-    title: "Lindo y Maya",
-    subtitle: "Gestion de los equipos en lindo y maya",
-    icono: maya,
-    link: "/configurar/menuInventario/equipos/lym",
-  },
-  {
-    title: "Grand",
-    subtitle: "Gestion de los equipos en grand",
-    icono: grand,
-    link: "/configurar/menuInventario/equipos/grand",
-  },
-];
-
-export const MenuMonitoresData = [
-  {
-    title: "Comunes",
-    subtitle: "Gestion de los monitores en comunes",
-    icono: comunes,
-    link: "/configurar/menuInventario/monitores/comunes",
-  },
-  {
-    title: "Mar y Beach",
-    subtitle: "Gestion de los monitores en mar y beach",
-    icono: mar,
-    link: "/configurar/menuInventario/monitores/myb",
-  },
-  {
-    title: "Lindo y Maya",
-    subtitle: "Gestion de los monitores en lindo y maya",
-    icono: maya,
-    link: "/configurar/menuInventario/monitores/lym",
-  },
-  {
-    title: "Grand",
-    subtitle: "Gestion de los monitores en grand",
-    icono: grand,
-    link: "/configurar/menuInventario/monitores/grand",
   },
 ];
 

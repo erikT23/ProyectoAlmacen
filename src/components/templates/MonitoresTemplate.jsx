@@ -12,7 +12,7 @@ import {
   TableEquipos,
 } from "../organisms/index";
 
-export function EquiposTemplate({ data }) {
+export function MonitoresTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");

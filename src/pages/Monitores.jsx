@@ -5,7 +5,7 @@ import { SpinnerLoader } from "../components/molecules";
 import Swal from "sweetalert2";
 
 export function Monitores() {
-  const { showMonitores, dataEquipos } = useEquiposStore();
+  const { showMonitores, dataMonitores } = useEquiposStore();
 
   const { isLoading, error } = useQuery({
     queryKey: ["mostrar Monitores"],
@@ -22,5 +22,5 @@ export function Monitores() {
     });
   }
 
-  return <MonitoresTemplate data={dataEquipos} />;
+  return <MonitoresTemplate data={dataMonitores} />;
 }

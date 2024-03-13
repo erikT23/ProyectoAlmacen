@@ -66,10 +66,10 @@ export const useEquiposStore = create((set, get) => ({
     set({ dataEquipos: response });
     return response;
   },
-
+  dataMonitores: [],
   showMonitores: async () => {
     const response = await ShowMonitores();
-    set({ dataEquipos: response });
+    set({ dataMonitores: response });
     return response;
   },
 }));
