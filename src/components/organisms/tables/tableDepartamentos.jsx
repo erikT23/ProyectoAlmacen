@@ -13,10 +13,7 @@ import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import {
-  useDepartamentosStore,
-  useUserStore
-} from "../../../store/index";
+import { useDepartamentosStore, useUserStore } from "../../../store/index";
 import { v } from "../../../styles/index";
 import { TableActions } from "../index";
 import { Filter, Paginacion } from "./index";
@@ -40,6 +37,10 @@ export function TableDepartamentos({
   const [setPagina] = useState(1);
   const { deleteDepartamentos } = useDepartamentosStore();
   const { activeUser } = useUserStore();
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 20,
+  });
 
   const editar = (data) => {
     if (activeUser.rol_id !== 1) {
@@ -119,6 +120,7 @@ export function TableDepartamentos({
     state: {
       columnFilters,
       globalFilter,
+      pagination,
     },
     onColumnFiltersChange: setColumnFilters,
     globalFilterFn: fuzzyFilter,
@@ -128,6 +130,8 @@ export function TableDepartamentos({
     getPaginationRowModel: getPaginationRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    onPaginationChange: setPagination,
+    autoResetPageIndex: false,
   });
   return (
     <Container>

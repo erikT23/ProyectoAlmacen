@@ -35,6 +35,10 @@ export function TableEquipos({
 
   const [columnFilters, setColumnFilters] = useState([]);
   const [setPagina] = useState(1);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 20,
+  });
   const { borrarEquipos } = useEquiposStore();
   const { activeUser } = useUserStore();
 
@@ -306,6 +310,7 @@ export function TableEquipos({
     state: {
       columnFilters,
       globalFilter,
+      pagination,
     },
     onColumnFiltersChange: setColumnFilters,
     globalFilterFn: fuzzyFilter,
@@ -315,6 +320,8 @@ export function TableEquipos({
     getPaginationRowModel: getPaginationRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    onPaginationChange: setPagination,
+    autoResetPageIndex: false,
   });
   return (
     <Container>

@@ -35,6 +35,10 @@ export function TableUsuarios({
 
   const [columnFilters, setColumnFilters] = useState([]);
   const [setPagina] = useState(1);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 20,
+  });
   const { deleteUser, activeUser } = useUserStore();
   const editar = (data) => {
     if (activeUser.roles.nombre !== "Administrador") {
@@ -80,7 +84,7 @@ export function TableUsuarios({
     {
       accessorKey: "nombre",
       header: "Nombre",
-      
+
       cell: (info) => (
         <td
           data-title="Nombre"
@@ -139,6 +143,7 @@ export function TableUsuarios({
     state: {
       columnFilters,
       globalFilter,
+      pagination,
     },
     onColumnFiltersChange: setColumnFilters,
     globalFilterFn: fuzzyFilter,
@@ -148,6 +153,8 @@ export function TableUsuarios({
     getPaginationRowModel: getPaginationRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    onPaginationChange: setPagination,
+    autoResetPageIndex: false,
   });
   return (
     <Container>
@@ -215,8 +222,6 @@ export function TableUsuarios({
     </Container>
   );
 }
-
-
 
 const Container = styled.div`
   position: relative;

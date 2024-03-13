@@ -35,6 +35,10 @@ export function TableModelos({
 
   const [columnFilters, setColumnFilters] = useState([]);
   const [setPagina] = useState(1);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 20,
+  });
   const { deleteUser, activeUser } = useUserStore();
   const editar = (data) => {
     if (activeUser.roles.nombre !== "Administrador") {
@@ -138,6 +142,7 @@ export function TableModelos({
     state: {
       columnFilters,
       globalFilter,
+      pagination,
     },
     onColumnFiltersChange: setColumnFilters,
     globalFilterFn: fuzzyFilter,
@@ -147,6 +152,8 @@ export function TableModelos({
     getPaginationRowModel: getPaginationRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    onPaginationChange: setPagination,
+    autoResetPageIndex: false,
   });
   return (
     <Container>

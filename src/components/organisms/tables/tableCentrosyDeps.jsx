@@ -14,9 +14,8 @@ import { FaSortDown, FaSortUp } from "react-icons/fa";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import {
-  useCentrosStore,
   useDepartamentosStore,
-  useUserStore,
+  useUserStore
 } from "../../../store/index";
 import { v } from "../../../styles/index";
 import { TableActions } from "../index";
@@ -41,6 +40,10 @@ export function TableCentrosyDeps({
   const [setPagina] = useState(1);
   const { borrarDepartamentosyCentros } = useDepartamentosStore();
   const { activeUser } = useUserStore();
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 20,
+  });
 
   const editar = (data) => {
     if (activeUser.rol_id !== 1) {
@@ -132,6 +135,7 @@ export function TableCentrosyDeps({
     state: {
       columnFilters,
       globalFilter,
+      pagination,
     },
     onColumnFiltersChange: setColumnFilters,
     globalFilterFn: fuzzyFilter,
@@ -141,6 +145,8 @@ export function TableCentrosyDeps({
     getPaginationRowModel: getPaginationRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    onPaginationChange: setPagination,
+    autoResetPageIndex: false,  
   });
   return (
     <Container>

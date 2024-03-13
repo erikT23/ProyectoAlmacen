@@ -35,6 +35,10 @@ export function TableCentros({
 
   const [columnFilters, setColumnFilters] = useState([]);
   const [setPagina] = useState(1);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 20,
+  });
   const { borrarCentros } = useCentrosStore();
   const { activeUser } = useUserStore();
 
@@ -116,6 +120,7 @@ export function TableCentros({
     state: {
       columnFilters,
       globalFilter,
+      pagination,
     },
     onColumnFiltersChange: setColumnFilters,
     globalFilterFn: fuzzyFilter,
@@ -125,6 +130,8 @@ export function TableCentros({
     getPaginationRowModel: getPaginationRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    onPaginationChange: setPagination,
+    autoResetPageIndex: false,
   });
   return (
     <Container>

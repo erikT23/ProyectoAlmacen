@@ -35,6 +35,10 @@ export function TableMarcas({
 
   const [columnFilters, setColumnFilters] = useState([]);
   const [setPagina] = useState(1);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 20,
+  });
   const { borrarMarcas } = useMarcasStore();
   const { activeUser } = useUserStore();
   const editar = (data) => {
@@ -122,6 +126,7 @@ export function TableMarcas({
     state: {
       columnFilters,
       globalFilter,
+      pagination,
     },
     onColumnFiltersChange: setColumnFilters,
     globalFilterFn: fuzzyFilter,
@@ -131,6 +136,8 @@ export function TableMarcas({
     getPaginationRowModel: getPaginationRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    onPaginationChange: setPagination,
+    autoResetPageIndex: false,
   });
   return (
     <Container>

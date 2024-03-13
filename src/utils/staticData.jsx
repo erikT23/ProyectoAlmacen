@@ -13,6 +13,11 @@ import maya from "../assets/maya.png";
 import grand from "../assets/grand.png";
 import centros from "../assets/centros.png";
 import departamentos from "../assets/departamentos.png";
+import DepCent from "../assets/DepCent.png";
+
+
+
+DepCent
 
 export const DesplegableUser = [
   {
@@ -105,7 +110,7 @@ export const DataModulosConfiguracion = [
   {
     title: "Departamentos en centros",
     subtitle: "Gestiona la relacion entre los departamentos y los centros",
-    icono: departamentos,
+    icono: DepCent,
     link: "/configurar/centrosydepartamentos",
   },
   {
