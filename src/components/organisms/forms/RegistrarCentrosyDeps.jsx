@@ -55,7 +55,6 @@ export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
         departamento_id: data.departamento_id,
         centro_id: data.centro_id,
       };
-      console.log(p, "data");
       await editarDepartamentosyCentros(p);
       Swal.fire({
         icon: "success",
@@ -68,7 +67,6 @@ export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
         departamento_id: data.departamento_id,
         centro_id: data.centro_id,
       };
-      console.log(p, "data insertar");
       await insertarDepartamentosyCentros(p);
       Swal.fire({
         icon: "success",

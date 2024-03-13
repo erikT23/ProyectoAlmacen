@@ -5,12 +5,12 @@ import {
 } from "react-icons/io";
 import styled from "styled-components";
 
-export function Paginacion({ table, pagina, maximo,  }) {
+export function Paginacion({ table, pagina, maximo, irinicio }) {
   return (
     <Container>
       <button
         disabled={!table.getCanPreviousPage()}
-        onClick={() => table.firstPage()}
+        onClick={() => irinicio()}
       >
         <span className="iconos">
           <IoIosUndo />
