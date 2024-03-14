@@ -22,11 +22,9 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   const [marcaId, setMarcaId] = useState(null);
   const { insertarEquipos, editEquipos, showMonitores, dataMonitores } =
     useEquiposStore();
-  console.log("dataMonitores", dataMonitores);
   const { showModelos, modelosData } = useModelosStore();
   const { showTipos, tiposData } = useTiposStore();
-  const { mostrarDepartamentosyCentros, dataDepartamentosyCentros } =
-    useDepartamentosStore();
+  const { mostrarDepartamentosyCentros } = useDepartamentosStore();
   const { showCentros, centrosData } = useCentrosStore();
   const { showEstados, estadosData } = useEstadoStore();
   const [departamentos, setDepartamentos] = useState([]);
@@ -354,16 +352,13 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       required: true,
                     })}
                     onChange={(e) => {
-                      const selectedCentro = dataDepartamentosyCentros.find(
-                        (centros) => centros.id === Number(e.target.value)
+                      const selectedCentro = centrosData.find(
+                        (centro) => centro.id === Number(e.target.value)
                       );
                       console.log("selectedCentro", selectedCentro);
                       setDepartamentos(
-                        selectedCentro
-                          ? selectedCentro.departamentos.nombre
-                          : []
+                        selectedCentro ? selectedCentro.departamentos : []
                       );
-                      console.log("departamentos", departamentos);
                     }}
                   >
                     <option value="">-- Seleccione un centro --</option>

@@ -2,7 +2,9 @@ import Swal from "sweetalert2";
 import { supabase } from "./index";
 
 export const ShowCentros = async () => {
-  const { error, data } = await supabase.from("centros").select("*");
+  const { error, data } = await supabase
+    .from("centros")
+    .select("id,nombres,departamentos(id,nombre)");
   if (data) {
     return data;
   }
