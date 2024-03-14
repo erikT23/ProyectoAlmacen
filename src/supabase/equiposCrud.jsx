@@ -48,6 +48,8 @@ export const InsertEquipos = async (p) => {
       modelo_id: p.modelo_id,
       centro_id: p.centro_id,
       estado_id: p.estado_id,
+      departamento_id: p.departamento_id,
+      monitor_id: p.monitor_id,
     },
   ]);
   if (error) {
@@ -60,6 +62,7 @@ export const InsertEquipos = async (p) => {
 };
 
 export const EditEquipos = async (p) => {
+  console.log("p en crud", p);
   const { error } = await supabase
     .from("equipos")
     .update({
@@ -76,6 +79,8 @@ export const EditEquipos = async (p) => {
       modelo_id: p.modelo_id,
       centro_id: p.centro_id,
       estado_id: p.estado_id,
+      departamento_id: p.departamento_id,
+      monitor_id: p.monitor_id,
     })
     .eq("id", p.id);
   if (error) {

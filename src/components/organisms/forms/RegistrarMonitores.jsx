@@ -18,7 +18,7 @@ import { Capitalize } from "../../../utils/Conversiones";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
 
-export function RegistrarEquipos({ onClose, dataSelect, accion }) {
+export function RegistrarMonitores({ onClose, dataSelect, accion }) {
   const { insertarEquipos, editEquipos, showMonitores, dataMonitores } =
     useEquiposStore();
   const { showModelos, modelosData } = useModelosStore();
@@ -96,7 +96,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         direccion_ip: data.direccion_ip,
         tipo_id: tipoId,
         modelo_id: data.modelo_id,
-        monitor_id: data.monitor_id,
         marca_id: marcaId,
         centro_id: data.centro_id,
         estado_id: data.estado_id,
@@ -126,7 +125,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         marca_id: marcaId,
         centro_id: data.centro_id,
         estado_id: data.estado_id,
-        monitor_id: data.monitor_id,
         departamento_id: data.departamento_id,
       };
       console.log("p", p);
@@ -383,7 +381,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                 <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
                   <select
                     className="form__field"
-                    {...register("monitor_id")}
+                    {...register("monitor_serie")}
                   >
                     <option value="">-- Seleccione un monitor --</option>
                     {dataMonitores.map((monitor, index) => (

@@ -24,3 +24,4 @@ export function Equipos() {
   }
   return <EquiposTemplate data={dataEquipos} />;
 }
+

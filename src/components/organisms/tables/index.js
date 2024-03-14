@@ -6,5 +6,6 @@ export { TableDepartamentos } from './tableDepartamentos';
 export { TableEquipos } from './tableEquipos';
 export { TableMarcas } from './tableMarcas';
 export { TableModelos } from './tableModelos';
+export { TableMonitores } from './tableMonitores';
 export { TableTest } from './tableTest';
 export { TableUsuarios } from './tableUsuarios';

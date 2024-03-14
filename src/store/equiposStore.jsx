@@ -55,6 +55,7 @@ export const useEquiposStore = create((set, get) => ({
   },
 
   editEquipos: async (p) => {
+    console.log("p en store", p);
     await EditEquipos(p);
     const { mostrarEquipos } = get();
     const { parametros } = get();

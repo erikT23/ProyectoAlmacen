@@ -3,7 +3,6 @@ export { Centrosydepartamentos } from './Centrosydepartamentos';
 export { Configuracion } from './Configuracion';
 export { Departamentos } from './Departamentos';
 export { Equipos } from './Equipos';
-export { EquiposComunes } from './EquiposComunes';
 export { Home } from './Home';
 export { Login } from './Login';
 export { Marca } from './Marca';

@@ -8,8 +8,8 @@ import { BtnAdd } from "../molecules/index";
 import {
   Header,
   InputRetraso,
-  RegistrarEquipos,
-  TableEquipos,
+  RegistrarMonitores,
+  TableMonitores,
 } from "../organisms/index";
 
 export function MonitoresTemplate({ data }) {
@@ -36,7 +36,7 @@ export function MonitoresTemplate({ data }) {
   return (
     <Container>
       {openRegistro && (
-        <RegistrarEquipos
+        <RegistrarMonitores
           dataSelect={dataSelect}
           accion={accion}
           onClose={() => setopenRegistro(!openRegistro)}
@@ -50,7 +50,7 @@ export function MonitoresTemplate({ data }) {
       </header>
       <section className="area1">
         <ContentFiltro>
-          <Title>Equipos</Title>
+          <Title>Monitores</Title>
           <BtnAdd
             bgColor={"#be1d1d"}
             textColor={"#000"}
@@ -67,7 +67,7 @@ export function MonitoresTemplate({ data }) {
         />{" "}
       </section>
       <section className="main">
-        <TableEquipos
+        <TableMonitores
           data={data}
           setopenRegistro={setopenRegistro}
           setdataSelect={setdataSelect}
