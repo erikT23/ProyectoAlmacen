@@ -1,10 +1,17 @@
 import styled from "styled-components";
 import { v } from "../../styles/index";
 import { CardData } from "../molecules/index";
-import { useTestStore } from "../../store/index";
+import { useEquiposStore, useTestStore } from "../../store/index";
+import { useQuery } from "@tanstack/react-query";
 
 export function Banner() {
   const { datatest, testcount } = useTestStore();
+  const { countComunes, countComunesData } = useEquiposStore();
+  console.log(countComunesData, "countComunesData");
+  useQuery({
+    queryKey: ["countComunes"],
+    queryFn: () => countComunes(),
+  });
   return (
     <Container>
       <div className="content-wrapper-context">
@@ -20,8 +27,12 @@ export function Banner() {
             numSerie={"Nombre " + datatest?.nombre}
           />
           <CardData
-            title="count test"
+            title="Equipos en comunes"
             numSerie={testcount[0]?.permisos?.[0]?.count}
+          />
+          <CardData
+            title="Equipos en comunes"
+            numSerie={countComunesData}
           />
         </ContentCards>
       </div>

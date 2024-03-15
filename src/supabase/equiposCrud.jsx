@@ -236,3 +236,21 @@ export const ShowMonitoresByEquipo = async (p) => {
     text: "error en el show equipos by monitor crud " + error.message,
   });
 };
+
+export const CountEquiposComunes = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .eq("centro_id", 3)
+    .neq("tipo_id", 3);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};

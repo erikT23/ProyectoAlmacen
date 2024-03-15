@@ -95,11 +95,11 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         direccion_ip: data.direccion_ip,
         tipo_id: tipoId,
         modelo_id: data.modelo_id,
-        monitor_id: data.monitor_id,
         marca_id: marcaId,
         centro_id: data.centro_id,
         estado_id: data.estado_id,
         departamento_id: data.departamento_id,
+        monitor_id: data.monitor_id ? data.monitor_id : null,
       };
 
       await editEquipos(p);
@@ -124,8 +124,8 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         marca_id: marcaId,
         centro_id: data.centro_id,
         estado_id: data.estado_id,
-        monitor_id: data.monitor_id,
         departamento_id: data.departamento_id,
+        monitor_id: data.monitor_id ? data.monitor_id : null,
       };
       await insertarEquipos(p);
       Swal.fire({

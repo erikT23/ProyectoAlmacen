@@ -17,7 +17,7 @@ export function CardData({ title, numSerie }) {
 
 const Container = styled.div`
   .card {
-    width: 190px;
+    width: auto;
     background: ${(props) => props.theme.bgcards};
     padding: 1rem;
     border-radius: 1rem;
