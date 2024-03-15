@@ -70,7 +70,6 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
   };
 
   async function insertar(data) {
-    console.log("data", data);
     // Verificar si el usuario tiene permiso para insertar un equipo en el centro especificado
     if (activeUser.rol_id !== 1) {
       // 1 es el ID del rol "Administrador"
@@ -101,7 +100,6 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
         estado_id: data.estado_id,
         departamento_id: data.departamento_id,
       };
-      console.log("p", p);
 
       await editEquipos(p);
       Swal.fire({
@@ -127,7 +125,6 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
         estado_id: data.estado_id,
         departamento_id: data.departamento_id,
       };
-      console.log("p", p);
       await insertarEquipos(p);
       Swal.fire({
         icon: "success",
@@ -306,7 +303,6 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
                         selectedModelo ? selectedModelo.marca_id : null
                       );
                       setTipoId(selectedModelo ? selectedModelo.tipo_id : null);
-                      console.log("selectedModelo", selectedModelo);
                     }}
                   >
                     <option value="">-- Seleccione un modelo --</option>
@@ -334,7 +330,6 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
                       const selectedCentro = centrosData.find(
                         (centro) => centro.id === Number(e.target.value)
                       );
-                      console.log("selectedCentro", selectedCentro);
                       setDepartamentos(
                         selectedCentro ? selectedCentro.departamentos : []
                       );
@@ -377,26 +372,7 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
                   {errors.option?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>
-              <article>
-                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
-                  <select
-                    className="form__field"
-                    {...register("monitor_serie")}
-                  >
-                    <option value="">-- Seleccione un monitor --</option>
-                    {dataMonitores.map((monitor, index) => (
-                      <option
-                        key={index}
-                        value={monitor.id}
-                      >
-                        {monitor.numSerie}
-                      </option>
-                    ))}
-                  </select>
-                  <label className="form__label">Monitor</label>
-                  {errors.option?.type === "required" && <p>Campo requerido</p>}
-                </InputText>
-              </article>
+              
               <article>
                 <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
                   <select

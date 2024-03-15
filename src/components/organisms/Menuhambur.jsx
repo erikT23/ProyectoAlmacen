@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { LinksArray, SecondarylinksArray } from "../../index";
+import { LinksArray } from "../../index";
 import { v } from "../../styles/index";
 import { ToggleTema } from "../organisms/index";
 
@@ -54,23 +54,7 @@ export function MenuHambur() {
             </div>
           ))}
           <Divider />
-          {SecondarylinksArray.map(({ icon, label, to }) => (
-            <div
-              onClick={() => {
-                setClick(!click);
-              }}
-              className="LinkContainer"
-              key={label}
-            >
-              <NavLink
-                to={to}
-                className="Links"
-              >
-                <div className="Linkicon">{icon}</div>
-                <span>{label}</span>
-              </NavLink>
-            </div>
-          ))}
+
           <ToggleTema />
           <Divider />
         </Menu>

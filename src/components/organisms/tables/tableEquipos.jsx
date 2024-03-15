@@ -258,13 +258,16 @@ export function TableEquipos({
     {
       accessorKey: "monitor_id",
       header: "Monitor",
-    
       cell: (info) => (
         <td
           data-title="Monitor Serie"
           className="ContentCell"
         >
-          <span>{info.row.original.monitor_id.numSerie || "N/A"}</span>
+          <span>
+            {info.row.original.monitor
+              ? info.row.original.monitor.numSerie
+              : "N/A"}
+          </span>
         </td>
       ),
     },

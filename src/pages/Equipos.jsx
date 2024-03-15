@@ -5,7 +5,7 @@ import { EquiposTemplate } from "../components/templates/index";
 import { useEquiposStore } from "../store/index";
 
 export function Equipos() {
-  const { dataEquipos, showEquiposComunes } = useEquiposStore();
+  const { dataSinMonitor, showEquiposComunes } = useEquiposStore();
 
   const { isLoading, error } = useQuery({
     queryKey: ["mostrar Equipos"],
@@ -22,6 +22,6 @@ export function Equipos() {
       text: "Error al cargar los datos " + error,
     });
   }
-  return <EquiposTemplate data={dataEquipos} />;
+  console.log(dataSinMonitor, "dataEquipos");
+  return <EquiposTemplate data={dataSinMonitor} />;
 }
-

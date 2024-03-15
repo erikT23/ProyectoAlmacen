@@ -62,7 +62,6 @@ export const InsertEquipos = async (p) => {
 };
 
 export const EditEquipos = async (p) => {
-  console.log("p en crud", p);
   const { error } = await supabase
     .from("equipos")
     .update({
@@ -104,21 +103,43 @@ export const DeleteEquipos = async (p) => {
 };
 
 export const ShowEquiposComunes = async () => {
-  const { error, data } = await supabase
+  const { error, data: equiposData } = await supabase
     .from("equipos")
     .select(
       "*,tipos(nombres),modelos(nombre,marcas(nombre)),centros(nombres),estados(nombre),departamentos(nombre)"
     )
     .neq("tipo_id", 3);
 
-  if (data) {
-    return data;
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error show equipos by centro",
+      text: "error en el show equipos by centro crud " + error.message,
+    });
+    return;
   }
-  Swal.fire({
-    icon: "error",
-    title: " Error show equipos by centro",
-    text: "error en el show equipos by centro crud " + error.message,
+
+  const { error: monitorError, data: monitoresData } = await supabase
+    .from("equipos")
+    .select("id,numSerie");
+
+  if (monitorError) {
+    Swal.fire({
+      icon: "error",
+      title: " Error show monitores",
+      text: "error en el show monitores crud " + monitorError.message,
+    });
+    return;
+  }
+
+  const equiposConMonitores = equiposData.map((equipo) => {
+    const monitor = monitoresData.find(
+      (monitor) => monitor.id === equipo.monitor_id
+    );
+    return { ...equipo, monitor };
   });
+
+  return equiposConMonitores;
 };
 
 export const ShowEquiposByEstado = async (p) => {
@@ -198,5 +219,20 @@ export const ShowMonitores = async () => {
     icon: "error",
     title: " Error show equipos by centro",
     text: "error en el show equipos by centro crud " + error.message,
+  });
+};
+
+export const ShowMonitoresByEquipo = async (p) => {
+  const { error, data } = await supabase
+    .from("equipos")
+    .select("id,numSerie")
+    .eq("monitor_id", p.monitor_id);
+  if (data) {
+    return data;
+  }
+  Swal.fire({
+    icon: "error",
+    title: " Error show equipos by monitor",
+    text: "error en el show equipos by monitor crud " + error.message,
   });
 };

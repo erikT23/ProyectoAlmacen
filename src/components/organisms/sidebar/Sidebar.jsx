@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { LinksArray, SecondarylinksArray } from "../../../index";
+import { LinksArray } from "../../../index";
 import { v } from "../../../styles/index";
 import { ToggleTema } from "../../organisms/index";
 
@@ -42,23 +42,7 @@ export function Sidebar({ state, setState }) {
           </div>
         ))}
         <Divider />
-        {SecondarylinksArray.map(({ icon, label, to }) => (
-          <div
-            className={state ? "LinkContainer active" : "LinkContainer"}
-            key={label}
-          >
-            <NavLink
-              to={to}
-              className={({ isActive }) => `Links${isActive ? ` active` : ``}`}
-            >
-              <div className="Linkicon">{icon}</div>
-              <span className={state ? "label_ver" : "label_oculto"}>
-                {label}
-              </span>
-            </NavLink>
-          </div>
-        ))}
-         <Divider />
+
         <ToggleTema />
       </Container>
     </Main>
@@ -185,8 +169,7 @@ const Main = styled.div`
     height: 32px;
     border-radius: 50%;
     background: ${(props) => props.theme.bgtgderecha};
-    box-shadow:
-      0 0 4px ${(props) => props.theme.bg3},
+    box-shadow: 0 0 4px ${(props) => props.theme.bg3},
       0 0 7px ${(props) => props.theme.bg};
     display: flex;
     align-items: center;
