@@ -44,7 +44,7 @@ const Datauser = styled.div`
   position: relative;
   top: 0;
   right: 0;
-  width: 200px;
+  width: auto;
   display: flex;
   justify-content: center;
   align-items: center;

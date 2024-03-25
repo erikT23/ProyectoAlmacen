@@ -11,7 +11,7 @@ import monitores from "../assets/monitor.png";
 import usaurio from "../assets/usaurio.png";
 import { v } from "../styles/index";
 
-DepCent;
+
 
 export const DesplegableUser = [
   {
@@ -39,7 +39,7 @@ export const LinksArray = [
     to: "/configurar",
   },
   {
-    label: "Reportes",
+    label: "Bitacora",
     icon: <v.iconoreportes />,
     to: "/reportess",
   },
@@ -95,12 +95,7 @@ export const DataModulosConfiguracion = [
     icono: DepCent,
     link: "/configurar/centrosydepartamentos",
   },
-  {
-    title: "tests",
-    subtitle: "gestiona tus marcas",
-    icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
-    link: "/configurar/marca",
-  },
+  
 ];
 
 export const MenuMarcasData = [

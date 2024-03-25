@@ -13,19 +13,3 @@ export const ShowTipos = async () => {
   });
 };
 
-export const SearchTipos = async (p) => {
-    const { error, data } = await supabase
-      .from("marcas")
-      .select()
-      .ilike("nombre", "%" + p.nombre + "%");
-    if (error) {
-      Swal.fire({
-        icon: "error",
-        title: " Error search marcas",
-        text: "error en el search marcas crud" + error.message,
-      });
-     
-    }
-  
-    return data;
-  };

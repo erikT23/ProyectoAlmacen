@@ -9,5 +9,5 @@ export { CountModelos, DeleteModelos, EditModelos, InsertModelos, SearchModelos,
 export { ShowRoles } from './rolesCrud';
 export { supabase } from './supabase.config';
 export { CountTest, DeleteTest, EditTest, InsertTest, InsertWithIDTest, SearchTest, ShowTest } from './testCrud';
-export { SearchTipos, ShowTipos } from './tiposCrud';
+export { ShowTipos } from './tiposCrud';
 export { DeleteUser, EditUser, InsertUser, ShowAllUsers, ShowUsers } from './usersCrud';

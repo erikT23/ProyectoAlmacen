@@ -7,7 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 export function Banner() {
   const { datatest, testcount } = useTestStore();
   const { countComunes, countComunesData } = useEquiposStore();
-  console.log(countComunesData, "countComunesData");
   useQuery({
     queryKey: ["countComunes"],
     queryFn: () => countComunes(),

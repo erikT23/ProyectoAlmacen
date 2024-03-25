@@ -4,7 +4,6 @@ import { GetIdAuthSupabase } from "./index";
 
 export const InsertUser = async (p) => {
   const { data, error } = await supabase
-
     .from("usuarios")
     .insert(p)
     .select()

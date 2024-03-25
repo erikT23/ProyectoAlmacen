@@ -151,8 +151,10 @@ export function TableEquipos({
     {
       accessorKey: "marcas.nombre",
       header: "Marca",
+      enableColumnFilter: false,
       cell: (info) => (
         <td
+          style={{ width: "100px" }}
           data-title="Marca"
           className="ContentCell"
         >

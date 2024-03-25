@@ -14,16 +14,19 @@ export const ShowMarcas = async () => {
 };
 
 export const CountMarcas = async () => {
-  const { data, error } = await supabase.from("marcas").select(`marcas(count)`);
-
-  if (data) {
-    return data;
+  const { count, error } = await supabase
+    .from("marcas")
+    .select("*", { count: "exact", head: true });
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
   }
-  Swal.fire({
-    icon: "error",
-    title: " Error count marcas",
-    text: "error en el count marcas crud " + error.message,
-  });
+
+  return count;
 };
 
 export const InsertMarcas = async (p) => {
@@ -74,9 +77,7 @@ export const SearchMarcas = async (p) => {
       title: " Error search marcas",
       text: "error en el search marcas crud" + error.message,
     });
-   
   }
 
   return data;
 };
-

@@ -22,6 +22,5 @@ export function Equipos() {
       text: "Error al cargar los datos " + error,
     });
   }
-  console.log(dataSinMonitor, "dataEquipos");
   return <EquiposTemplate data={dataSinMonitor} />;
 }

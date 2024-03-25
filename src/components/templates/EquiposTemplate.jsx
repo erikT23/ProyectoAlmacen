@@ -13,7 +13,6 @@ import {
 } from "../organisms/index";
 
 export function EquiposTemplate({ data }) {
-  console.log(data, "data template")
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");
