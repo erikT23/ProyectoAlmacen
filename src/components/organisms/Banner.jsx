@@ -1,33 +1,54 @@
-import styled from "styled-components";
-import { v } from "../../styles/index";
-import { CardData } from "../molecules/index";
-import { useEquiposStore, useTestStore } from "../../store/index";
 import { useQuery } from "@tanstack/react-query";
+import styled from "styled-components";
+import { useEquiposStore } from "../../store/index";
+import { CardData } from "../molecules/index";
 
 export function Banner() {
-  const { datatest, testcount } = useTestStore();
-  const { countComunes, countComunesData } = useEquiposStore();
+  const {
+    countComunes,
+    countComunesData,
+    countmbData,
+    countMB,
+    countlmData,
+    countLm,
+  } = useEquiposStore();
   useQuery({
     queryKey: ["countComunes"],
     queryFn: () => countComunes(),
   });
+
+  useQuery({
+    queryKey: ["countmb"],
+    queryFn: () => countMB(),
+  });
+
+  useQuery({
+    queryKey: ["countlm"],
+    queryFn: () => countLm(),
+  });
   return (
     <Container>
       <div className="content-wrapper-context">
-        <span className="titulo">
-          {<v.iconoempresa />}
-          {datatest.users?.nombre}
-        </span>
-        <div className="content-text">{datatest.users?.rol}</div>
-
         <ContentCards>
           <CardData
-            title={"Numero de id " + datatest?.id}
-            numSerie={"Nombre " + datatest?.nombre}
+            title="Equipos en Lindo y Maya"
+            numSerie={countlmData}
+          />
+           <CardData
+            title="Equipos en Grand"
+            numSerie={countlmData}
+          />
+           <CardData
+            title="Equipos en Club"
+            numSerie={countlmData}
+          />
+           <CardData
+            title="Equipos en Bodega"
+            numSerie={countlmData}
           />
           <CardData
-            title="Equipos en comunes"
-            numSerie={testcount[0]?.permisos?.[0]?.count}
+            title="Equipos en Mar y Beach"
+            numSerie={countmbData}
           />
           <CardData
             title="Equipos en comunes"

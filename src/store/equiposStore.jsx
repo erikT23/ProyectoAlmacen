@@ -2,6 +2,8 @@ import { create } from "zustand";
 import {
   CountEquipos,
   CountEquiposComunes,
+  CountEquiposLm,
+  CountEquiposMB,
   DeleteEquipos,
   EditEquipos,
   InsertEquipos,
@@ -79,6 +81,22 @@ export const useEquiposStore = create((set, get) => ({
   countComunes: async () => {
     const response = await CountEquiposComunes();
     set({ countComunesData: response });
+    return response;
+  },
+
+  countmbData: [],
+
+  countMB: async () => {
+    const response = await CountEquiposMB();
+    set({ countmbData: response });
+    return response;
+  },
+
+  countlmData: [],
+
+  countLm: async () => {
+    const response = await CountEquiposLm();
+    set({ countlmData: response });
     return response;
   },
 }));

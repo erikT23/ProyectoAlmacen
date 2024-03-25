@@ -254,3 +254,93 @@ export const CountEquiposComunes = async () => {
 
   return count;
 };
+
+export const CountEquiposMB = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .in("centro_id", [4, 6])
+    .neq("tipo_id", 3);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
+
+export const CountEquiposLm = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .in("centro_id", [5, 7])
+    .neq("tipo_id", 3);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
+
+export const CountEquiposGhp = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .eq("centro_id", 1)
+    .neq("tipo_id", 3);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
+
+export const CountEquiposImx = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .eq("centro_id", 2)
+    .neq("tipo_id", 3);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
+
+export const CountEquiposBodega = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .eq("centro_id", 3)
+    .neq("tipo_id", 3);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
