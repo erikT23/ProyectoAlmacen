@@ -254,6 +254,23 @@ export const CountEquiposComunes = async () => {
 
   return count;
 };
+export const CountMonitoresComunes = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .eq("centro_id", 3)
+    .eq("tipo_id", 3);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
 
 export const CountEquiposMB = async () => {
   const { count, error } = await supabase
@@ -261,6 +278,24 @@ export const CountEquiposMB = async () => {
     .select("*", { count: "exact", head: true })
     .in("centro_id", [4, 6])
     .neq("tipo_id", 3);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
+
+export const CountMonitoresMb = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .in("centro_id", [4, 6])
+    .eq("tipo_id", 3);
   if (error) {
     Swal.fire({
       icon: "error",
@@ -291,6 +326,41 @@ export const CountEquiposLm = async () => {
   return count;
 };
 
+export const CountMonitoresLm = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .in("centro_id", [5, 7])
+    .eq("tipo_id", 3);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
+
+export const CountMonitoresGhp = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .eq("centro_id", 1)
+    .eq("tipo_id", 3);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
 export const CountEquiposGhp = async () => {
   const { count, error } = await supabase
     .from("equipos")
@@ -327,12 +397,50 @@ export const CountEquiposImx = async () => {
   return count;
 };
 
+export const CountMonitoresImx = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .eq("centro_id", 2)
+    .eq("tipo_id", 3);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
+
 export const CountEquiposBodega = async () => {
   const { count, error } = await supabase
     .from("equipos")
     .select("*", { count: "exact", head: true })
     .eq("centro_id", 3)
+    .eq("departamento_id", 79)
     .neq("tipo_id", 3);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
+
+export const CountMonitoresBodega = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .eq("centro_id", 3)
+    .eq("departamento_id", 79)
+    .eq("tipo_id", 3);
   if (error) {
     Swal.fire({
       icon: "error",

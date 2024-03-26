@@ -1,9 +1,18 @@
 import { create } from "zustand";
 import {
   CountEquipos,
+  CountEquiposBodega,
   CountEquiposComunes,
+  CountEquiposGhp,
+  CountEquiposImx,
   CountEquiposLm,
   CountEquiposMB,
+  CountMonitoresBodega,
+  CountMonitoresComunes,
+  CountMonitoresGhp,
+  CountMonitoresImx,
+  CountMonitoresLm,
+  CountMonitoresMb,
   DeleteEquipos,
   EditEquipos,
   InsertEquipos,
@@ -97,6 +106,71 @@ export const useEquiposStore = create((set, get) => ({
   countLm: async () => {
     const response = await CountEquiposLm();
     set({ countlmData: response });
+    return response;
+  },
+
+  countimxData: [],
+  countImx: async () => {
+    const response = await CountEquiposImx();
+    set({ countimxData: response });
+    return response;
+  },
+
+  countghpData: [],
+  countGhp: async () => {
+    const response = await CountEquiposGhp();
+    set({ countghpData: response });
+    return response;
+  },
+
+  countbodegaComunesData: [],
+
+  countBodegaComunes: async () => {
+    const response = await CountEquiposBodega();
+    set({ countbodegaComunesData: response });
+    return response;
+  },
+
+  countMonitorLmData: [],
+
+  countMonitorLm: async () => {
+    const response = await CountMonitoresLm();
+    set({ countMonitorLmData: response });
+    return response;
+  },
+
+  countMonitorGhpData: [],
+  countMonitorGhp: async () => {
+    const response = await CountMonitoresGhp();
+    set({ countMonitorGhpData: response });
+    return response;
+  },
+
+  countMonitorClubData: [],
+  countMonitorClub: async () => {
+    const response = await CountMonitoresImx();
+    set({ countMonitorClubData: response });
+    return response;
+  },
+
+  countMonitorBodegaData: [],
+  countMonitorBodega: async () => {
+    const response = await CountMonitoresBodega();
+    set({ countMonitorBodegaData: response });
+    return response;
+  },
+
+  countMonitorMbData: [],
+  countMonitorMb: async () => {
+    const response = await CountMonitoresMb();
+    set({ countMonitorMbData: response });
+    return response;
+  },
+
+  countMonitorComunesData: [],
+  countMonitorComunes: async () => {
+    const response = await CountMonitoresComunes();
+    set({ countMonitorComunesData: response });
     return response;
   },
 }));

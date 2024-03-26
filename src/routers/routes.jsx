@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { ErrorCard, SpinnerLoader } from "../components/molecules/index";
 import { ProtectedRoutes, UserAuth } from "../index";
 import {
+  Bitacora,
   Centros,
   Centrosydepartamentos,
   Configuracion,
@@ -71,6 +72,10 @@ export function MyRoutes() {
         <Route
           path="/configurar"
           element={<Configuracion />}
+        />
+        <Route
+          path="/bitacora"
+          element={<Bitacora />}
         />
         <Route
           path="/configurar/marca"

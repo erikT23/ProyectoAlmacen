@@ -14,11 +14,7 @@ import { v } from "../styles/index";
 
 
 export const DesplegableUser = [
-  {
-    text: "Mi perfil",
-    icono: <v.iconoUser />,
-    tipo: "miperfil",
-  },
+ 
   {
     text: "Cerrar sesión",
     icono: <v.iconoCerrarSesion />,
@@ -41,7 +37,7 @@ export const LinksArray = [
   {
     label: "Bitacora",
     icon: <v.iconoreportes />,
-    to: "/reportess",
+    to: "/bitacora",
   },
 ];
 //temas

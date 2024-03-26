@@ -1,3 +1,4 @@
+export { BitacoraTemplate } from './BitacoraTemplate';
 export { CentrosTemplate } from './CentrosTemplate';
 export { CentrosydepartamentosTemplate } from './CentrosydepartamentosTemplate';
 export { ConfiguracionTemplate } from './ConfiguracionTemplate';

@@ -1,3 +1,4 @@
+export { Bitacora } from './Bitacora';
 export { Centros } from './Centros';
 export { Centrosydepartamentos } from './Centrosydepartamentos';
 export { Configuracion } from './Configuracion';
