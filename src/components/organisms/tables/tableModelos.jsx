@@ -106,14 +106,14 @@ export function TableModelos({
       ),
     },
     {
-      accessorKey: "tipos.nombres",
+      accessorKey: "tipos.nombre",
       header: "tipo",
       cell: (info) => (
         <td
           data-title="tipo"
           className="ContentCell"
         >
-          <span>{info.row.original.tipos.nombres}</span>
+          <span>{info.row.original.tipos.nombre}</span>
         </td>
       ),
     },

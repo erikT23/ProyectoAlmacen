@@ -4,7 +4,7 @@ import { supabase } from "./index";
 export const ShowCentros = async () => {
   const { error, data } = await supabase
     .from("centros")
-    .select("id,nombres,departamentos(id,nombre)");
+    .select("id,nombre,departamentos(id,nombre)");
   if (data) {
     return data;
   }
@@ -18,7 +18,7 @@ export const ShowCentros = async () => {
 export const InsertCentros = async (p) => {
   const { error } = await supabase
     .from("centros")
-    .insert([{ nombres: p.nombres }]);
+    .insert([{ nombre: p.nombre }]);
   if (error) {
     Swal.fire({
       icon: "error",

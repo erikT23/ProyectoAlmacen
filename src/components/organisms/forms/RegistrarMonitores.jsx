@@ -312,7 +312,7 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
                         value={modelo.id}
                       >
                         {modelo.nombre} ({modelo.marcas.nombre})(
-                        {modelo.tipos.nombres})
+                        {modelo.tipos.nombre})
                       </option>
                     ))}
                   </select>
@@ -341,7 +341,7 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
                         key={index}
                         value={centro.id}
                       >
-                        {centro.nombres}
+                        {centro.nombre}
                       </option>
                     ))}
                   </select>

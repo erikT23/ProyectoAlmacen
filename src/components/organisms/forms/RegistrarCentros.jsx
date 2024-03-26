@@ -37,7 +37,7 @@ export function RegistrarCentros({ onClose, dataSelect, accion }) {
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,
-        nombres: data.nombres,
+        nombre: data.nombre,
       };
       await EditCentros(p);
       Swal.fire({
@@ -48,7 +48,7 @@ export function RegistrarCentros({ onClose, dataSelect, accion }) {
       onClose();
     } else {
       const p = {
-        nombres: data.nombres,
+        nombre: data.nombre,
       };
       await InsertCentros(p);
       Swal.fire({
@@ -91,15 +91,15 @@ export function RegistrarCentros({ onClose, dataSelect, accion }) {
                 <InputText icono={<v.iconomarca />}>
                   <input
                     className="form__field"
-                    defaultValue={dataSelect.nombres}
+                    defaultValue={dataSelect.nombre}
                     type="text"
                     placeholder=""
-                    {...register("nombres", {
+                    {...register("nombre", {
                       required: true,
                     })}
                   />
                   <label className="form__label">Nombre del Centro:</label>
-                  {errors.nombres?.type === "required" && (
+                  {errors.nombre?.type === "required" && (
                     <p>Campo requerido</p>
                   )}
                 </InputText>

@@ -5,7 +5,7 @@ export const ShowEquipos = async () => {
   const { error, data } = await supabase
     .from("equipos")
     .select(
-      "*,tipos(nombres),modelos(nombre,marcas(nombre)),centros(nombres),estados(nombre),departamentos(nombre)"
+      "*,tipos(nombre),modelos(nombre,marcas(nombre)),centros(nombre),estados(nombre),departamentos(nombre)"
     );
   if (data) {
     return data;
@@ -106,7 +106,7 @@ export const ShowEquiposComunes = async () => {
   const { error, data: equiposData } = await supabase
     .from("equipos")
     .select(
-      "*,tipos(nombres),modelos(nombre,marcas(nombre)),centros(nombres),estados(nombre),departamentos(nombre)"
+      "*,tipos(nombre),modelos(nombre,marcas(nombre)),centros(nombre),estados(nombre),departamentos(nombre)"
     )
     .neq("tipo_id", 3);
 
@@ -176,7 +176,7 @@ export const ShowEquiposByMarca = async (p) => {
   const { error, data } = await supabase
     .from("equipos")
     .select(
-      "*,tipos(nombres),marcas(nombre),centros(nombres),estados(nombre),departamentos(nombre)"
+      "*,tipos(nombre),marcas(nombre),centros(nombre),estados(nombre),departamentos(nombre)"
     )
     .eq("marca_id", p.marca_id);
   if (data) {
@@ -208,7 +208,7 @@ export const ShowMonitores = async () => {
   const { error, data } = await supabase
     .from("equipos")
     .select(
-      "*,tipos(nombres),modelos(nombre,marcas(nombre)),centros(nombres),estados(nombre),departamentos(nombre)"
+      "*,tipos(nombre),modelos(nombre,marcas(nombre)),centros(nombre),estados(nombre),departamentos(nombre)"
     )
     .eq("tipo_id", 3);
 

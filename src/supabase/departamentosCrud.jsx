@@ -16,7 +16,7 @@ export const ShowDepartamentos = async () => {
 export const ShowDepartamentosyCentros = async () => {
   const { error, data } = await supabase
     .from("departamentos_en_centros")
-    .select("id,departamentos(id,nombre),centros(id,nombres)");
+    .select("id,departamentos(id,nombre),centros(id,nombre)");
   if (data) {
     return data;
   }

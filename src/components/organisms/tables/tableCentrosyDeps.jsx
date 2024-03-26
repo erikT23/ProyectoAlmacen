@@ -86,14 +86,14 @@ export function TableCentrosyDeps({
   };
   const columns = [
     {
-      accessorKey: "centros.nombres",
+      accessorKey: "centros.nombre",
       header: "Nombre Centros",
       cell: (info) => (
         <td
           data-title="Nombre Centro"
           className="ContentCell"
         >
-          <span>{info.row.original.centros.nombres}</span>
+          <span>{info.row.original.centros.nombre}</span>
         </td>
       ),
     },
