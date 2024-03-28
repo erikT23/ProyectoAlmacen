@@ -83,7 +83,7 @@ export function TableCentros({
   };
   const columns = [
     {
-      accessorKey: "nombres",
+      accessorKey: "nombre",
       header: "Nombre Centro",
       cell: (info) => (
         <td

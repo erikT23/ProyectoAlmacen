@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-export function CardData({ title, numSerie }) {
+export function CardData({ title, numserie }) {
   return (
     <Container>
       <div className="card">
         <div className="data-block-content">
           <p className="name">{title}</p>
           <div className="serial-block">
-            <p className="serial-value">{numSerie}</p>
+            <p className="serial-value">{numserie}</p>
           </div>
         </div>
       </div>

@@ -98,7 +98,7 @@ export function TableMonitores({
   };
   const columns = [
     {
-      accessorKey: "nombre_equipo",
+      accessorKey: "nombre",
       header: "Nombre Equipo",
       cell: (info) => (
         <td
@@ -136,7 +136,7 @@ export function TableMonitores({
       ),
     },
     {
-      accessorKey: "numSerie",
+      accessorKey: "numserie",
       header: "Numero de Serie",
       cell: (info) => (
         <td
@@ -182,7 +182,7 @@ export function TableMonitores({
           data-title="Centro"
           className="ContentCell"
         >
-          <span>{info.row.original.centros.nombres}</span>
+          <span>{info.row.original.centros.nombre}</span>
         </td>
       ),
     },
@@ -257,7 +257,7 @@ export function TableMonitores({
     },
 
     {
-      accessorKey: "tipos.nombres",
+      accessorKey: "tipos.nombre",
       header: "Tipo",
       enableColumnFilter: false,
 
@@ -266,7 +266,7 @@ export function TableMonitores({
           data-title="Tipo"
           className="ContentCell"
         >
-          <span>{info.row.original.tipos.nombres}</span>
+          <span>{info.row.original.tipos.nombre}</span>
         </td>
       ),
     },

@@ -141,7 +141,7 @@ export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
                         key={index}
                         value={centros.id}
                       >
-                        {centros.nombres}
+                        {centros.nombre}
                       </option>
                     ))}
                   </select>

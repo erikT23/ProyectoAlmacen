@@ -88,7 +88,7 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
         nombre_equipo: Capitalize(data.nombre_equipo),
         nombre_usuario: Capitalize(data.nombre_usuario),
         apellido_usuario: Capitalize(data.apellido_usuario),
-        numSerie: data.numSerie,
+        numserie: data.numserie,
         inicio_garantia: data.inicio_garantia,
         fin_garantia: data.fin_garantia,
         sistema_operativo: Capitalize(data.sistema_operativo),
@@ -113,7 +113,7 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
         nombre_equipo: Capitalize(data.nombre_equipo),
         nombre_usuario: Capitalize(data.nombre_usuario),
         apellido_usuario: Capitalize(data.apellido_usuario),
-        numSerie: data.numSerie,
+        numserie: data.numserie,
         inicio_garantia: data.inicio_garantia,
         fin_garantia: data.fin_garantia,
         sistema_operativo: Capitalize(data.sistema_operativo),
@@ -209,13 +209,13 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
                 <InputText icono={<v.iconomarca />}>
                   <input
                     className="form__field"
-                    defaultValue={dataSelect.numSerie}
+                    defaultValue={dataSelect.numserie}
                     type="text"
                     placeholder=""
-                    {...register("numSerie", {})}
+                    {...register("numserie", {})}
                   />
                   <label className="form__label">Numero de serie:</label>
-                  {errors.numSerie?.type === "required" && (
+                  {errors.numserie?.type === "required" && (
                     <p>Campo requerido</p>
                   )}
                 </InputText>
@@ -312,7 +312,7 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
                         value={modelo.id}
                       >
                         {modelo.nombre} ({modelo.marcas.nombre})(
-                        {modelo.tipos.nombres})
+                        {modelo.tipos.nombre})
                       </option>
                     ))}
                   </select>
@@ -341,7 +341,7 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
                         key={index}
                         value={centro.id}
                       >
-                        {centro.nombres}
+                        {centro.nombre}
                       </option>
                     ))}
                   </select>

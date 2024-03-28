@@ -94,55 +94,55 @@ export function Banner() {
         <ContentCards>
           <CardData
             title="Equipos en Lindo y Maya"
-            numSerie={countlmData}
+            numserie={countlmData}
           />
           <CardData
             title="Equipos en Grand"
-            numSerie={countghpData}
+            numserie={countghpData}
           />
           <CardData
             title="Equipos en Club"
-            numSerie={countimxData}
+            numserie={countimxData}
           />
 
           <CardData
             title="Equipos en Bodega"
-            numSerie={countbodegaComunesData}
+            numserie={countbodegaComunesData}
           />
           <CardData
             title="Equipos en Mar y Beach"
-            numSerie={countmbData}
+            numserie={countmbData}
           />
           <CardData
             title="Equipos en comunes"
-            numSerie={countComunesData}
+            numserie={countComunesData}
           />
         </ContentCards>
         <ContentCards>
           <CardData
             title="Monitores en Lindo y Maya"
-            numSerie={countMonitorLmData}
+            numserie={countMonitorLmData}
           />
           <CardData
             title="Monitores en Grand"
-            numSerie={countMonitorGhpData}
+            numserie={countMonitorGhpData}
           />
           <CardData
             title="Monitores en Club"
-            numSerie={countMonitorClubData}
+            numserie={countMonitorClubData}
           />
 
           <CardData
             title="Monitores en Bodega"
-            numSerie={countMonitorBodegaData}
+            numserie={countMonitorBodegaData}
           />
           <CardData
             title="Monitores en Mar y Beach"
-            numSerie={countMonitorMbData}
+            numserie={countMonitorMbData}
           />
           <CardData
             title="Monitores en comunes"
-            numSerie={countMonitorComunesData}
+            numserie={countMonitorComunesData}
           />
         </ContentCards>
       </div>

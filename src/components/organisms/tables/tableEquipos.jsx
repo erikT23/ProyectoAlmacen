@@ -98,7 +98,7 @@ export function TableEquipos({
   };
   const columns = [
     {
-      accessorKey: "nombre_equipo",
+      accessorKey: "nombre",
       header: "Nombre Equipo",
       cell: (info) => (
         <td
@@ -136,7 +136,7 @@ export function TableEquipos({
       ),
     },
     {
-      accessorKey: "numSerie",
+      accessorKey: "numserie",
       header: "Numero de Serie",
       cell: (info) => (
         <td
@@ -184,7 +184,7 @@ export function TableEquipos({
           data-title="Centro"
           className="ContentCell"
         >
-          <span>{info.row.original.centros.nombres}</span>
+          <span>{info.row.original.centros.nombre}</span>
         </td>
       ),
     },
@@ -267,14 +267,14 @@ export function TableEquipos({
         >
           <span>
             {info.row.original.monitor
-              ? info.row.original.monitor.numSerie
+              ? info.row.original.monitor.numserie
               : "N/A"}
           </span>
         </td>
       ),
     },
     {
-      accessorKey: "tipos.nombres",
+      accessorKey: "tipos.nombre",
       header: "Tipo",
       enableColumnFilter: false,
 
@@ -283,7 +283,7 @@ export function TableEquipos({
           data-title="Tipo"
           className="ContentCell"
         >
-          <span>{info.row.original.tipos.nombres}</span>
+          <span>{info.row.original.tipos.nombre}</span>
         </td>
       ),
     },
