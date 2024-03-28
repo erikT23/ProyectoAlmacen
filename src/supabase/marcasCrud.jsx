@@ -2,7 +2,10 @@ import Swal from "sweetalert2";
 import { supabase } from "./index";
 
 export const ShowMarcas = async () => {
-  const { error, data } = await supabase.from("marcas").select(`id,nombre`);
+  const { error, data } = await supabase
+    .from("marcas")
+    .select(`id,nombre`)
+    .order("nombre", { ascending: true });
   if (data) {
     return data;
   }

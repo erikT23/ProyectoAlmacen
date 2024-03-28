@@ -44,6 +44,7 @@ export const useModelosStore = create((set, get) => ({
   },
 
   insertarModelos: async (p) => {
+    console.log(p, "p insertar");
     await InsertModelos(p);
     const { mostrarModelos } = get();
     const { parametros } = get();
@@ -63,6 +64,4 @@ export const useModelosStore = create((set, get) => ({
     const { parametros } = get();
     set(mostrarModelos(parametros));
   },
-
-  
 }));

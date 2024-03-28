@@ -10,11 +10,22 @@ import { v } from "../../../styles/variables";
 import { Capitalize } from "../../../utils/Conversiones";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "../../organisms/index";
+import { RiLockPasswordLine } from "react-icons/ri";
+import { useQuery } from "@tanstack/react-query";
 
 export function RegistrarModelos({ onClose, dataSelect, accion }) {
   const { insertarModelos, editModelos } = useModelosStore();
-  const { data: marcasData } = useMarcasStore();
-  const { data: tiposData } = useTiposStore();
+  const { dataMarcas, mostrarMarcas } = useMarcasStore();
+  const { showTipos, tiposData } = useTiposStore();
+
+  useQuery({
+    queryKey: ["mostrar marcas"],
+    queryFn: () => mostrarMarcas(),
+  });
+  useQuery({
+    queryKey: ["mostrar tipos"],
+    queryFn: () => showTipos(),
+  });
 
   const {
     register,
@@ -26,12 +37,16 @@ export function RegistrarModelos({ onClose, dataSelect, accion }) {
       const p = {
         id: dataSelect.id,
         nombre: Capitalize(data.nombre),
+        marca_id: Number(data.marca_id),
+        tipo_id: Number(data.tipo_id),
       };
       await editModelos(p);
       onClose();
     } else {
       const p = {
         nombre: Capitalize(data.nombre),
+        marca_id: Number(data.marca_id),
+        tipo_id: Number(data.tipo_id),
       };
       await insertarModelos(p);
       onClose();
@@ -78,7 +93,48 @@ export function RegistrarModelos({ onClose, dataSelect, accion }) {
               </InputText>
             </article>
             <article>
-              
+              <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                <select
+                  className="form__field"
+                  {...register("marca_id", {
+                    required: true,
+                  })}
+                >
+                  <option value="">-- Seleccione una Marca --</option>
+                  {dataMarcas.map((marca, index) => (
+                    <option
+                      key={index}
+                      value={marca.id}
+                    >
+                      {marca.nombre}
+                    </option>
+                  ))}
+                </select>
+                <label className="form__label">Marca</label>
+                {errors.option?.type === "required" && <p>Campo requerido</p>}
+              </InputText>
+            </article>
+            <article>
+              <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                <select
+                  className="form__field"
+                  {...register("tipo_id", {
+                    required: true,
+                  })}
+                >
+                  <option value="">-- Seleccione u Tipo --</option>
+                  {tiposData.map((tipo, index) => (
+                    <option
+                      key={index}
+                      value={tipo.id}
+                    >
+                      {tipo.nombre}
+                    </option>
+                  ))}
+                </select>
+                <label className="form__label">Tipo</label>
+                {errors.option?.type === "required" && <p>Campo requerido</p>}
+              </InputText>
             </article>
             <div className="btnguardarContent">
               <Btnsave

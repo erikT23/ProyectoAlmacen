@@ -35,7 +35,7 @@ export const CountEquipos = async () => {
 export const InsertEquipos = async (p) => {
   const { error } = await supabase.from("equipos").insert([
     {
-      nombre_equipo: p.nombre_equipo,
+      nombre: p.nombre,
       nombre_usuario: p.nombre_usuario,
       apellido_usuario: p.apellido_usuario,
       numserie: p.numserie,
@@ -65,7 +65,7 @@ export const EditEquipos = async (p) => {
   const { error } = await supabase
     .from("equipos")
     .update({
-      nombre_equipo: p.nombre_equipo,
+      nombre: p.nombre,
       nombre_usuario: p.nombre_usuario,
       apellido_usuario: p.apellido_usuario,
       numserie: p.numserie,

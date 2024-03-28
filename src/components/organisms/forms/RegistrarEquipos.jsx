@@ -85,7 +85,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,
-        nombre_equipo: Capitalize(data.nombre_equipo),
+        nombre: Capitalize(data.nombre),
         nombre_usuario: Capitalize(data.nombre_usuario),
         apellido_usuario: Capitalize(data.apellido_usuario),
         numserie: data.numserie,
@@ -111,7 +111,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
       onClose();
     } else {
       const p = {
-        nombre_equipo: Capitalize(data.nombre_equipo),
+        nombre: Capitalize(data.nombre),
         nombre_usuario: Capitalize(data.nombre_usuario),
         apellido_usuario: Capitalize(data.apellido_usuario),
         numserie: data.numserie,
@@ -166,13 +166,13 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                 <InputText icono={<v.iconomarca />}>
                   <input
                     className="form__field"
-                    defaultValue={dataSelect.nombre_equipo}
+                    defaultValue={dataSelect.nombre}
                     type="text"
                     placeholder=""
-                    {...register("nombre_equipo", {})}
+                    {...register("nombre", {})}
                   />
                   <label className="form__label">Nombre del equipo:</label>
-                  {errors.nombre_equipo?.type === "required" && (
+                  {errors.nombre?.type === "required" && (
                     <p>Campo requerido</p>
                   )}
                 </InputText>

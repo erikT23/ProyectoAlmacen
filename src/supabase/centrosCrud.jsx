@@ -4,7 +4,8 @@ import { supabase } from "./index";
 export const ShowCentros = async () => {
   const { error, data } = await supabase
     .from("centros")
-    .select("id,nombre,departamentos(id,nombre)");
+    .select("id,nombre,departamentos(id,nombre)")
+    .order("nombre", { ascending: true });
   if (data) {
     return data;
   }

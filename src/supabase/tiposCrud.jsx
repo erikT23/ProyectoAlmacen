@@ -2,7 +2,10 @@ import Swal from "sweetalert2";
 import { supabase } from "./index";
 
 export const ShowTipos = async () => {
-  const { error, data } = await supabase.from("tipos").select(`*`);
+  const { error, data } = await supabase
+    .from("tipos")
+    .select(`*`)
+    .order("nombre", { ascending: true });
   if (data) {
     return data;
   }
@@ -12,4 +15,3 @@ export const ShowTipos = async () => {
     text: "error en el show tipos crud " + error.message,
   });
 };
-

@@ -4,7 +4,8 @@ import { supabase } from "./index";
 export const ShowModelos = async () => {
   const { data, error } = await supabase
     .from("modelos")
-    .select("*,marcas(nombre),tipos(nombre)");
+    .select("*,marcas(nombre),tipos(nombre)")
+    .order("nombre", { ascending: true });
   if (data) {
     return data;
   }
@@ -34,9 +35,7 @@ export const CountModelos = async () => {
 export const InsertModelos = async (p) => {
   const { error } = await supabase
     .from("modelos")
-    .insert([
-      { nombre: p.nombre, marcas_id: p.marcas_id, tipos_id: p.tipos_id },
-    ])
+    .insert([{ nombre: p.nombre, marca_id: p.marca_id, tipo_id: p.tipo_id }])
     .select();
 
   if (error) {
@@ -102,4 +101,4 @@ export const ShowModelosByMarca = async (p) => {
     title: " Error show modelos by marca",
     text: "error en el show modelos by marca crud " + error.message,
   });
-}
+};
