@@ -50,7 +50,7 @@ export const InsertModelos = async (p) => {
 export const EditModelos = async (p) => {
   const { error } = await supabase
     .from("modelos")
-    .update({ nombre: p.nombre, marcas_id: p.marcas_id, tipos_id: p.tipos_id })
+    .update({ nombre: p.nombre, marca_id: p.marca_id, tipo_id: p.tipo_id })
     .eq("id", p.id);
   if (error) {
     Swal.fire({
@@ -92,7 +92,7 @@ export const ShowModelosByMarca = async (p) => {
   const { data, error } = await supabase
     .from("modelos")
     .select("nombre")
-    .eq("marcas_id", p);
+    .eq("marca_id", p);
   if (data) {
     return data;
   }
