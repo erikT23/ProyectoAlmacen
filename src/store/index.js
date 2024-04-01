@@ -2,6 +2,7 @@ export { useAuthStore } from './AuthStore';
 export { useRolesStore } from './RolesStore';
 export { useTestStore } from './TestStore';
 export { useUserStore } from './UsersStore';
+export { useBitacoraStore } from './bitacoraStore';
 export { useCentrosStore } from './centrosStore';
 export { useDepartamentosStore } from './departamentosStore';
 export { useEquiposStore } from './equiposStore';
