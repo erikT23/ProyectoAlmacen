@@ -13,7 +13,7 @@ import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { useUserStore } from "../../../store/index";
+import { useModelosStore, useUserStore } from "../../../store/index";
 import { v } from "../../../styles/index";
 import { TableActions } from "../index";
 import { Filter, Paginacion } from "./index";
@@ -39,7 +39,9 @@ export function TableModelos({
     pageIndex: 0,
     pageSize: 20,
   });
-  const { deleteUser, activeUser } = useUserStore();
+  const { activeUser } = useUserStore();
+  const { borrarModelos } = useModelosStore();
+
   const editar = (data) => {
     if (activeUser.roles.nombre !== "Administrador") {
       return Swal.fire({
@@ -74,7 +76,7 @@ export function TableModelos({
       confirmButtonText: "Si, eliminar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await deleteUser({ idauth: p.idauth });
+        await borrarModelos({ id: p.id });
         Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
       }
     });

@@ -35,8 +35,9 @@ export const CountEquipos = async () => {
 export const InsertEquipos = async (p) => {
   const { error } = await supabase.from("equipos").insert([
     {
-      nombre_equipo: p.nombre_equipo,
+      nombre: p.nombre,
       nombre_usuario: p.nombre_usuario,
+      correo: p.correo,
       apellido_usuario: p.apellido_usuario,
       numserie: p.numserie,
       inicio_garantia: p.inicio_garantia,
@@ -65,8 +66,9 @@ export const EditEquipos = async (p) => {
   const { error } = await supabase
     .from("equipos")
     .update({
-      nombre_equipo: p.nombre_equipo,
+      nombre: p.nombre,
       nombre_usuario: p.nombre_usuario,
+      correo: p.correo,
       apellido_usuario: p.apellido_usuario,
       numserie: p.numserie,
       inicio_garantia: p.inicio_garantia,
@@ -88,6 +90,7 @@ export const EditEquipos = async (p) => {
       title: " Error edit equipos",
       text: "error en el edit equipos crud" + error.message,
     });
+    return error;
   }
 };
 

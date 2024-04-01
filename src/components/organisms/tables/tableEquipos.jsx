@@ -136,6 +136,20 @@ export function TableEquipos({
       ),
     },
     {
+      accessorKey: "correo",
+      header: "Correo Usuario",
+      enableColumnFilter: true,
+
+      cell: (info) => (
+        <td
+          data-title="Correo Usuario"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
+        </td>
+      ),
+    },
+    {
       accessorKey: "numserie",
       header: "Numero de Serie",
       cell: (info) => (
@@ -149,9 +163,9 @@ export function TableEquipos({
     },
 
     {
-      accessorKey: "marcas.nombre",
+      accessorKey: "modelos.marcas.nombre",
       header: "Marca",
-      enableColumnFilter: false,
+      enableColumnFilter: true,
       cell: (info) => (
         <td
           style={{ width: "100px" }}
@@ -177,7 +191,7 @@ export function TableEquipos({
     {
       accessorKey: "centros.nombre",
       header: "Centro",
-      enableColumnFilter: false,
+      enableColumnFilter: true,
 
       cell: (info) => (
         <td
