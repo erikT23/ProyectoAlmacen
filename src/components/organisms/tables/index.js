@@ -1,5 +1,6 @@
 export { Filter } from './Filtro';
 export { Paginacion } from './paginacion';
+export { TableBitacoras } from './tableBitacoras';
 export { TableCentros } from './tableCentros';
 export { TableCentrosyDeps } from './tableCentrosyDeps';
 export { TableDepartamentos } from './tableDepartamentos';
