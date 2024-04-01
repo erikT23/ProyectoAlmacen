@@ -1,14 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { SpinnerLoader } from "../components/molecules";
 import { BitacoraTemplate } from "../components/templates/index";
-import { useBitacoraStore } from "../store/index";
+import { useBitacoraStore, useTiposStore } from "../store/index";
 
 export function Bitacora() {
   const { bitacoraData, showBitacora } = useBitacoraStore();
 
+  const { tiposData, showTipos } = useTiposStore();
+
+  useQuery({
+    queryKey: ["mostrar tipos"],
+    queryFn: () => showTipos(),
+  });
+
   const { isLoading, error } = useQuery({
-    queryKey: ["mostrar Modelos"],
+    queryKey: ["mostrar bitacora"],
     queryFn: () => showBitacora(),
+    enabled: !!tiposData.length,
   });
 
   if (isLoading) {
@@ -18,5 +26,10 @@ export function Bitacora() {
     return <div>Error al cargar los datos</div>;
   }
 
-  return <BitacoraTemplate data={bitacoraData} />;
+  return (
+    <BitacoraTemplate
+      data={bitacoraData}
+      tipos={tiposData}
+    />
+  );
 }

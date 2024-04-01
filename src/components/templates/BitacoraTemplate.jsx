@@ -1,55 +1,54 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Swal from "sweetalert2";
-import { useUserStore } from "../../store/index";
-import { v } from "../../styles/variables";
-import { ContentFiltro, Title } from "../atoms/index";
-import { BtnAdd } from "../molecules/index";
-import {
-  Header,
-  InputRetraso
-} from "../organisms/index";
-export function BitacoraTemplate({ data }) {
+import { Header, InputRetraso, TableBitacoras } from "../organisms/index";
+export function BitacoraTemplate({ data: bitacoraData, tipos }) {
   const [state, setState] = useState(false);
-  const [dataSelect, setdataSelect] = useState([]);
-  const [accion, setAccion] = useState("");
   const [globalFilter, setGlobalFilter] = useState("");
-  const { activeUser } = useUserStore();
+  const [formattedData, setFormattedData] = useState([]);
 
-  const [openRegistro, setopenRegistro] = useState(false);
-  const nuevoRegistro = () => {
-    if (activeUser.roles.nombre !== "Administrador") {
-      return Swal.fire({
-        icon: "error",
-        title: " Error",
-        text: "Solo un administrador puede agregar usuarios",
+
+  console.log(tipos, "tiposData");
+
+  useEffect(() => {
+    if (bitacoraData && tipos) {
+      const tiposById = {};
+      tipos.forEach((tipo) => {
+        tiposById[tipo.id] = tipo.nombre;
       });
+  
+      const newData = bitacoraData.map((bitacora) => {
+        const dataVieja = bitacora.data_vieja ? JSON.parse(bitacora.data_vieja) : null;
+        const dataNueva = bitacora.data_nueva ? JSON.parse(bitacora.data_nueva) : null;
+  
+        if (dataVieja && dataVieja.tipo_id) {
+          dataVieja.tipo_id = tiposById[dataVieja.tipo_id] || dataVieja.tipo_id;
+        }
+  
+        if (dataNueva && dataNueva.tipo_id) {
+          dataNueva.tipo_id = tiposById[dataNueva.tipo_id] || dataNueva.tipo_id;
+        }
+  
+        return {
+          ...bitacora,
+          fecha: new Date(bitacora.fecha).toLocaleString(),
+          data_vieja: dataVieja ? Object.entries(dataVieja).map(([key, value]) => `${key}: ${value}`).join("\n") : null,
+          data_nueva: dataNueva ? Object.entries(dataNueva).map(([key, value]) => `${key}: ${value}`).join("\n") : null,
+        };
+      });
+  
+      setFormattedData(newData);
     }
-    setopenRegistro(!openRegistro);
-    setAccion("Nuevo");
-    setdataSelect([]);
-  };
+  }, [bitacoraData, tipos]);
+  console.log(bitacoraData, "formattedData");
 
   return (
     <Container>
-     
-
       <header className="header">
         <Header
           stateConfig={{ state: state, setState: () => setState(!state) }}
         />
       </header>
-      <section className="area1">
-        <ContentFiltro>
-          <Title>Bitacora</Title>
-          <BtnAdd
-            bgColor="#be1d1d"
-            textColor="#000"
-            icono={<v.agregar />}
-            funcion={nuevoRegistro}
-          />
-        </ContentFiltro>
-      </section>
+      <section className="area1"></section>
       <section className="area2">
         <InputRetraso
           value={globalFilter ?? ""}
@@ -58,7 +57,10 @@ export function BitacoraTemplate({ data }) {
         />
       </section>
       <section className="main">
-       
+        <TableBitacoras
+          data={formattedData}
+          globalFilter={globalFilter}
+        />
       </section>
     </Container>
   );
