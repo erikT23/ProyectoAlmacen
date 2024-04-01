@@ -25,11 +25,7 @@ export const useUserStore = create((set, get) => ({
     const { data, error } = await supabaseAdmin.auth.admin.createUser({
       email: p.correo,
       password: p.password,
-      options: {
-        data: {
-          rol: p.rol,
-        },
-      },
+      user_metadata: { nombre: p.nombre },
       email_confirm: true,
     });
     if (error) {
@@ -76,7 +72,9 @@ export const useUserStore = create((set, get) => ({
     );
 
     const { error } = await supabaseAdmin.auth.admin.updateUserById(p.idauth, {
+      email: p.correo,
       password: p.password,
+      user_metadata: { nombre: p.nombre },
     });
     if (error) {
       Swal.fire({
