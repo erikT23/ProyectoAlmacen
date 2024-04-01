@@ -136,6 +136,20 @@ export function TableEquipos({
       ),
     },
     {
+      accessorKey: "correo",
+      header: "Correo Usuario",
+      enableColumnFilter: true,
+
+      cell: (info) => (
+        <td
+          data-title="Correo Usuario"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
+        </td>
+      ),
+    },
+    {
       accessorKey: "numserie",
       header: "Numero de Serie",
       cell: (info) => (

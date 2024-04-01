@@ -37,6 +37,7 @@ export const InsertEquipos = async (p) => {
     {
       nombre: p.nombre,
       nombre_usuario: p.nombre_usuario,
+      correo: p.correo,
       apellido_usuario: p.apellido_usuario,
       numserie: p.numserie,
       inicio_garantia: p.inicio_garantia,
@@ -67,6 +68,7 @@ export const EditEquipos = async (p) => {
     .update({
       nombre: p.nombre,
       nombre_usuario: p.nombre_usuario,
+      correo: p.correo,
       apellido_usuario: p.apellido_usuario,
       numserie: p.numserie,
       inicio_garantia: p.inicio_garantia,

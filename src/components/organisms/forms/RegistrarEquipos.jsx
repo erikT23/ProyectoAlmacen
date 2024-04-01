@@ -19,7 +19,6 @@ import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
 
 export function RegistrarEquipos({ onClose, dataSelect, accion }) {
-  console.log(dataSelect, "dataSelect");
   const { insertarEquipos, editEquipos, showMonitores, dataMonitores } =
     useEquiposStore();
   const { showModelos, modelosData } = useModelosStore();
@@ -89,6 +88,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         nombre: Capitalize(data.nombre),
         nombre_usuario: Capitalize(data.nombre_usuario),
         apellido_usuario: Capitalize(data.apellido_usuario),
+        correo: data.correo,
         numserie: data.numserie,
         inicio_garantia: data.inicio_garantia,
         fin_garantia: data.fin_garantia,
@@ -116,6 +116,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         nombre_usuario: Capitalize(data.nombre_usuario),
         apellido_usuario: Capitalize(data.apellido_usuario),
         numserie: data.numserie,
+        correo: data.correo,
         inicio_garantia: data.inicio_garantia,
         fin_garantia: data.fin_garantia,
         sistema_operativo: Capitalize(data.sistema_operativo),
@@ -204,6 +205,19 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   {errors.apellido_usuario?.type === "required" && (
                     <p>Campo requerido</p>
                   )}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<v.iconomarca />}>
+                  <input
+                    className="form__field"
+                    defaultValue={dataSelect.correo}
+                    type="text"
+                    placeholder=""
+                    {...register("correo", { required: true })}
+                  />
+                  <label className="form__label">Correo del usuario:</label>
+                  {errors.correo?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>
               <article>
