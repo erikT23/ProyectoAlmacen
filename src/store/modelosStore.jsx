@@ -63,4 +63,6 @@ export const useModelosStore = create((set, get) => ({
     const { parametros } = get();
     set(mostrarModelos(parametros));
   },
+
+  
 }));

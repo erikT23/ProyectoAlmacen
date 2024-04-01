@@ -88,6 +88,7 @@ export const EditEquipos = async (p) => {
       title: " Error edit equipos",
       text: "error en el edit equipos crud" + error.message,
     });
+    return error;
   }
 };
 

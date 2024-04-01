@@ -149,7 +149,7 @@ export function TableMonitores({
     },
 
     {
-      accessorKey: "marcas.nombre",
+      accessorKey: "modelos.marcas.nombre",
       header: "Marca",
       cell: (info) => (
         <td
@@ -199,34 +199,6 @@ export function TableMonitores({
       ),
     },
     {
-      accessorKey: "sistema_operativo",
-      header: "Sistema Operativo",
-      enableColumnFilter: false,
-
-      cell: (info) => (
-        <td
-          data-title="Sistema Operativo"
-          className="ContentCell"
-        >
-          <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
-    {
-      accessorKey: "direccion_ip",
-      header: "Direccion IP",
-      enableColumnFilter: false,
-
-      cell: (info) => (
-        <td
-          data-title="Direccion ip"
-          className="ContentCell"
-        >
-          <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
-    {
       accessorKey: "inicio_garantia",
       header: "Inicio de Garantia",
       enableColumnFilter: false,
@@ -252,21 +224,6 @@ export function TableMonitores({
           className="ContentCell"
         >
           <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
-
-    {
-      accessorKey: "tipos.nombre",
-      header: "Tipo",
-      enableColumnFilter: false,
-
-      cell: (info) => (
-        <td
-          data-title="Tipo"
-          className="ContentCell"
-        >
-          <span>{info.row.original.tipos.nombre}</span>
         </td>
       ),
     },

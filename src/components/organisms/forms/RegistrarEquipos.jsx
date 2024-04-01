@@ -19,6 +19,7 @@ import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
 
 export function RegistrarEquipos({ onClose, dataSelect, accion }) {
+  console.log(dataSelect, "dataSelect");
   const { insertarEquipos, editEquipos, showMonitores, dataMonitores } =
     useEquiposStore();
   const { showModelos, modelosData } = useModelosStore();
@@ -169,12 +170,10 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     defaultValue={dataSelect.nombre}
                     type="text"
                     placeholder=""
-                    {...register("nombre", {})}
+                    {...register("nombre", { required: true })}
                   />
                   <label className="form__label">Nombre del equipo:</label>
-                  {errors.nombre?.type === "required" && (
-                    <p>Campo requerido</p>
-                  )}
+                  {errors.nombre?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>
               <article>
@@ -184,7 +183,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     defaultValue={dataSelect.nombre_usuario}
                     type="text"
                     placeholder=""
-                    {...register("nombre_usuario", {})}
+                    {...register("nombre_usuario", { required: true })}
                   />
                   <label className="form__label">Nombre del usuario:</label>
                   {errors.nombre_usuario?.type === "required" && (
@@ -199,7 +198,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     defaultValue={dataSelect.apellido_usuario}
                     type="text"
                     placeholder=""
-                    {...register("apellido_usuario", {})}
+                    {...register("apellido_usuario", { required: true })}
                   />
                   <label className="form__label">Apellido del usuario:</label>
                   {errors.apellido_usuario?.type === "required" && (
@@ -214,7 +213,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     defaultValue={dataSelect.numserie}
                     type="text"
                     placeholder=""
-                    {...register("numserie", {})}
+                    {...register("numserie", { required: true })}
                   />
                   <label className="form__label">Numero de serie:</label>
                   {errors.numserie?.type === "required" && (
@@ -307,7 +306,15 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       setTipoId(selectedModelo ? selectedModelo.tipo_id : null);
                     }}
                   >
-                    <option value="">-- Seleccione un modelo --</option>
+                    {dataSelect && dataSelect.modelos ? (
+                      <option value={dataSelect.modelo_id}>
+                        {dataSelect.modelos.nombre} (
+                        {dataSelect.modelos.marcas.nombre})(
+                        {dataSelect.tipos.nombre})
+                      </option>
+                    ) : (
+                      <option value="">-- Seleccione un modelo --</option>
+                    )}
                     {modelosData.map((modelo) => (
                       <option
                         key={modelo.id}
@@ -337,7 +344,13 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       );
                     }}
                   >
-                    <option value="">-- Seleccione un centro --</option>
+                    {dataSelect && dataSelect.centros ? (
+                      <option value={dataSelect.centro_id}>
+                        {dataSelect.centros.nombre}
+                      </option>
+                    ) : (
+                      <option value="">-- Seleccione un centro --</option>
+                    )}
                     {centrosData.map((centro, index) => (
                       <option
                         key={index}
@@ -360,13 +373,19 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       setValueAs: (value) => parseInt(value, 10),
                     })}
                   >
-                    <option value="">-- Seleccione un departamento --</option>
-                    {departamentos.map((departamentos, index) => (
+                    {dataSelect && dataSelect.departamentos ? (
+                      <option value={dataSelect.departamento_id}>
+                        {dataSelect.departamentos.nombre}
+                      </option>
+                    ) : (
+                      <option value="">-- Seleccione un departamento --</option>
+                    )}
+                    {departamentos.map((departamento, index) => (
                       <option
                         key={index}
-                        value={departamentos.id}
+                        value={departamento.id}
                       >
-                        {departamentos.nombre}
+                        {departamento.nombre}
                       </option>
                     ))}
                   </select>
@@ -381,14 +400,20 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     {...register("monitor_id")}
                   >
                     <option value="">-- Seleccione un monitor --</option>
-                    {dataMonitores.map((monitor, index) => (
-                      <option
-                        key={index}
-                        value={monitor.id}
-                      >
-                        {monitor.numserie}
-                      </option>
-                    ))}
+                    {dataMonitores
+                      .filter(
+                        (monitor) =>
+                          !monitor.equipoId ||
+                          monitor.equipoId === dataSelect.equipoId
+                      )
+                      .map((monitor, index) => (
+                        <option
+                          key={index}
+                          value={monitor.id}
+                        >
+                          {monitor.numserie}
+                        </option>
+                      ))}
                   </select>
                   <label className="form__label">Monitor</label>
                   {errors.option?.type === "required" && <p>Campo requerido</p>}
@@ -402,7 +427,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       required: true,
                     })}
                   >
-                    <option value="">-- Seleccione un estado --</option>
                     {estadosData.map((estado, index) => (
                       <option
                         key={index}

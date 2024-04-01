@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -7,23 +8,20 @@ import {
   useTiposStore,
 } from "../../../store/index";
 import { v } from "../../../styles/variables";
-import { Capitalize } from "../../../utils/Conversiones";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "../../organisms/index";
-import { RiLockPasswordLine } from "react-icons/ri";
-import { useQuery } from "@tanstack/react-query";
 
 export function RegistrarModelos({ onClose, dataSelect, accion }) {
   const { insertarModelos, editModelos } = useModelosStore();
-  const { dataMarcas, mostrarMarcas } = useMarcasStore();
+  const { mostrarMarcas, dataMarcas } = useMarcasStore();
   const { showTipos, tiposData } = useTiposStore();
 
   useQuery({
-    queryKey: ["mostrar marcas"],
+    queryKey: ["data de marcas"],
     queryFn: () => mostrarMarcas(),
   });
   useQuery({
-    queryKey: ["mostrar tipos"],
+    queryKey: ["data de marcas"],
     queryFn: () => showTipos(),
   });
 
@@ -36,17 +34,17 @@ export function RegistrarModelos({ onClose, dataSelect, accion }) {
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,
-        nombre: Capitalize(data.nombre),
-        marca_id: Number(data.marca_id),
-        tipo_id: Number(data.tipo_id),
+        nombre: data.nombre,
+        marca_id: data.marca_id,
+        tipo_id: data.tipo_id,
       };
       await editModelos(p);
       onClose();
     } else {
       const p = {
-        nombre: Capitalize(data.nombre),
-        marca_id: Number(data.marca_id),
-        tipo_id: Number(data.tipo_id),
+        nombre: data.nombre,
+        marca_id: data.marca_id,
+        tipo_id: data.tipo_id,
       };
       await insertarModelos(p);
       onClose();
@@ -56,7 +54,7 @@ export function RegistrarModelos({ onClose, dataSelect, accion }) {
     // eslint-disable-next-line no-empty
     if (accion === "Editar") {
     }
-  }, []);
+  });
   return (
     <Container>
       <div className="sub-contenedor">
@@ -93,47 +91,45 @@ export function RegistrarModelos({ onClose, dataSelect, accion }) {
               </InputText>
             </article>
             <article>
-              <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+              <InputText icono={<v.iconomarca />}>
                 <select
                   className="form__field"
                   {...register("marca_id", {
                     required: true,
                   })}
                 >
-                  <option value="">-- Seleccione una Marca --</option>
-                  {dataMarcas.map((marca, index) => (
+                  <option value="">-- Seleccione una Marca--</option>
+                  {dataMarcas.map((marca) => (
                     <option
-                      key={index}
+                      key={marca.id}
                       value={marca.id}
                     >
                       {marca.nombre}
                     </option>
                   ))}
                 </select>
-                <label className="form__label">Marca</label>
-                {errors.option?.type === "required" && <p>Campo requerido</p>}
+                <label className="form__label">Marca:</label>
               </InputText>
             </article>
             <article>
-              <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+              <InputText icono={<v.iconomarca />}>
                 <select
                   className="form__field"
                   {...register("tipo_id", {
                     required: true,
                   })}
                 >
-                  <option value="">-- Seleccione u Tipo --</option>
-                  {tiposData.map((tipo, index) => (
+                  <option value="">-- Seleccione un Tipo --</option>
+                  {tiposData.map((tipo) => (
                     <option
-                      key={index}
+                      key={tipo.id}
                       value={tipo.id}
                     >
                       {tipo.nombre}
                     </option>
                   ))}
                 </select>
-                <label className="form__label">Tipo</label>
-                {errors.option?.type === "required" && <p>Campo requerido</p>}
+                <label className="form__label">Tipo:</label>
               </InputText>
             </article>
             <div className="btnguardarContent">

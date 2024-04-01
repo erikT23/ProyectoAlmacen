@@ -149,9 +149,9 @@ export function TableEquipos({
     },
 
     {
-      accessorKey: "marcas.nombre",
+      accessorKey: "modelos.marcas.nombre",
       header: "Marca",
-      enableColumnFilter: false,
+      enableColumnFilter: true,
       cell: (info) => (
         <td
           style={{ width: "100px" }}
@@ -177,7 +177,7 @@ export function TableEquipos({
     {
       accessorKey: "centros.nombre",
       header: "Centro",
-      enableColumnFilter: false,
+      enableColumnFilter: true,
 
       cell: (info) => (
         <td
