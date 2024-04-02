@@ -5,11 +5,11 @@ import { useMarcasStore } from "../store";
 import Swal from "sweetalert2";
 
 export function Marcas() {
-  const { mostrarMarcas, dataMarcas, searchMarcas, marcasTest, buscador } =
+  const { mostrarMarcas, dataMarcas, searchMarcas, marcasData, buscador } =
     useMarcasStore();
   const { isLoading, error } = useQuery({
-    queryKey: ["mostrar Marcassss", { id: marcasTest?.id }],
-    queryFn: () => mostrarMarcas({ id: marcasTest?.id }),
+    queryKey: ["mostrar Marcassss", { id: marcasData?.id }],
+    queryFn: () => mostrarMarcas({ id: marcasData?.id }),
   });
 
   useQuery({
