@@ -3,7 +3,10 @@ import styled from "styled-components";
 import { useEquiposStore } from "../../store/index";
 import { CardData } from "../molecules/index";
 
+// componente de la seccion de banner, muestra la cantidad de equipos y monitores en cada area, para expandirlo se necesitan crear las consultas y el store para hacer las peticiones
+
 export function Banner() {
+  // importacion de los metodos del store para hacer las peticiones
   const {
     countComunes,
     countComunesData,
@@ -90,7 +93,9 @@ export function Banner() {
   });
   return (
     <Container>
-      <div className="content-wrapper-context">
+      <div
+      // se pasa la informacion a el componente de la card para que se muestre en la pantalla, numserie es referente a la informacion que se le pasa y puede ser cualquier tipo de dato
+      className="content-wrapper-context">
         <ContentCards>
           <CardData
             title="Equipos en Lindo y Maya"

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Header, InputRetraso, TableBitacoras } from "../organisms/index";
+import { Header, TableBitacoras } from "../organisms/index";
 export function BitacoraTemplate({
   data: bitacoraData,
   tipos,

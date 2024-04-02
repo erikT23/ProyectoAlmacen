@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { v } from "../../styles/index";
 import { Icono } from "../index";
 
+// componente de la lista desplegable para el header
+
 export function ListaMenuDesplegable({ data, top, funcion }) {
   return (
     <Container top={top}>

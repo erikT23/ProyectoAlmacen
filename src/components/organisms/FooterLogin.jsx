@@ -1,6 +1,7 @@
 import { GiPadlock } from "react-icons/gi";
 import styled from "styled-components";
 
+// componente del footer del login, toma el año de forma automatica
 export function FooterLogin() {
   return (
     <Container>

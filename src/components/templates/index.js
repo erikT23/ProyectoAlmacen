@@ -6,7 +6,6 @@ export { DepartamentosTemplate } from './DepartamentosTemplate';
 export { EquiposTemplate } from './EquiposTemplate';
 export { HomeTemplate } from './HomeTemplate';
 export { LoginTemplate } from './LoginTemplate';
-export { MarcaTemplate } from './MarcaTemplate';
 export { MarcasTemplate } from './MarcasTemplate';
 export { MenuInventarioTemplate } from './MenuInventarioTemplate';
 export { MenuMarcasTemplate } from './MenuMarcasTemplate';

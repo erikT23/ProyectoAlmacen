@@ -11,7 +11,6 @@ import {
   Equipos,
   Home,
   Login,
-  Marca,
   Marcas,
   MenuInventario,
   MenuMarcas,
@@ -77,10 +76,7 @@ export function MyRoutes() {
           path="/bitacora"
           element={<Bitacora />}
         />
-        <Route
-          path="/configurar/marca"
-          element={<Marca />}
-        />
+
         <Route
           path="/configurar/usuarios"
           element={<Usuarios />}

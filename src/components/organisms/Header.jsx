@@ -4,6 +4,8 @@ import { useAuthStore } from "../../store/index";
 import { DesplegableUser } from "../../utils/staticData";
 import { ListaMenuDesplegable } from "./index";
 
+// componente para el header que muestra el correo del usuario logeado y la opcion para cerrar sesion
+
 export function Header({ stateConfig }) {
   const { signOut } = useAuthStore();
   const { user } = UserAuth();
