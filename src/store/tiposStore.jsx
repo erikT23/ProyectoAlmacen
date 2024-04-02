@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { ShowTipos, ShowTiposById } from "../supabase/index";
 
+// store para mostrar los tipos funcionamiento especifico en el store de equipos
 export const useTiposStore = create((set) => ({
   tiposData: [],
 

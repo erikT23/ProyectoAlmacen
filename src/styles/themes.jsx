@@ -1,3 +1,5 @@
+// variables para el control de colores en las diferentes secciones de la pagina y son usados en los css al final del codigo
+
 export const Light = {
   rgbafondoanimado: "rgba(102, 102, 102, 0.2)",
   body: "#fff",

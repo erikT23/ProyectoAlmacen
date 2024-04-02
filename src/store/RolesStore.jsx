@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { ShowRoles } from "../supabase/index";
+// store para mostrar los roles funcionamiento especifico en el store de equipos
 
 export const useRolesStore = create((set) => ({
   rolesData: [],

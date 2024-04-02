@@ -1,5 +1,6 @@
 import { supabase } from "../index";
 
+// funcion para obtener el id del usuario autenticado llama la informacion de la sesion de supabase y asigna el id del usuario a una variable
 export const GetIdAuthSupabase = async () => {
   const {
     data: { session },

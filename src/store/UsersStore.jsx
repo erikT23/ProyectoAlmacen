@@ -9,7 +9,12 @@ import {
   ShowUsers,
 } from "../supabase/index";
 
+// store para el manejo de los usuarios
+
 export const useUserStore = create((set, get) => ({
+  /*
+  en esta funcion se llama a un cliente de supabase que pueda acceder a las funciones de administracion de supabase llamado supabaseadmin, se crea un usuario con los datos que se le pasan en el parametro p, se inserta el usuario en la base de datos de supabase y se inserta en la base de datos de la aplicacion, se cierra la sesion del usuario y se retorna el usuario insertado
+  */
   insertAdminUser: async (p) => {
     const supabaseAdmin = createClient(
       import.meta.env.VITE_APP_SUPABASE_URL,
@@ -48,6 +53,8 @@ export const useUserStore = create((set, get) => ({
 
     return dataUser;
   },
+
+  // se crea una variable userData que es un arreglo vacio que recibira los datos de los usuarios, se llama de forma asincrona la consulta de la base de datos y se setea la respuesta en las variables
   userData: [],
   item: [],
   parametros: {},
@@ -59,6 +66,7 @@ export const useUserStore = create((set, get) => ({
     return response;
   },
 
+  // para la edicion del usuario se crea el cliente administrador y se llama a la funcion para acttualizar usuarios con su id, el id ya llega con los parametros a la funcion, y se le pasan los datos a actualizar 
   editUser: async (p) => {
     const supabaseAdmin = createClient(
       import.meta.env.VITE_APP_SUPABASE_URL,
@@ -83,6 +91,7 @@ export const useUserStore = create((set, get) => ({
         text: "error al editar el usuario en supabase " + error.message,
       });
     }
+    // se crea una variable pWithoutPassword que es un objeto que recibe todos los datos de p menos la contraseña, se llama a la funcion de editar usuario y se le pasa el objeto pWithoutPassword, se llama a la funcion de mostrar todos los usuarios y se le pasa el parametro de la busqueda de usuarios
     const pWithoutPassword = { ...p };
     delete pWithoutPassword.password;
     await EditUser(pWithoutPassword);
@@ -91,7 +100,7 @@ export const useUserStore = create((set, get) => ({
     set(showAllUsers(parametros));
     supabaseAdmin.auth.signOut();
   },
-
+// se crea una variable idUser que es un numero que se inicializa en 0 y activeUser que es un arreglo vacio, se llama de forma asincrona la funcion de mostrar usuarios y se setea la respuesta en las variables, esta funcion es para llamar al usuario activo en la aplicacion
   idUser: 0,
   activeUser: [],
   showUsers: async () => {
@@ -100,6 +109,7 @@ export const useUserStore = create((set, get) => ({
     return response;
   },
 
+  // para borrar usuarios se llama a la funcion deleteUser de supabase con el id del usuario a borrar, una vez termina se llama a la funcion que borra el usuario de la base de datos y se cierra la sesion administrador
   deleteUser: async (p) => {
     const supabaseAdmin = createClient(
       import.meta.env.VITE_APP_SUPABASE_URL,

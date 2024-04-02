@@ -7,6 +7,8 @@ import {
   ShowModelos,
 } from "../supabase/index";
 
+// store para mostrar los modelos funcionamiento especifico en el store de equipos
+
 export const useModelosStore = create((set, get) => ({
   modelosData: [],
   modelosCount: [],

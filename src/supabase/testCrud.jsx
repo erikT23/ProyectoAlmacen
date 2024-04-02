@@ -1,6 +1,8 @@
 import Swal from "sweetalert2";
 import { supabase } from "./index";
 
+// crud de pruebas, ignorar si no lo borre
+
 export const ShowTest = async () => {
   const { error, data } = await supabase
     .from("departamentos")

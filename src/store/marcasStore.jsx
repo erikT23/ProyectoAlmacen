@@ -8,6 +8,8 @@ import {
   SearchMarcas,
 } from "../supabase/index";
 
+//  store para mostrar las marcas funcionamiento especifico en el store de equipos
+
 export const useMarcasStore = create((set, get) => ({
   marcasData: [],
   marcasCount: [],

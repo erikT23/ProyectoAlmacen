@@ -8,6 +8,8 @@ import {
   EditTest,
 } from "../supabase/index";
 
+// store para pruebas, ignorar si no lo borre
+
 export const useTestStore = create((set, get) => ({
   datatest: [],
   testcount: [],

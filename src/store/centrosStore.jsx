@@ -6,6 +6,8 @@ import {
   ShowCentros
 } from "../supabase/index";
 
+// store para mostrar los centros funcionamiento especifico en el store de equipos
+
 export const useCentrosStore = create((set, get) => ({
   centrosData: [],
 

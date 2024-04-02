@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import { supabase } from "./index";
 
+// consultas para la base de datos funcinamiento especifico en centrosCrud
 export const ShowCentros = async () => {
   const { error, data } = await supabase
     .from("centros")

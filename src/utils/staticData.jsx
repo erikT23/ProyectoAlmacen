@@ -11,10 +11,8 @@ import monitores from "../assets/monitor.png";
 import usaurio from "../assets/usaurio.png";
 import { v } from "../styles/index";
 
-
-
+// data estatica para mapear en los menus, incluyen un titulo o subtitulo, un icono y a que ruta redirigir
 export const DesplegableUser = [
- 
   {
     text: "Cerrar sesión",
     icono: <v.iconoCerrarSesion />,
@@ -63,7 +61,6 @@ export const DataModulosConfiguracion = [
   {
     title: "Marcas",
     subtitle: "Gestion de las marcas de los productos",
-    //  icono: "https://i.ibb.co/VYbMRLZ/categoria.png",
     icono: mainMarcas,
     link: "/configurar/menuMarcas",
   },
@@ -91,7 +88,6 @@ export const DataModulosConfiguracion = [
     icono: DepCent,
     link: "/configurar/centrosydepartamentos",
   },
-  
 ];
 
 export const MenuMarcasData = [

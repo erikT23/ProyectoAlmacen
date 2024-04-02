@@ -2,6 +2,8 @@ import Swal from "sweetalert2";
 import { supabase } from "../supabase/index";
 import { GetIdAuthSupabase } from "./index";
 
+
+// consultas para la tabla de usuarios en la base de datos funcionamiento especifico en equiposCrud
 export const InsertUser = async (p) => {
   const { data, error } = await supabase
     .from("usuarios")
@@ -19,6 +21,8 @@ export const InsertUser = async (p) => {
     return data;
   }
 };
+
+// funcion para mostrar el usuario activo de la base de datos, recupera el id de autenticacion de supabase y lo usa como filtro para mostrar el usuario deseado
 export const ShowUsers = async () => {
   const idAuthSupabase = await GetIdAuthSupabase();
   const { error, data } = await supabase

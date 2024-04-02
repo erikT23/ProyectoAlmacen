@@ -1,12 +1,13 @@
 import Swal from "sweetalert2";
 import { supabase } from "./index";
 
+// consulta para mostrar los equipos
 export const ShowEquipos = async () => {
   const { error, data } = await supabase
-    .from("equipos")
+    .from("equipos") // tabla de la base de datos
     .select(
       "*,tipos(nombre),modelos(nombre,marcas(nombre)),centros(nombre),estados(nombre),departamentos(nombre)"
-    );
+    ); // campos a seleccionar, el * indica que se seleccionaran todos los campos de la tabla, lo demas son las tablas de las relaciones foraneas y entre parentesis se indica el campo a seleccionar en esa tabla
   if (data) {
     return data;
   }
@@ -14,21 +15,6 @@ export const ShowEquipos = async () => {
     icon: "error",
     title: " Error show equipos",
     text: "error en el show equipos crud " + error.message,
-  });
-};
-
-export const CountEquipos = async () => {
-  const { data, error } = await supabase
-    .from("equipos")
-    .select(`equipos(count)`);
-
-  if (data) {
-    return data;
-  }
-  Swal.fire({
-    icon: "error",
-    title: " Error count equipos",
-    text: "error en el count equipos crud " + error.message,
   });
 };
 
@@ -52,7 +38,7 @@ export const InsertEquipos = async (p) => {
       departamento_id: p.departamento_id,
       monitor_id: p.monitor_id,
     },
-  ]);
+  ]); // parametros para insertar a la tabla equipos, los parametros tienen que ser iguales a los de la base de datos
   if (error) {
     Swal.fire({
       icon: "error",
@@ -82,8 +68,8 @@ export const EditEquipos = async (p) => {
       estado_id: p.estado_id,
       departamento_id: p.departamento_id,
       monitor_id: p.monitor_id,
-    })
-    .eq("id", p.id);
+    }) // parametros para actualizar la base de datos que tienen que ser iguales a los de la base de datos
+    .eq("id", p.id); // funcion de filtro para supabase que indica que se actualizara el registro que tenga el id igual al id del parametro
   if (error) {
     Swal.fire({
       icon: "error",
@@ -95,7 +81,10 @@ export const EditEquipos = async (p) => {
 };
 
 export const DeleteEquipos = async (p) => {
-  const { error } = await supabase.from("equipos").delete().eq("id", p.id);
+  const { error } = await supabase
+    .from("equipos")
+    .delete() // funcion para eliminar un registro
+    .eq("id", p.id); // funcion de filtro para supabase que indica que se eliminara el registro que tenga el id igual al id del parametro
   if (error) {
     Swal.fire({
       icon: "error",
@@ -111,7 +100,7 @@ export const ShowEquiposComunes = async () => {
     .select(
       "*,tipos(nombre),modelos(nombre,marcas(nombre)),centros(nombre),estados(nombre),departamentos(nombre)"
     )
-    .neq("tipo_id", 3);
+    .neq("tipo_id", 3); // funcion de filtro para supabase que indica que se seleccionaran los registros que tengan el tipo_id diferente de 3 que es el id de PAR
 
   if (error) {
     Swal.fire({
@@ -122,6 +111,7 @@ export const ShowEquiposComunes = async () => {
     return;
   }
 
+  // consulta para mostrar los monitores
   const { error: monitorError, data: monitoresData } = await supabase
     .from("equipos")
     .select("id,numserie");
@@ -135,6 +125,7 @@ export const ShowEquiposComunes = async () => {
     return;
   }
 
+  // se hace un mapeo de los equipos para agregar el monitor correspondiente para los equipos con uno asignado
   const equiposConMonitores = equiposData.map((equipo) => {
     const monitor = monitoresData.find(
       (monitor) => monitor.id === equipo.monitor_id
@@ -145,68 +136,7 @@ export const ShowEquiposComunes = async () => {
   return equiposConMonitores;
 };
 
-export const ShowEquiposByEstado = async (p) => {
-  const { error, data } = await supabase
-    .from("equipos")
-    .select("*")
-    .eq("estado_id", p.estado_id);
-  if (data) {
-    return data;
-  }
-  Swal.fire({
-    icon: "error",
-    title: " Error show equipos by estado",
-    text: "error en el show equipos by estado crud " + error.message,
-  });
-};
-
-export const ShowEquiposByTipo = async (p) => {
-  const { error, data } = await supabase
-    .from("equipos")
-    .select("*")
-    .eq("tipo_id", p.tipo_id);
-  if (data) {
-    return data;
-  }
-  Swal.fire({
-    icon: "error",
-    title: " Error show equipos by tipo",
-    text: "error en el show equipos by tipo crud " + error.message,
-  });
-};
-
-export const ShowEquiposByMarca = async (p) => {
-  const { error, data } = await supabase
-    .from("equipos")
-    .select(
-      "*,tipos(nombre),marcas(nombre),centros(nombre),estados(nombre),departamentos(nombre)"
-    )
-    .eq("marca_id", p.marca_id);
-  if (data) {
-    return data;
-  }
-  Swal.fire({
-    icon: "error",
-    title: " Error show equipos by marca",
-    text: "error en el show equipos by marca crud " + error.message,
-  });
-};
-
-export const ShowDepartamentoByEquipo = async (p) => {
-  const { error, data } = await supabase
-    .from("equipos")
-    .select("departamento_id")
-    .eq("id", p.id);
-  if (data) {
-    return data;
-  }
-  Swal.fire({
-    icon: "error",
-    title: " Error show equipos by departamento",
-    text: "error en el show equipos by departamento crud " + error.message,
-  });
-};
-
+// llama a los equipos que tengan un id de tipo 3 que es el id de monitor
 export const ShowMonitores = async () => {
   const { error, data } = await supabase
     .from("equipos")
@@ -225,25 +155,11 @@ export const ShowMonitores = async () => {
   });
 };
 
-export const ShowMonitoresByEquipo = async (p) => {
-  const { error, data } = await supabase
-    .from("equipos")
-    .select("id,numserie")
-    .eq("monitor_id", p.monitor_id);
-  if (data) {
-    return data;
-  }
-  Swal.fire({
-    icon: "error",
-    title: " Error show equipos by monitor",
-    text: "error en el show equipos by monitor crud " + error.message,
-  });
-};
-
+// consultas para contar equipos por centro, filtra el centro y por el tipo de equipo para no devolver los monitores, el nombre de la funcion indica el centro y el tipo de equipo que se esta contando
 export const CountEquiposComunes = async () => {
   const { count, error } = await supabase
     .from("equipos")
-    .select("*", { count: "exact", head: true })
+    .select("*", { count: "exact", head: true }) // se seleccionan todos los campos de la tabla equipos y se indica que se unicamente el conteo y no toda la informacion
     .eq("centro_id", 3)
     .neq("tipo_id", 3);
   if (error) {
@@ -279,7 +195,7 @@ export const CountEquiposMB = async () => {
   const { count, error } = await supabase
     .from("equipos")
     .select("*", { count: "exact", head: true })
-    .in("centro_id", [4, 6])
+    .in("centro_id", [4, 6]) // filtro que recibe un array, y busca valores que tenga los valores del array de la columna indicada
     .neq("tipo_id", 3);
   if (error) {
     Swal.fire({
@@ -418,6 +334,7 @@ export const CountMonitoresImx = async () => {
   return count;
 };
 
+// funcion para buscar los equipos en la bodega de comunes
 export const CountEquiposBodega = async () => {
   const { count, error } = await supabase
     .from("equipos")

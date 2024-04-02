@@ -2,7 +2,7 @@ export { useMarcasStore } from '../store/marcasStore';
 export { ShowBitacora } from './bitacoraCrud';
 export { DeleteCentros, EditCentros, InsertCentros, ShowCentros } from './centrosCrud';
 export { DeleteDepartamentos, DeleteDepartamentoyCentros, EditDepartamentos, EditDepartamentosyCentros, InsertDepartamentos, InsertDepartamentosyCentros, ShowDepartamentos, ShowDepartamentosyCentros } from './departamentosCrud';
-export { CountEquipos, CountEquiposBodega, CountEquiposComunes, CountEquiposGhp, CountEquiposImx, CountEquiposLm, CountEquiposMB, CountMonitoresBodega, CountMonitoresComunes, CountMonitoresGhp, CountMonitoresImx, CountMonitoresLm, CountMonitoresMb, DeleteEquipos, EditEquipos, InsertEquipos, ShowDepartamentoByEquipo, ShowEquipos, ShowEquiposByEstado, ShowEquiposByMarca, ShowEquiposByTipo, ShowEquiposComunes, ShowMonitores, ShowMonitoresByEquipo } from './equiposCrud';
+export { CountEquiposBodega, CountEquiposComunes, CountEquiposGhp, CountEquiposImx, CountEquiposLm, CountEquiposMB, CountMonitoresBodega, CountMonitoresComunes, CountMonitoresGhp, CountMonitoresImx, CountMonitoresLm, CountMonitoresMb, DeleteEquipos, EditEquipos, InsertEquipos, ShowEquipos, ShowEquiposComunes, ShowMonitores } from './equiposCrud';
 export { ShowEstados } from './estadosCrud';
 export { GetIdAuthSupabase } from './globalSupabase';
 export { CountMarcas, DeleteMarcas, EditMarcas, InsertMarcas, SearchMarcas, ShowMarcas } from './marcasCrud';

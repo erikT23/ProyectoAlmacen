@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import {
-  CountEquipos,
   CountEquiposBodega,
   CountEquiposComunes,
   CountEquiposGhp,
@@ -28,12 +27,6 @@ export const useEquiposStore = create((set, get) => ({
   showEquipos: async () => {
     const response = await ShowEquipos();
     set({ equiposData: response });
-    return response;
-  },
-
-  countEquipos: async (p) => {
-    const response = await CountEquipos(p);
-    set({ equiposCount: response });
     return response;
   },
 

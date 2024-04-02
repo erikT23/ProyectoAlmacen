@@ -10,6 +10,8 @@ import {
   ShowDepartamentosyCentros,
 } from "../supabase/index";
 
+// store para mostrar los departamentos funcionamiento especifico en el store de equipos
+
 export const useDepartamentosStore = create((set, get) => ({
   departamentosData: [],
 

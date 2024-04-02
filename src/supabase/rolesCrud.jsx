@@ -1,6 +1,8 @@
 import Swal from "sweetalert2";
 import { supabase } from "./index";
 
+
+// consultas para la base de datos funcinamiento especifico en equiposCrud
 export const ShowRoles = async () => {
   const { error, data } = await supabase.from("roles").select(`id, nombre`);
   if (data) {
