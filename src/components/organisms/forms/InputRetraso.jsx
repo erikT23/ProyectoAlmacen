@@ -2,6 +2,11 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 
+/*
+Componente para el filtrado global, se le puede pasar un valor inicial y un tiempo de espera para que se ejecute la función onChange
+
+*/
+
 export function InputRetraso({
   value: initialValue,
   onChange,

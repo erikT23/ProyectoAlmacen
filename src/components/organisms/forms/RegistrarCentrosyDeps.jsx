@@ -13,6 +13,8 @@ import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
 import { RiLockPasswordLine } from "react-icons/ri";
 
+// Este componente es para registrar un nuevo centro en un departamento mediante su tabla union
+// Detalle de funcionamiento en Registrar Equipos.jsx
 export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
   const {
     showDepartamentos,
@@ -49,6 +51,7 @@ export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
       });
     }
 
+    // Recibe la informacion del formulario y la asigna a una variable p para pasarla a la funcion de insertar o editar
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,
@@ -110,6 +113,7 @@ export function RegistrarCentrosyDeps({ onClose, dataSelect, accion }) {
                     className="form__field"
                     {...register("departamento_id", {
                       required: true,
+                      // toma la informacion de los departamentos e itera  con un map para mostrarlos en el select
                     })}
                     defaultValue={dataSelect.departamento_id}
                   >

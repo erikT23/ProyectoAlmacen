@@ -7,6 +7,7 @@ import { InputText } from "../../organisms/index";
 import { Btnsave } from "../../molecules/index";
 import { Capitalize } from "../../../utils/Conversiones";
 
+// Componente para probar las funciones, ignorar si no lo borre
 export function RegistrarTest({ onClose, dataSelect, accion }) {
   const { insertTest, editTest } = useTestStore();
   const {

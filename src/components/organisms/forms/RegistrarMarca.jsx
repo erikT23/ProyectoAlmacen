@@ -7,6 +7,8 @@ import { Capitalize } from "../../../utils/Conversiones";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "../../organisms/index";
 
+// Componente para registrar una nueva marca
+// Detalle de funcionamiento en Registrar Equipos.jsx
 export function RegistrarMarca({ onClose, dataSelect, accion }) {
   const { insertarMarcas, editMarcas } = useMarcasStore();
   const {

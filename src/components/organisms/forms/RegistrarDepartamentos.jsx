@@ -8,6 +8,8 @@ import { v } from "../../../styles/variables";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
 
+// Este componente es para registrar un departamento 
+// Detalle de funcionamiento en Registrar Equipos.jsx
 export function RegistrarDepartamentos({ onClose, dataSelect, accion }) {
   const { showDepartamentos, editarDepartamentos, insertarDepartamentos } =
     useDepartamentosStore();

@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+/*
+Componente para crear un input estilizado, se le puede pasar un icono y un children que es el input
+*/
 export function InputText({ children, icono }) {
   return (
     <Container>

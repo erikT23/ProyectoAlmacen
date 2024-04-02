@@ -18,9 +18,10 @@ import { Capitalize } from "../../../utils/Conversiones";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
 
+// Componente para registrar un nuevo monitor
+// Detalle de funcionamiento en Registrar Equipos.jsx
 export function RegistrarMonitores({ onClose, dataSelect, accion }) {
-  const { insertarEquipos, editEquipos, showMonitores, dataMonitores } =
-    useEquiposStore();
+  const { insertarEquipos, editEquipos, showMonitores } = useEquiposStore();
   const { showModelos, modelosData } = useModelosStore();
   const { showTipos } = useTiposStore();
   const { mostrarDepartamentosyCentros } = useDepartamentosStore();
@@ -170,9 +171,7 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
                     {...register("nombre", {})}
                   />
                   <label className="form__label">Nombre del equipo:</label>
-                  {errors.nombre?.type === "required" && (
-                    <p>Campo requerido</p>
-                  )}
+                  {errors.nombre?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>
               <article>
@@ -372,7 +371,7 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
                   {errors.option?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>
-              
+
               <article>
                 <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
                   <select

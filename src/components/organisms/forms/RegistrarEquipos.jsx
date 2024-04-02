@@ -18,7 +18,13 @@ import { Capitalize } from "../../../utils/Conversiones";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
 
+// Componente para registrar un nuevo equipo
+// al ser el mas complicado aqui se detalla el funcionamiento de los demas componentes de registro
+
 export function RegistrarEquipos({ onClose, dataSelect, accion }) {
+  // seccion de importaciones de los Store de zustand, estos son los hooks que se usan para hacer las peticiones a la base de datos
+  // las variables show llama a las funciones que realizan la consulta a la base de datos y las variables data son las que contienen la informacion
+
   const { insertarEquipos, editEquipos, showMonitores, dataMonitores } =
     useEquiposStore();
   const { showModelos, modelosData } = useModelosStore();
@@ -30,12 +36,16 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   const [marcaId, setMarcaId] = useState(null);
   const [tipoId, setTipoId] = useState(null);
 
+  // inicializacion de los hooks de react-hook-form para el formulario
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
+  // seccion de peticiones a la base de datos para obtener la informacion necesaria para el formulario
+  // se hace uso de tanstack Query para hacer las peticiones a la base de datos
+  // queryKey es el nombre de la peticion y es de libre eleccion y queryFn es la funcion que se ejecuta al hacer la peticion
   useQuery({
     queryKey: ["mostrar departamentos"],
     queryFn: () => mostrarDepartamentosyCentros(),
@@ -62,7 +72,10 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     queryKey: ["mostrar tipos"],
     queryFn: () => showTipos(),
   });
+  // esta seccion llama al usuario con sesion iniciada para verificar si tiene permisos para insertar un equipo en el centro seleccionado
+
   const { activeUser } = useUserStore();
+  // Roles permitidos para insertar equipos en cada centro
   const rolesACentros = {
     4: [5, 7], // Lindo Maya: PLI y PMY
     3: [6, 4], // Mar Beach: PMA y PBE
@@ -74,6 +87,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     if (activeUser.rol_id !== 1) {
       // 1 es el ID del rol "Administrador"
       const centrosPermitidos = rolesACentros[activeUser.rol_id];
+      // Si el usuario no tiene permisos para insertar en el centro seleccionado, mostrar mensaje de error
       if (!centrosPermitidos || !centrosPermitidos.includes(data.centro_id)) {
         return Swal.fire({
           icon: "error",
@@ -82,6 +96,9 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         });
       }
     }
+    // al llamar este componente se le pasa la accion que se va a relizar, dependiendo de la accion se ejecuta una funcion diferente
+    // se crea una constante p con los parametros que se van a enviar a la base de datos
+    // estos deben de ser los mismos que los campos de la tabla en la base de datos
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,
@@ -149,6 +166,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
       <div className="sub-contenedor">
         <div className="headers">
           <section>
+            {/* seccion de titulo del formulario dependiendo de la accion se mostrara un texto distinto */}
             <h1>
               {accion == "Editar" ? "Editar equipo" : "Registrar nuevo equipo"}
             </h1>
@@ -167,6 +185,9 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
               <article>
                 <InputText icono={<v.iconomarca />}>
                   <input
+                    /* aqui muestra un valor por defecto en caso de que dataSelect llegue con informacion desde la tabla, esto es para la edicion
+                  cuando sea insercion de datos estara vacio, la informacion de este input se registra como nombre y marca como un campo obligatorio
+                  en caso de que el campo este vacio se mostrara el mensaje de campo requerido*/
                     className="form__field"
                     defaultValue={dataSelect.nombre}
                     type="text"
@@ -289,6 +310,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     type="text"
                     placeholder=""
                     {...register("direccion_ip", {
+                      // regex para validar una direccion ip en caso de no cumplir con el formato se mostrara un mensaje de error
                       pattern:
                         /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
                     })}
@@ -310,6 +332,9 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       required: true,
                     })}
                     onChange={(e) => {
+                      /*el campo de modelos se tomo para llenar clos campos de marca y tipo de equipo
+                      una vez que se modifica el campo de modelos se busca el modelo seleccionado y se obtienen los campos de marca y tipo
+                      */
                       const selectedModeloId = Number(e.target.value);
                       const selectedModelo = modelosData.find(
                         (modelo) => modelo.id === selectedModeloId
@@ -321,6 +346,8 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     }}
                   >
                     {dataSelect && dataSelect.modelos ? (
+                      /* cuando se busca editar la informacion verifica que llegue desde la tabla,de ahi saca el nombre del modelo 
+                      de la marca y del tipo, estos valores son solo de referencia y se necesita volver a seleccionar el valor para asignarlo */
                       <option value={dataSelect.modelo_id}>
                         {dataSelect.modelos.nombre} (
                         {dataSelect.modelos.marcas.nombre})(
@@ -329,15 +356,18 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     ) : (
                       <option value="">-- Seleccione un modelo --</option>
                     )}
-                    {modelosData.map((modelo) => (
-                      <option
-                        key={modelo.id}
-                        value={modelo.id}
-                      >
-                        {modelo.nombre} ({modelo.marcas.nombre})(
-                        {modelo.tipos.nombre})
-                      </option>
-                    ))}
+                    {
+                      // se mapean los modelos para mostrarlos en el select usando los valores llamados anteriormente
+                      modelosData.map((modelo) => (
+                        <option
+                          key={modelo.id}
+                          value={modelo.id}
+                        >
+                          {modelo.nombre} ({modelo.marcas.nombre})(
+                          {modelo.tipos.nombre})
+                        </option>
+                      ))
+                    }
                   </select>
                   <label className="form__label">Modelo:</label>
                 </InputText>
@@ -347,6 +377,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   <select
                     className="form__field"
                     {...register("centro_id", {
+                      // funciona de manera parecida al anterior, una vez que se selecciona un centro usa su id para buscar los departamentos en ese centro
                       required: true,
                     })}
                     onChange={(e) => {
@@ -383,6 +414,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   <select
                     className="form__field"
                     {...register("departamento_id", {
+                      // una vez seleccionado el centro se muestran aqui los departamentos, para que el id del departamento no regrese como string se usa parseInt para convertirlo a numero
                       required: true,
                       setValueAs: (value) => parseInt(value, 10),
                     })}
@@ -410,6 +442,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
               <article>
                 <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
                   <select
+                    // los monitores son un tipo de equipo, por lo que el valor que se muestra para seleccionarlos aqui el numero de serie de los equipos marcados como monitor
                     className="form__field"
                     {...register("monitor_id")}
                   >
@@ -456,6 +489,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
               </article>
               <div className="btnguardarContent">
                 <Btnsave
+                  // boton para guardar los datos, al hacer click se ejecuta la funcion insertar
                   icono={<v.iconoguardar />}
                   titulo="Guardar"
                   bgcolor="#3AA597"
@@ -468,6 +502,8 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     </Container>
   );
 }
+
+// css del componente manejados por styled-components
 const Container = styled.div`
   transition: 0.5s;
   top: 10px;

@@ -9,6 +9,9 @@ import { EditCentros, InsertCentros } from "../../../supabase";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "./index";
 
+/*Componente para registrar un nuevo centro
+ Detalle de funcionamiento en Registrar Equipos.jsx
+ */
 export function RegistrarCentros({ onClose, dataSelect, accion }) {
   const { showCentros } = useCentrosStore();
   const {
@@ -25,7 +28,10 @@ export function RegistrarCentros({ onClose, dataSelect, accion }) {
   const { activeUser } = useUserStore();
 
   async function insertar(data) {
-    // Verificar si el usuario tiene permiso para insertar un centros en el centro especificado
+    /* Verificar si el usuario tiene permiso para insertar un centros en el centro especificado
+     recupera la informacion del usuario con sesion iniciada y verifica si el id de su rol es 1
+     este rol es el asignado para el administrador y es el unico que tiene permiso para insertar en centros
+    */
     if (activeUser.rol_id !== 1) {
       return Swal.fire({
         icon: "error",
@@ -33,7 +39,7 @@ export function RegistrarCentros({ onClose, dataSelect, accion }) {
         text: "No tienes permiso para insertar un centros",
       });
     }
-
+// Recibe la informacion del formulario y la asigna a una variable p para pasarla a la funcion de insertar o editar
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,

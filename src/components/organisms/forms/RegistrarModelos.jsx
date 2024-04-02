@@ -11,6 +11,8 @@ import { v } from "../../../styles/variables";
 import { Btnsave } from "../../molecules/index";
 import { InputText } from "../../organisms/index";
 
+// Componente para registrar un nuevo modelo
+// Detalle de funcionamiento en Registrar Equipos.jsx
 export function RegistrarModelos({ onClose, dataSelect, accion }) {
   const { insertarModelos, editModelos } = useModelosStore();
   const { mostrarMarcas, dataMarcas } = useMarcasStore();

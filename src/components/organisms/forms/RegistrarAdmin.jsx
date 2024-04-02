@@ -10,9 +10,14 @@ import { Btnsave } from "../../molecules/index";
 import { InputText } from "../forms/index";
 import { useQuery } from "@tanstack/react-query";
 
+/* Componente para registrar un nuevo usuario administrador
+ Detalle de funcionamiento en Registrar Equipos.jsx
+*/
+
 export function RegistrarAdmin({ onClose, dataSelect, accion }) {
   const { insertAdminUser, editUser } = useUserStore();
   const { showRoles, rolesData } = useRolesStore();
+
   useQuery({
     queryKey: ["mostrar roles"],
     queryFn: () => showRoles(),
@@ -22,6 +27,7 @@ export function RegistrarAdmin({ onClose, dataSelect, accion }) {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
   async function insertar(data) {
     if (accion === "Editar") {
       const p = {
@@ -72,6 +78,7 @@ export function RegistrarAdmin({ onClose, dataSelect, accion }) {
         >
           <section>
             <article>
+
               <InputText icono={<v.iconomarca />}>
                 <input
                   className="form__field"
