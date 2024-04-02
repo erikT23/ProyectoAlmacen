@@ -1,44 +1,124 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Header, InputRetraso, TableBitacoras } from "../organisms/index";
-export function BitacoraTemplate({ data: bitacoraData, tipos }) {
+export function BitacoraTemplate({
+  data: bitacoraData,
+  tipos,
+  modelos,
+  centros,
+  estados,
+  departamentos,
+  marcas,
+}) {
   const [state, setState] = useState(false);
   const [globalFilter, setGlobalFilter] = useState("");
   const [formattedData, setFormattedData] = useState([]);
 
-
   console.log(tipos, "tiposData");
 
   useEffect(() => {
-    if (bitacoraData && tipos) {
-      const tiposById = {};
-      tipos.forEach((tipo) => {
-        tiposById[tipo.id] = tipo.nombre;
-      });
-  
+    if (
+      bitacoraData &&
+      tipos &&
+      modelos &&
+      centros &&
+      estados &&
+      departamentos &&
+      marcas
+    ) {
+      const tiposById = mapArrayById(tipos);
+      const modelosById = mapArrayById(modelos);
+      const centrosById = mapArrayById(centros);
+      const estadosById = mapArrayById(estados);
+      const departamentosById = mapArrayById(departamentos);
+      const marcasById = mapArrayById(marcas);
+
       const newData = bitacoraData.map((bitacora) => {
-        const dataVieja = bitacora.data_vieja ? JSON.parse(bitacora.data_vieja) : null;
-        const dataNueva = bitacora.data_nueva ? JSON.parse(bitacora.data_nueva) : null;
-  
-        if (dataVieja && dataVieja.tipo_id) {
-          dataVieja.tipo_id = tiposById[dataVieja.tipo_id] || dataVieja.tipo_id;
-        }
-  
-        if (dataNueva && dataNueva.tipo_id) {
-          dataNueva.tipo_id = tiposById[dataNueva.tipo_id] || dataNueva.tipo_id;
-        }
-  
+        const dataVieja = bitacora.data_vieja
+          ? JSON.parse(bitacora.data_vieja)
+          : null;
+        const dataNueva = bitacora.data_nueva
+          ? JSON.parse(bitacora.data_nueva)
+          : null;
+
+        replaceIdsWithNames(
+          dataVieja,
+          tiposById,
+          modelosById,
+          centrosById,
+          estadosById,
+          departamentosById,
+          marcasById
+        );
+        replaceIdsWithNames(
+          dataNueva,
+          tiposById,
+          modelosById,
+          centrosById,
+          estadosById,
+          departamentosById,
+          marcasById
+        );
+
         return {
           ...bitacora,
           fecha: new Date(bitacora.fecha).toLocaleString(),
-          data_vieja: dataVieja ? Object.entries(dataVieja).map(([key, value]) => `${key}: ${value}`).join("\n") : null,
-          data_nueva: dataNueva ? Object.entries(dataNueva).map(([key, value]) => `${key}: ${value}`).join("\n") : null,
+          data_vieja: dataVieja
+            ? Object.entries(dataVieja)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join("\n")
+            : null,
+          data_nueva: dataNueva
+            ? Object.entries(dataNueva)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join("\n")
+            : null,
         };
       });
-  
+
       setFormattedData(newData);
     }
-  }, [bitacoraData, tipos]);
+  }, [bitacoraData, tipos, modelos, centros, estados, departamentos, marcas]);
+
+  function mapArrayById(array) {
+    const map = {};
+    array.forEach((item) => {
+      map[item.id] = item.nombre;
+    });
+    return map;
+  }
+
+  function replaceIdsWithNames(
+    data,
+    tiposById,
+    modelosById,
+    centrosById,
+    estadosById,
+    departamentosById,
+    marcasById
+  ) {
+    if (data) {
+      if (data.tipo_id) {
+        data.tipo_id = tiposById[data.tipo_id] || data.tipo_id;
+      }
+      if (data.modelo_id) {
+        data.modelo_id = modelosById[data.modelo_id] || data.modelo_id;
+      }
+      if (data.centro_id) {
+        data.centro_id = centrosById[data.centro_id] || data.centro_id;
+      }
+      if (data.estado_id) {
+        data.estado_id = estadosById[data.estado_id] || data.estado_id;
+      }
+      if (data.departamento_id) {
+        data.departamento_id =
+          departamentosById[data.departamento_id] || data.departamento_id;
+      }
+      if (data.marca_id) {
+        data.marca_id = marcasById[data.marca_id] || data.marca_id;
+      }
+    }
+  }
   console.log(bitacoraData, "formattedData");
 
   return (

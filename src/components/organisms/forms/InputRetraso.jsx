@@ -5,7 +5,7 @@ import { CiSearch } from "react-icons/ci";
 export function InputRetraso({
   value: initialValue,
   onChange,
-  debounce = 500,
+  debounce = 2000,
   ...props
 }) {
   const [value, setValue] = useState(initialValue);

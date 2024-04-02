@@ -9,12 +9,12 @@ import {
 } from "../supabase/index";
 
 export const useMarcasStore = create((set, get) => ({
-  marcasTest: [],
+  marcasData: [],
   marcasCount: [],
 
   showMarcas: async () => {
     const response = await ShowMarcas();
-    set({ marcasTest: response });
+    set({ marcasData: response });
     return response;
   },
 
