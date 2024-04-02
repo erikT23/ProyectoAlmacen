@@ -2,11 +2,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import fondocuadros from "../../assets/fondocuadros.svg";
 import { DataModulosConfiguracion } from "../../utils/staticData";
+
+// componente de la template del menu principal
 export function ConfiguracionTemplate() {
   return (
     <Container>
       <div id="cards">
-        {DataModulosConfiguracion.map((item, index) => {
+        {
+        // recupera la informacion de las utils y hace un map para mostrar los modulos del menu principal, muestra un icono para diferenciarlo, un titulo y un subtitulo 
+        DataModulosConfiguracion.map((item, index) => {
           return (
             <Link
               to={item.link}

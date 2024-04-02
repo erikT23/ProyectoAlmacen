@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import fondocuadros from "../../assets/fondocuadros.svg";
 import { MenuInventarioData } from "../../utils/staticData";
+
+// template para el menu de inventario, envia a equipos o monitores
 export function MenuInventarioTemplate() {
   return (
     <Container>

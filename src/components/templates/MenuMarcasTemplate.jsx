@@ -2,6 +2,8 @@ import styled from "styled-components";
 import fondocuadros from "../../assets/fondocuadros.svg";
 import { Link } from "react-router-dom";
 import { MenuMarcasData } from "../../utils/staticData";
+
+// template para el menu de marcas, envia a la seccion de marcas o a la de modelos
 export function MenuMarcasTemplate() {
   return (
     <Container>

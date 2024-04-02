@@ -4,6 +4,7 @@ import { SpinnerLoader } from "../components/molecules/index";
 import { UsuariosTemplate } from "../components/templates/index";
 import { useUserStore } from "../store";
 
+// Page para mostrar los usuarios, funcionamiento especifico en la page de bitacora
 export function Usuarios() {
   const { showAllUsers, userData } = useUserStore();
   const { isLoading, error } = useQuery({

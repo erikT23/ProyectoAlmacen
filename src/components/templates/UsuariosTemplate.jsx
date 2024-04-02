@@ -11,13 +11,14 @@ import {
 } from "../organisms/index";
 import { useUserStore } from "../../store";
 import Swal from "sweetalert2";
+
+// componente de la template de usuarios, detalle de su funcionamiento en la template de equipos
 export function UsuariosTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");
   const [openRegistro, setopenRegistro] = useState(false);
   const [globalFilter, setGlobalFilter] = useState("");
-
   const { activeUser } = useUserStore();
   const nuevoRegistro = () => {
     if (activeUser.roles.nombre !== "Administrador") {

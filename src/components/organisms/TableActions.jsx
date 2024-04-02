@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { AccionTabla } from "../atoms/index";
 import { v } from "../../styles/index";
 
+// componente de las acciones de la tabla (editar y eliminar) 
 export function TableActions({ editFunct, deleteFunct }) {
   return (
     <Container>

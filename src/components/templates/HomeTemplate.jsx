@@ -4,13 +4,14 @@ import fondocuadros from "../../assets/fondocuadros.svg";
 import { Title } from "../atoms/index";
 import { Banner, Header } from "../organisms/index";
 
-
+// componente de la template de inicio
 export function HomeTemplate() {
   const [state, setState] = useState(false);
   return (
     <Container>
       <header className="header">
         <Header
+        // llama al componente header para mostrar la opcion para cerrar sesion al usuario
           stateConfig={{ state: state, setState: () => setState(!state) }}
         />
       </header>

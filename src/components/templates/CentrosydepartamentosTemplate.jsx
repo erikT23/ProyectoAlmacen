@@ -12,6 +12,7 @@ import {
   TableCentrosyDeps
 } from "../organisms/index";
 
+// componente de la template de centros y departamentos, detalle de su funcionamiento en la template de equipos
 export function CentrosydepartamentosTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);

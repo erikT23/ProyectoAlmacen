@@ -4,6 +4,7 @@ import { SpinnerLoader } from "../components/molecules";
 import { CentrosydepartamentosTemplate } from "../components/templates";
 import { useDepartamentosStore } from "../store";
 
+// Page para mostrar los centros y departamentos, funcionamiento especifico en la page de bitacora
 export function Centrosydepartamentos() {
   const { mostrarDepartamentosyCentros, dataDepartamentosyCentros } = useDepartamentosStore();
 

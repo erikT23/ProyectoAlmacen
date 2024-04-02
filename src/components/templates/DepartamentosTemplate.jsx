@@ -12,6 +12,7 @@ import {
   TableDepartamentos
 } from "../organisms/index";
 
+// componente de la template de departamentos, detalle de su funcionamiento en la template de equipos
 export function DepartamentosTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);

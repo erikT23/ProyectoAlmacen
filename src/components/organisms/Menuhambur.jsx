@@ -5,6 +5,8 @@ import { LinksArray } from "../../index";
 import { v } from "../../styles/index";
 import { ToggleTema } from "../organisms/index";
 
+// menu del sidebar ya desplegado trae los valores de los links desde utils y hace un map para mostrarlos en el menu y retomar la direccion donde envian
+
 export function MenuHambur() {
   const [click, setClick] = useState(false);
   return (

@@ -9,8 +9,10 @@ import {
   Header,
   InputRetraso,
   RegistrarMarca,
-  TableMarcas
+  TableMarcas,
 } from "../organisms/index";
+
+// componente de la template de marcas, detalle de su funcionamiento en la template de equipos
 export function MarcasTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);

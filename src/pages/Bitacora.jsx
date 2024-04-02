@@ -11,7 +11,10 @@ import {
   useTiposStore,
 } from "../store/index";
 
+// Page para mostrar la bitacora de los equipos, los componentes page llaman a las consultas de la base de datos para pasar los datos a los templates que contienen la estructura de la pagina y manejan la informacion que les llega
+
 export function Bitacora() {
+  //importacion de los store para la bitacora y la informacion de las llaves foraneas de los equipos, esta informacion se usa para tomar el id y usarlo para recuperar el nombre
   const { bitacoraData, showBitacora } = useBitacoraStore();
   const { showModelos, modelosData } = useModelosStore();
   const { tiposData, showTipos } = useTiposStore();
@@ -20,6 +23,7 @@ export function Bitacora() {
   const { departamentosData, showDepartamentos } = useDepartamentosStore();
   const { marcasData, showMarcas } = useMarcasStore();
 
+  // querys para traer la informacion de la base de datos, hace uso de la libreria tanstack query para hacer las consultas a la base de datos https://tanstack.com/query/latest
   useQuery({
     queryKey: ["mostrar tipos"],
     queryFn: () => showTipos(),
@@ -45,6 +49,7 @@ export function Bitacora() {
     queryFn: () => showMarcas(),
   });
 
+  // esta query se encarga de traer la informacion de la bitacora, se activa cuando ya se han cargado los datos de las llaves foraneas y mientras este cargando mostrara un spinner de carga
   const { isLoading, error } = useQuery({
     queryKey: ["mostrar bitacora"],
     queryFn: () => showBitacora(),

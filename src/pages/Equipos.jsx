@@ -4,6 +4,7 @@ import { SpinnerLoader } from "../components/molecules";
 import { EquiposTemplate } from "../components/templates/index";
 import { useEquiposStore } from "../store/index";
 
+// Page para mostrar los equipos, funcionamiento especifico en la page de bitacora
 export function Equipos() {
   const { dataSinMonitor, showEquiposComunes } = useEquiposStore();
 

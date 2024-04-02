@@ -12,6 +12,7 @@ import {
 import { useUserStore } from "../../store";
 import Swal from "sweetalert2";
 
+// componente de la template de modelos, detalle de su funcionamiento en la template de equipos
 export function ModelosTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);

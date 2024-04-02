@@ -1,6 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
 import { Route, Routes } from "react-router-dom";
-import { ErrorCard, SpinnerLoader } from "../components/molecules/index";
 import { ProtectedRoutes, UserAuth } from "../index";
 import {
   Bitacora,
@@ -18,38 +16,11 @@ import {
   Monitores,
   Usuarios,
 } from "../pages/index";
-import { useTestStore, useUserStore } from "../store/index";
+// componente para el enrutamiento de las paginas de la aplicacion, primero verifica si hay un usuario logeado, en caso de no haberlo manda al login de la aplicacion
 
 export function MyRoutes() {
   const { user } = UserAuth();
-  const { showUsers, idUser } = useUserStore();
-  const { showtest, counttest } = useTestStore();
 
-  const {
-    data: datausers,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["mostrar usuarios"],
-    queryFn: showUsers,
-  });
-  const { data: datatest } = useQuery({
-    queryKey: ["mostrar test"],
-    queryFn: () => showtest({ id: 1 }),
-    enabled: !!datausers,
-  });
-
-  useQuery({
-    queryKey: ["contar Test"],
-    queryFn: () => counttest({ id_user: idUser }),
-    enabled: !!datatest,
-  });
-  if (isLoading) {
-    return <SpinnerLoader />;
-  }
-  if (error) {
-    return <ErrorCard mensaje={error.message} />;
-  }
   return (
     <Routes>
       <Route
@@ -64,6 +35,7 @@ export function MyRoutes() {
           />
         }
       >
+        {/* a las rutas se les indica un path que es la direccion de la url donde van a redirigir y un element que es la page del componente a donde se quiere ir */}
         <Route
           path="/"
           element={<Home />}

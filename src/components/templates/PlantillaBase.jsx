@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Header } from "../organisms/index";
+
+// plantilla base para el template, se puede modificar para agregar mas areas
 export function PlantillaBase() {
   const [state, setState] = useState(false);
   return (

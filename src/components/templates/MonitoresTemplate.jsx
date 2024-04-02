@@ -12,6 +12,7 @@ import {
   TableMonitores,
 } from "../organisms/index";
 
+// componente de la template de monitores, detalle de su funcionamiento en la template de equipos
 export function MonitoresTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);

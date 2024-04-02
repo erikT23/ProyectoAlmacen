@@ -4,6 +4,7 @@ import { SpinnerLoader } from "../components/molecules";
 import { DepartamentosTemplate } from "../components/templates/index";
 import { useDepartamentosStore } from "../store";
 
+//page para mostrar los departamentos, funcionamiento especifico en la page de bitacora
 export function Departamentos() {
   const { showDepartamentos, departamentosData } = useDepartamentosStore();
 

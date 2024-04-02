@@ -2,6 +2,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { ThemeContext } from "../../index";
 
+// componente para cambiar el tema de la aplicacion de modo oscuro a claro
 export function ToggleTema() {
   const { setTheme } = useContext(ThemeContext);
   const CambiarTheme = () => {

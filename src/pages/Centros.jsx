@@ -4,6 +4,7 @@ import { SpinnerLoader } from "../components/molecules";
 import { CentrosTemplate } from "../components/templates/index";
 import { useCentrosStore } from "../store";
 
+// page para el componente de centros, funcionamiento especifico en la page de bitacora
 export function Centros() {
   const { showCentros, centrosData } = useCentrosStore();
 

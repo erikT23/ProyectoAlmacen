@@ -4,6 +4,8 @@ import { useEquiposStore } from "../store/index";
 import { SpinnerLoader } from "../components/molecules";
 import Swal from "sweetalert2";
 
+// Page para mostrar los monitores, funcionamiento especifico en la page de bitacora
+
 export function Monitores() {
   const { showMonitores, dataMonitores } = useEquiposStore();
 

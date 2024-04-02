@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Header, TableBitacoras } from "../organisms/index";
+import { Header, InputRetraso, TableBitacoras } from "../organisms/index";
+
+// Template de la bitacora, se encarga de mostrar la tabla de bitacoras y gestionar la informacion que se le envia a la tabla su uso especifico se mostrara en la tabla equipos, aqui solo se explica el funcionamiento especifico de la funcion para mostrar los nombres de los id en la bitacora
 export function BitacoraTemplate({
   data: bitacoraData,
   tipos,
@@ -17,6 +19,7 @@ export function BitacoraTemplate({
   console.log(tipos, "tiposData");
 
   useEffect(() => {
+    // recibe la informacion de la page bitacora y la formatea para mostrarla en la tabla
     if (
       bitacoraData &&
       tipos &&
@@ -26,6 +29,7 @@ export function BitacoraTemplate({
       departamentos &&
       marcas
     ) {
+      // Mapea los arrays de tipos, modelos, centros, estados, departamentos y marcas por id
       const tiposById = mapArrayById(tipos);
       const modelosById = mapArrayById(modelos);
       const centrosById = mapArrayById(centros);
@@ -33,6 +37,7 @@ export function BitacoraTemplate({
       const departamentosById = mapArrayById(departamentos);
       const marcasById = mapArrayById(marcas);
 
+      // usa la informacion que trae la consulta sobre la tabla bitacora para poder trabajar con ella
       const newData = bitacoraData.map((bitacora) => {
         const dataVieja = bitacora.data_vieja
           ? JSON.parse(bitacora.data_vieja)
@@ -41,6 +46,7 @@ export function BitacoraTemplate({
           ? JSON.parse(bitacora.data_nueva)
           : null;
 
+          // se llaman las funciones para modificar la informacion vieja y nueva de la tabla bitacora
         replaceIdsWithNames(
           dataVieja,
           tiposById,
@@ -61,6 +67,7 @@ export function BitacoraTemplate({
         );
 
         return {
+          // vuelve a tomar la informacion y arma un objeto con la informacion de la bitacora para pasarla a la tabla
           ...bitacora,
           fecha: new Date(bitacora.fecha).toLocaleString(),
           data_vieja: dataVieja
@@ -88,6 +95,7 @@ export function BitacoraTemplate({
     return map;
   }
 
+  // funcion que reemplaza los ids por los nombres de los objetos en la tabla bitacora
   function replaceIdsWithNames(
     data,
     tiposById,
@@ -97,6 +105,7 @@ export function BitacoraTemplate({
     departamentosById,
     marcasById
   ) {
+    // si la data existe se reemplazan los ids por los nombres de los objetos correspondientes
     if (data) {
       if (data.tipo_id) {
         data.tipo_id = tiposById[data.tipo_id] || data.tipo_id;

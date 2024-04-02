@@ -3,6 +3,8 @@ import { SpinnerLoader } from "../components/molecules/index";
 import { ModelosTemplate } from "../components/templates/index";
 import { useMarcasStore, useModelosStore, useTiposStore } from "../store/index";
 
+// Page para mostrar los modelos, funcionamiento especifico en la page de bitacora
+
 export function Modelos() {
   const { mostrarModelos, dataModelos } = useModelosStore();
   const { dataMarcas, showMarcas } = useMarcasStore();

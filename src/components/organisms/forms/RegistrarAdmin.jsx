@@ -78,7 +78,6 @@ export function RegistrarAdmin({ onClose, dataSelect, accion }) {
         >
           <section>
             <article>
-
               <InputText icono={<v.iconomarca />}>
                 <input
                   className="form__field"
@@ -138,6 +137,7 @@ export function RegistrarAdmin({ onClose, dataSelect, accion }) {
             <article>
               <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
                 <input
+                  // input para la contraseña valida que tenga almenos 8 caracteres y tenga una letra mayuscula y un numero
                   className="form__field"
                   type="password"
                   placeholder="password"

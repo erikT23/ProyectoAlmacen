@@ -14,7 +14,9 @@ import { useAuthStore } from "../../store/index";
 import { Device, v } from "../../styles/index";
 import { Btnsave } from "../molecules/index";
 
+// componente del template para el login
 export function LoginTemplate() {
+  // fija el tema como claro y llama a la funcion de iniciar sesion con el correo y la contraseña desde el store
   const { setTheme } = useContext(ThemeContext);
   setTheme("light");
   const { signInWithEmail } = useAuthStore();
@@ -28,12 +30,14 @@ export function LoginTemplate() {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  // funcion para iniciar sesion con el correo y la contraseña usa un metodo de supabase para verificar que el usuario este registrado y compara el correo y la contraseña que se le enviaron
   async function iniciar(data) {
     try {
       const response = await signInWithEmail({
         correo: data.correo,
         password: data.pass,
       });
+      // si la respuesta es verdadera navega a la pagina principal si no muestra un mensaje de error
       if (response) {
         navigate("/");
       } else {
@@ -57,6 +61,7 @@ export function LoginTemplate() {
       <div className="contentCard">
         <div className="card">
           {state && (
+            // si el boton que llama a este componente esta activo muestra el componente de registrar admin
             <RegistrarAdmin
               setState={() => {
                 setState(!state);
@@ -71,6 +76,7 @@ export function LoginTemplate() {
           <form onSubmit={handleSubmit(iniciar)}>
             <InputText icono={<v.iconoemail color="#3AA597" />}>
               <input
+              // formulario para el correo y la contraseña, ambos son requeridos para funcionar correctamente
                 className="form__field"
                 type="text"
                 placeholder="correo"

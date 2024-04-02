@@ -4,6 +4,7 @@ import { MarcasTemplate } from "../components/templates/index";
 import { useMarcasStore } from "../store";
 import Swal from "sweetalert2";
 
+// Page para mostrar las marcas, funcionamiento especifico en la page de bitacora
 export function Marcas() {
   const { mostrarMarcas, dataMarcas, searchMarcas, marcasData, buscador } =
     useMarcasStore();
@@ -14,7 +15,7 @@ export function Marcas() {
 
   useQuery({
     queryKey: ["buscar marcas", { nombre: buscador }],
-    queryFn: () => searchMarcas({ nombre: buscador }) || [], // Devuelve un array vacío si searchMarcas no devuelve nada
+    queryFn: () => searchMarcas({ nombre: buscador }) || [],
   });
 
   if (isLoading) {

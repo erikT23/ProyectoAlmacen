@@ -12,6 +12,8 @@ import {
   TableEquipos,
 } from "../organisms/index";
 
+// template para los equipos, se encarga de mostrar la tabla de equipos y de abrir el formulario de registro de equipos
+
 export function EquiposTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
@@ -20,6 +22,7 @@ export function EquiposTemplate({ data }) {
   const [globalFilter, setGlobalFilter] = useState("");
   const { activeUser } = useUserStore();
 
+  // funcion para abrir el formulario de registro de equipos solamente el usuario administrador puede agregar equipos
   const nuevoRegistro = () => {
     if (activeUser.roles.nombre !== "Administrador") {
       return Swal.fire({
@@ -35,13 +38,16 @@ export function EquiposTemplate({ data }) {
 
   return (
     <Container>
-      {openRegistro && (
-        <RegistrarEquipos
-          dataSelect={dataSelect}
-          accion={accion}
-          onClose={() => setopenRegistro(!openRegistro)}
-        />
-      )}
+      {
+        openRegistro && (
+          <RegistrarEquipos
+            dataSelect={dataSelect}
+            accion={accion}
+            onClose={() => setopenRegistro(!openRegistro)}
+          />
+        )
+        // los template estan divididos en areas para facilitar el diseño y la organizacion de los componentes
+      }
 
       <header className="header">
         <Header
@@ -61,6 +67,7 @@ export function EquiposTemplate({ data }) {
       </section>
       <section className="area2">
         <InputRetraso
+          // componente para el fitro global de la tabla, se le manda el valor del filtro y la funcion para cambiarlo
           value={globalFilter ?? ""}
           onChange={(value) => setGlobalFilter(String(value))}
           placeholder="Buscador"
@@ -68,6 +75,7 @@ export function EquiposTemplate({ data }) {
       </section>
       <section className="main">
         <TableEquipos
+          // componente de la tabla de equipos, se le manda la data de los equipos, el estado del formulario de registro, la data seleccionada, la accion y el filtro global
           data={data}
           setopenRegistro={setopenRegistro}
           setdataSelect={setdataSelect}
