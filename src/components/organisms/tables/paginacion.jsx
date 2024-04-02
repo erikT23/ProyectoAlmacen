@@ -5,6 +5,7 @@ import {
 } from "react-icons/io";
 import styled from "styled-components";
 
+// componente para la paginacion de las tablas recibe las tablas, la pagina actual, el maximo de paginas y la funcion para ir al inicio, usa funciones de tanstack tables
 export function Paginacion({ table, pagina, maximo, irinicio }) {
   return (
     <Container>
@@ -16,6 +17,7 @@ export function Paginacion({ table, pagina, maximo, irinicio }) {
           <IoIosUndo />
         </span>
       </button>
+      {/* boton para ir a la pagina anterior */}
       <button
         disabled={!table.getCanPreviousPage()}
         onClick={() => table.previousPage()}
@@ -24,9 +26,11 @@ export function Paginacion({ table, pagina, maximo, irinicio }) {
           <IoIosArrowRoundBack />
         </span>
       </button>
+      {/* muestra la pagina actual y el maximo de paginas */}
       <span>{pagina}</span>
       <p> de {maximo}</p>
       <button
+        // boton para ir a la pagina siguiente
         disabled={!table.getCanNextPage()}
         onClick={() => table.nextPage()}
       >

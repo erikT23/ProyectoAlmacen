@@ -15,6 +15,8 @@ import { v } from "../../../styles/index";
 import { TableActions } from "../index";
 import { Paginacion } from "./index";
 
+// componente de pruebas para la tabla, ignorar si no la borro
+
 export function TableTest({ data, setopenRegistro, setdataSelect, setAccion }) {
   const [, setPagina] = useState(1);
   const { deleteTest } = useTestStore();

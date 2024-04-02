@@ -21,6 +21,7 @@ import { v } from "../../../styles/index";
 import { TableActions } from "../index";
 import { Filter, Paginacion } from "./index";
 
+// componente de la tabla de centros y departamentos, detalle de su funcionamiento en la tabla de equipos
 export function TableCentrosyDeps({
   data,
   setopenRegistro,

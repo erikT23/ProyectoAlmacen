@@ -15,6 +15,8 @@ import styled from "styled-components";
 import { v } from "../../../styles/index";
 import { Filter, Paginacion } from "./index";
 
+// componente de la tabla de bitacoras, detalle de su funcionamiento en la tabla de equipos
+
 export function TableBitacoras({
   data,
 

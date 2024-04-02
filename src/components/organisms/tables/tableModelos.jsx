@@ -18,6 +18,8 @@ import { v } from "../../../styles/index";
 import { TableActions } from "../index";
 import { Filter, Paginacion } from "./index";
 
+// componente de la tabla de modelos, detalle de su funcionamiento en la tabla de equipos
+
 export function TableModelos({
   data,
   setopenRegistro,

@@ -18,6 +18,7 @@ import { v } from "../../../styles/index";
 import { TableActions } from "../index";
 import { Filter, Paginacion } from "./index";
 
+// componente de la tabla de departamentos, detalle de su funcionamiento en la tabla de equipos
 export function TableDepartamentos({
   data,
   setopenRegistro,

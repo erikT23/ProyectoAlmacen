@@ -18,6 +18,9 @@ import { v } from "../../../styles/index";
 import { TableActions } from "../index";
 import { Filter, Paginacion } from "./index";
 
+// componente de la tabla equipos, al ser el mas complicado se explica el funcionamiento de las tablas aqui
+
+/*recibe la informacion de las consultas a la base de datos,  campos de use state para manejar la informacion de edicion e insercion de datos y el del filtro para la busqueda global, usa la libreria tanstack table v8 https://tanstack.com/table/latest */
 export function TableEquipos({
   data,
   setopenRegistro,
@@ -25,6 +28,7 @@ export function TableEquipos({
   setAccion,
   globalFilter,
 }) {
+  // filtro para la busqueda de los equipos, se compara el valor de la celda con el valor del input de busqueda y crea un ranking de coincidencias para mostrar los resultados
   function fuzzyFilter(row, columnId, value, addMeta) {
     const itemRank = rankItem(row.getValue(columnId), value);
     addMeta({
@@ -32,21 +36,26 @@ export function TableEquipos({
     });
     return itemRank.passed;
   }
-
+  // set states para manejar la paginacion y los filtros de las columnas, page size indica cuantos registros se van a mostrar en la tabla por pagina
   const [columnFilters, setColumnFilters] = useState([]);
   const [setPagina] = useState(1);
+
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 20,
   });
+  // importacion de las funciones del store de equipos y de usuarios para manejar la eliminacion de equipos
   const { borrarEquipos } = useEquiposStore();
   const { activeUser } = useUserStore();
 
+  // union de los roles y que centros puede acceder cada rol, frente a cada uno se muestra su nombre en la base de datos y el nombre de los centros donde puede acceder
   const rolesACentros = {
     4: [5, 7], // Lindo Maya: PLI y PMY
     3: [6, 4], // Mar Beach: PMA y PBE
     5: [5], // Grand: GHP
   };
+
+  // cuando se llama la funion editar se verifica si el usuario tiene permisos para editar el equipo, si no tiene permisos se muestra un mensaje de error
   const editar = (data) => {
     if (activeUser.rol_id !== 1) {
       const centrosPermitidos = rolesACentros[activeUser.rol_id];
@@ -60,11 +69,14 @@ export function TableEquipos({
         });
       }
     }
+
+    // abre el modal de registro con los datos del equipo seleccionado o vacio si se va a insertar un nuevo equipo
     setopenRegistro(true);
     setdataSelect(data);
     setAccion("Editar");
   };
 
+  // funcion para eliminar un equipo, se muestra un mensaje de confirmacion antes de eliminar el equipo
   const eliminar = (p) => {
     if (activeUser.rol_id !== 1) {
       // 1 es el ID del rol "Administrador"
@@ -79,8 +91,7 @@ export function TableEquipos({
         });
       }
     }
-
-    // El resto de tu código de eliminación aquí...
+    // mensaje de confirmacion para eliminar el equipo
     Swal.fire({
       title: "¿Estas seguro de eliminar esto?",
       text: "este cambio sera irreversible!",
@@ -96,10 +107,15 @@ export function TableEquipos({
       }
     });
   };
+
+  // columnas para la tabla de acuerdo a los campos de la base de datos usando las funciones de tanstack table
   const columns = [
     {
+      // key de la columna, tiene que ser igual al campo de la base de datos
       accessorKey: "nombre",
+      // encabezado de la columna, a libre eleccion
       header: "Nombre Equipo",
+      // metodo para ligar la informacion a la celda de la tabla, info.getValue() obtiene el del campo de la base de datos y lo muestra, este metodo solo es en caso de columnas dentro de la misma tabla
       cell: (info) => (
         <td
           data-title="Nombre Equipo"
@@ -124,6 +140,7 @@ export function TableEquipos({
     {
       accessorKey: "apellido_usuario",
       header: "Apellido Usuario",
+      // habilita o deshabilita el filtro de la columna, si no esta presente esta linea por defecto el valor es true
       enableColumnFilter: false,
 
       cell: (info) => (
@@ -161,11 +178,12 @@ export function TableEquipos({
         </td>
       ),
     },
-
     {
+      // este campo es de una llave foranea, el accessorKey tiene que seguir los campos anidados de la base de datos para recuperar la informacion
       accessorKey: "modelos.marcas.nombre",
       header: "Marca",
       enableColumnFilter: true,
+      // se agrega un estilo para que la informacion en la celda se muestre correctamente, en el span los primeros 3 campos son propios de la libreria de la tabla, despues de original es el acceso a los campos anidados de la base de datos
       cell: (info) => (
         <td
           style={{ width: "100px" }}
@@ -274,6 +292,7 @@ export function TableEquipos({
     {
       accessorKey: "monitor_id",
       header: "Monitor",
+      // se puede usar un if para mostrar un valor en caso de que el campo sea nulo
       cell: (info) => (
         <td
           data-title="Monitor Serie"
@@ -316,6 +335,7 @@ export function TableEquipos({
       ),
     },
     {
+      // campo para las acciones de la tabla, se llama el componente TableActions que recibe las funciones de editar y eliminar y se le pasa la informacion del equipo seleccionado usando las funciones de la libreria de la tabla
       accessorKey: "accionesMarcas",
       header: "Acciones Marcas",
       enableSorting: false,
@@ -331,7 +351,7 @@ export function TableEquipos({
       ),
     },
   ];
-
+  /*configuracion para la tabla segun los metodos de tanstack table, recibe la informacion de la consulta, la configuracion de las tablas, la funcion que usara como filtro y la informacon de los states de control, la parta inferior son funciones de la libreria para hacer funcionar los diferentes campos */
   const table = useReactTable({
     data,
     columns,
@@ -358,49 +378,56 @@ export function TableEquipos({
     <Container>
       <table className="responsive-table">
         <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  <div
-                    {...{
-                      className: header.column.getCanSort()
-                        ? "cursor-pointer select-none"
-                        : "",
-                      onClick: header.column.getToggleSortingHandler(),
-                    }}
-                  >
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                    {{
-                      asc: <FaSortUp />,
-                      desc: <FaSortDown />,
-                    }[header.column.getIsSorted()] ?? null}
-                  </div>
-                  {header.column.getCanFilter() ? (
+          {
+            // usa la informacion de la tabla para mostrar los encabezados de las columnas, se puede agregar un filtro a las columnas si se habilita en la configuracion de la tabla
+            table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th key={header.id}>
                     <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        width: "180px",
+                      {...{
+                        className: header.column.getCanSort()
+                          ? "cursor-pointer select-none"
+                          : "",
+                        onClick: header.column.getToggleSortingHandler(),
                       }}
                     >
-                      <Filter
-                        column={header.column}
-                        table={table}
-                      />
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                      {{
+                        asc: <FaSortUp />,
+                        desc: <FaSortDown />,
+                      }[header.column.getIsSorted()] ?? null}
                     </div>
-                  ) : null}
-                </th>
-              ))}
-            </tr>
-          ))}
+                    {header.column.getCanFilter() ? (
+                      // componente de filtro para las columnas, recibe la informacion de la columna y la tabla
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          width: "180px",
+                        }}
+                      >
+                        <Filter
+                          // se le pasa la informacion de la columna y la tabla
+                          column={header.column}
+                          table={table}
+                        />
+                      </div>
+                    ) : null}
+                  </th>
+                ))}
+              </tr>
+            ))
+          }
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((item) => (
+          {
+          // cuerpo de la tabla que recoge los valores de la configuracion de la columna y los muestra en la tabla
+          table.getRowModel().rows.map((item) => (
             <tr key={item.id}>
               {item.getVisibleCells().map((cell) => (
                 <td key={cell.id}>
@@ -412,6 +439,7 @@ export function TableEquipos({
         </tbody>
       </table>
       <Paginacion
+      // informacion para el componente de paginacion, se el envia la tabla y el set state de la pagina mas las funciones de la libreria de la tabla
         table={table}
         irinicio={() => table.setPageIndex(0)}
         pagina={table.getState().pagination.pageIndex + 1}
