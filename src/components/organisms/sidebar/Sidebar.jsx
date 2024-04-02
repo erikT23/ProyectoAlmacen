@@ -4,9 +4,15 @@ import { LinksArray } from "../../../index";
 import { v } from "../../../styles/index";
 import { ToggleTema } from "../../organisms/index";
 
+// componente del sidebar de la aplicacion
 export function Sidebar({ state, setState }) {
   return (
-    <Main $isopen={state.toString()}>
+    <Main
+      $isopen={
+        state.toString()
+        // control del estado del sidebar
+      }
+    >
       <span
         className="Sidebarbutton"
         onClick={() => {
@@ -16,6 +22,7 @@ export function Sidebar({ state, setState }) {
         {<v.iconoflechaderecha />}
       </span>
       <Container
+        // si el estado es true se activa la clase active y despliega el sidebar
         $isopen={state.toString()}
         className={state ? "active" : ""}
       >
@@ -25,22 +32,28 @@ export function Sidebar({ state, setState }) {
           </div>
           <h2>Almacen Sistemas</h2>
         </div>
-        {LinksArray.map(({ icon, label, to }) => (
-          <div
-            className={state ? "LinkContainer active" : "LinkContainer"}
-            key={label}
-          >
-            <NavLink
-              to={to}
-              className={({ isActive }) => `Links${isActive ? ` active` : ``}`}
+        {
+          // mapeo de los links del sidebar esta es una constante que se maneja desde la seccion utils
+          //proporciona el nombre, el icono y la ruta de los links para que maneje el navlink
+          LinksArray.map(({ icon, label, to }) => (
+            <div
+              className={state ? "LinkContainer active" : "LinkContainer"}
+              key={label}
             >
-              <div className="Linkicon">{icon}</div>
-              <span className={state ? "label_ver" : "label_oculto"}>
-                {label}
-              </span>
-            </NavLink>
-          </div>
-        ))}
+              <NavLink
+                to={to}
+                className={({ isActive }) =>
+                  `Links${isActive ? ` active` : ``}`
+                }
+              >
+                <div className="Linkicon">{icon}</div>
+                <span className={state ? "label_ver" : "label_oculto"}>
+                  {label}
+                </span>
+              </NavLink>
+            </div>
+          ))
+        }
         <Divider />
 
         <ToggleTema />

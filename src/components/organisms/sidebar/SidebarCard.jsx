@@ -3,6 +3,7 @@ import { useAuthStore } from "../../../store/index";
 import { v } from "../../../styles/index";
 import { Btnsave } from "../../molecules/index";
 
+// componente para desplegar el boton de cerrar sesion en el correo del usuario logeado
 export function SidebarCard() {
   const { signOut } = useAuthStore();
 
