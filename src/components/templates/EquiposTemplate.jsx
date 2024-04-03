@@ -4,7 +4,8 @@ import Swal from "sweetalert2";
 import { useUserStore } from "../../store";
 import { v } from "../../styles/variables";
 import { ContentFiltro, Title } from "../atoms/index";
-import { BtnAdd } from "../molecules/index";
+import { BtnAdd, BtnCsv } from "../molecules/index";
+import { json2csv } from "json-2-csv";
 import {
   Header,
   InputRetraso,
@@ -36,6 +37,24 @@ export function EquiposTemplate({ data }) {
     setdataSelect([]);
   };
 
+  //esta funcion se encarga de exportar la tabla de equipos a un archivo csv,para eso toma el json de la consulta y lo transforma a csv
+  const exportarTabla = () => {
+    // Convertir los datos a CSV
+    const dataCsv = json2csv(data);
+
+    // Crear un objeto Blob con los datos
+    const blob = new Blob([dataCsv], { type: "text/csv;charset=utf-8;" });
+
+    // Crear un enlace de descarga y hacer clic en él
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "Equipos.csv");
+    document.body.appendChild(link); // Required for Firefox
+    link.click();
+    document.body.removeChild(link); // Cleanup
+  };
+
   return (
     <Container>
       {
@@ -62,6 +81,11 @@ export function EquiposTemplate({ data }) {
             textColor={"#000"}
             icono={<v.agregar />}
             funcion={nuevoRegistro}
+          />
+          <BtnCsv
+            icono={<v.iconoreportes />}
+            funcion={exportarTabla}
+            textColor={"#000"}
           />
         </ContentFiltro>
       </section>
