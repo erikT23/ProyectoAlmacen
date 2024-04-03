@@ -62,7 +62,7 @@ export function Banner() {
     queryKey: ["countbodegaComunesData"],
     queryFn: () => countBodegaComunes(),
   });
-  /*asdasdasd*/
+  
   useQuery({
     queryKey: ["countmonlm"],
     queryFn: () => countMonitorLm(),

@@ -372,3 +372,112 @@ export const CountMonitoresBodega = async () => {
 
   return count;
 };
+
+export const CountCelularesComunes = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .eq("centro_id", 3)
+    .eq("tipo_id", 16);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
+
+export const CountCelularesMB = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .in("centro_id", [4, 6])
+    .eq("tipo_id", 16);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
+
+export const CountCelularesBodegaPar = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .eq("centro_id", 3)
+    .eq("departamento_id", 79)
+    .eq("tipo_id", 16);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
+
+export const CountCelularesImx = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .eq("centro_id", 2)
+    .eq("tipo_id", 16);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
+
+export const CountCelularesGhp = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .eq("centro_id", 1)
+    .eq("tipo_id", 16);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};
+
+export const CountCelularesLm = async () => {
+  const { count, error } = await supabase
+    .from("equipos")
+    .select("*", { count: "exact", head: true })
+    .in("centro_id", [5, 7])
+    .eq("tipo_id", 16);
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: " Error count equipos",
+      text: "error contando equipos" + error.message,
+    });
+    return;
+  }
+
+  return count;
+};

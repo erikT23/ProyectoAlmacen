@@ -1,5 +1,11 @@
 import { create } from "zustand";
 import {
+  CountCelularesBodegaPar,
+  CountCelularesComunes,
+  CountCelularesGhp,
+  CountCelularesImx,
+  CountCelularesLm,
+  CountCelularesMB,
   CountEquiposBodega,
   CountEquiposComunes,
   CountEquiposGhp,
@@ -164,6 +170,48 @@ export const useEquiposStore = create((set, get) => ({
   countMonitorComunes: async () => {
     const response = await CountMonitoresComunes();
     set({ countMonitorComunesData: response });
+    return response;
+  },
+
+  countCelularesParData: [],
+  countCelularesPar: async () => {
+    const response = await CountCelularesComunes();
+    set({ countCelularesParData: response });
+    return response;
+  },
+
+  countCelularesMbData: [],
+  countCelularesMb: async () => {
+    const response = await CountCelularesMB();
+    set({ countCelularesMbData: response });
+    return response;
+  },
+
+  countCelularesParBodegaData: [],
+  countCelularesParBodega: async () => {
+    const response = await CountCelularesBodegaPar();
+    set({ countCelularesParBodegaData: response });
+    return response;
+  },
+
+  countCelularesImxData: [],
+  countCelularesImx: async () => {
+    const response = await CountCelularesImx();
+    set({ countCelularesImxData: response });
+    return response;
+  },
+
+  countCelularesGhpData: [],
+  countCelularesGrandes: async () => {
+    const response = await CountCelularesGhp();
+    set({ countCelularesGhpData: response });
+    return response;
+  },
+
+  countCelularesLmData: [],
+  countCelularesLm: async () => {
+    const response = await CountCelularesLm();
+    set({ countCelularesLmData: response });
     return response;
   },
 }));
