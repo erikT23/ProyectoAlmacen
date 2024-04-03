@@ -16,8 +16,8 @@ export function BitacoraTemplate({
   const [globalFilter, setGlobalFilter] = useState("");
   const [formattedData, setFormattedData] = useState([]);
 
-  console.log(tipos, "tiposData");
 
+  
   useEffect(() => {
     // recibe la informacion de la page bitacora y la formatea para mostrarla en la tabla
     if (
@@ -128,8 +128,7 @@ export function BitacoraTemplate({
       }
     }
   }
-  console.log(bitacoraData, "formattedData");
-
+  
   return (
     <Container>
       <header className="header">

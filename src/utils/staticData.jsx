@@ -12,6 +12,10 @@ import usaurio from "../assets/usaurio.png";
 import { v } from "../styles/index";
 
 // data estatica para mapear en los menus, incluyen un titulo o subtitulo, un icono y a que ruta redirigir
+
+
+
+// 
 export const DesplegableUser = [
   {
     text: "Cerrar sesión",
