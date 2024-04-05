@@ -2,7 +2,6 @@ import Swal from "sweetalert2";
 import { supabase } from "../supabase/index";
 import { GetIdAuthSupabase } from "./index";
 
-
 // consultas para la tabla de usuarios en la base de datos funcionamiento especifico en equiposCrud
 export const InsertUser = async (p) => {
   const { data, error } = await supabase

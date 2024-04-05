@@ -297,9 +297,14 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     defaultValue={dataSelect.sistema_operativo}
                     type="text"
                     placeholder=""
-                    {...register("sistema_operativo")}
+                    {...register("sistema_operativo", {
+                      required: true,
+                    })}
                   />
                   <label className="form__label">Sistema Operativo:</label>
+                  {errors.sistema_operativo?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
                 </InputText>
               </article>
               <article>
@@ -313,6 +318,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       // regex para validar una direccion ip en caso de no cumplir con el formato se mostrara un mensaje de error
                       pattern:
                         /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
+                      required: true,
                     })}
                   />
                   <label className="form__label">Direccion Ip:</label>
@@ -370,6 +376,10 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     }
                   </select>
                   <label className="form__label">Modelo:</label>
+
+                  {errors.modelo_id?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
                 </InputText>
               </article>
               <article>
@@ -406,7 +416,9 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     ))}
                   </select>
                   <label className="form__label">Centro</label>
-                  {errors.option?.type === "required" && <p>Campo requerido</p>}
+                  {errors.centro_id?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
                 </InputText>
               </article>
               <article>
@@ -436,7 +448,9 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     ))}
                   </select>
                   <label className="form__label">Departamento</label>
-                  {errors.option?.type === "required" && <p>Campo requerido</p>}
+                  {errors.departamento_id?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
                 </InputText>
               </article>
               <article>
@@ -484,7 +498,9 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     ))}
                   </select>
                   <label className="form__label">Estado</label>
-                  {errors.option?.type === "required" && <p>Campo requerido</p>}
+                  {errors.estado_id?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
                 </InputText>
               </article>
               <div className="btnguardarContent">

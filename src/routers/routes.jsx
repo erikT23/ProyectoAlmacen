@@ -1,4 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
 import { Route, Routes } from "react-router-dom";
+import { ErrorCard, SpinnerLoader } from "../components/molecules";
 import { ProtectedRoutes, UserAuth } from "../index";
 import {
   Bitacora,
@@ -16,10 +18,25 @@ import {
   Monitores,
   Usuarios,
 } from "../pages/index";
+import { useUserStore } from "../store";
 // componente para el enrutamiento de las paginas de la aplicacion, primero verifica si hay un usuario logeado, en caso de no haberlo manda al login de la aplicacion
 
 export function MyRoutes() {
   const { user } = UserAuth();
+
+  const { showUsers } = useUserStore();
+
+  const { isLoading, error } = useQuery({
+    queryKey: ["mostrar usuarios"],
+    queryFn: showUsers,
+  });
+
+  if (isLoading) {
+    return <SpinnerLoader />;
+  }
+  if (error) {
+    return <ErrorCard mensaje={error.message} />;
+  }
 
   return (
     <Routes>

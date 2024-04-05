@@ -23,6 +23,7 @@ export function EquiposTemplate({ data }) {
   const [globalFilter, setGlobalFilter] = useState("");
   const { activeUser } = useUserStore();
 
+  console.log(activeUser, "activeUser");
   // funcion para abrir el formulario de registro de equipos solamente el usuario administrador puede agregar equipos
   const nuevoRegistro = () => {
     if (activeUser.roles.nombre !== "Administrador") {

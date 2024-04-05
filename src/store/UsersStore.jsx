@@ -101,6 +101,7 @@ export const useUserStore = create((set, get) => ({
     supabaseAdmin.auth.signOut();
   },
 // se crea una variable idUser que es un numero que se inicializa en 0 y activeUser que es un arreglo vacio, se llama de forma asincrona la funcion de mostrar usuarios y se setea la respuesta en las variables, esta funcion es para llamar al usuario activo en la aplicacion
+
   idUser: 0,
   activeUser: [],
   showUsers: async () => {
