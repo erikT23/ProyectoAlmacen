@@ -35,6 +35,21 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   const [departamentos, setDepartamentos] = useState([]);
   const [marcaId, setMarcaId] = useState(null);
   const [tipoId, setTipoId] = useState(null);
+  const [selectedMonitor, setSelectedMonitor] = useState("");
+
+  useEffect(() => {
+    setSelectedMonitor(dataSelect.monitor_id || "");
+  }, [dataSelect.monitor_id]);
+
+  useEffect(() => {
+    if (dataSelect && dataSelect.modelo_id) {
+      const selectedModelo = modelosData.find(
+        (modelo) => modelo.id === dataSelect.modelo_id
+      );
+      setMarcaId(selectedModelo ? selectedModelo.marca_id : null);
+      setTipoId(selectedModelo ? selectedModelo.tipo_id : null);
+    }
+  }, [dataSelect, modelosData]);
 
   // inicializacion de los hooks de react-hook-form para el formulario
   const {
@@ -102,9 +117,8 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,
-        nombre: Capitalize(data.nombre),
-        nombre_usuario: Capitalize(data.nombre_usuario),
-        apellido_usuario: Capitalize(data.apellido_usuario),
+        nombre: data.nombre,
+
         correo: data.correo,
         numserie: data.numserie,
         inicio_garantia: data.inicio_garantia,
@@ -118,6 +132,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         estado_id: data.estado_id,
         departamento_id: data.departamento_id,
         monitor_id: data.monitor_id ? data.monitor_id : null,
+        monitor2_id: data.monitor2_id ? data.monitor2_id : null,
       };
 
       await editEquipos(p);
@@ -125,13 +140,13 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         icon: "success",
         title: "Guardado",
         text: "Equipo editado con exito",
+      }).then(() => {
+        window.location.reload();
       });
       onClose();
     } else {
       const p = {
         nombre: Capitalize(data.nombre),
-        nombre_usuario: Capitalize(data.nombre_usuario),
-        apellido_usuario: Capitalize(data.apellido_usuario),
         numserie: data.numserie,
         correo: data.correo,
         inicio_garantia: data.inicio_garantia,
@@ -145,12 +160,15 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         estado_id: data.estado_id,
         departamento_id: data.departamento_id,
         monitor_id: data.monitor_id ? data.monitor_id : null,
+        monitor2_id: data.monitor2_id ? data.monitor2_id : null,
       };
       await insertarEquipos(p);
       Swal.fire({
         icon: "success",
         title: "Guardado",
         text: "Equipo agregado con exito",
+      }).then(() => {
+        window.location.reload();
       });
       onClose();
     }
@@ -198,36 +216,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   {errors.nombre?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>
-              <article>
-                <InputText icono={<v.iconomarca />}>
-                  <input
-                    className="form__field"
-                    defaultValue={dataSelect.nombre_usuario}
-                    type="text"
-                    placeholder=""
-                    {...register("nombre_usuario", { required: true })}
-                  />
-                  <label className="form__label">Nombre del usuario:</label>
-                  {errors.nombre_usuario?.type === "required" && (
-                    <p>Campo requerido</p>
-                  )}
-                </InputText>
-              </article>
-              <article>
-                <InputText icono={<v.iconomarca />}>
-                  <input
-                    className="form__field"
-                    defaultValue={dataSelect.apellido_usuario}
-                    type="text"
-                    placeholder=""
-                    {...register("apellido_usuario", { required: true })}
-                  />
-                  <label className="form__label">Apellido del usuario:</label>
-                  {errors.apellido_usuario?.type === "required" && (
-                    <p>Campo requerido</p>
-                  )}
-                </InputText>
-              </article>
+
               <article>
                 <InputText icono={<v.iconomarca />}>
                   <input
@@ -338,9 +327,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       required: true,
                     })}
                     onChange={(e) => {
-                      /*el campo de modelos se tomo para llenar clos campos de marca y tipo de equipo
-                      una vez que se modifica el campo de modelos se busca el modelo seleccionado y se obtienen los campos de marca y tipo
-                      */
                       const selectedModeloId = Number(e.target.value);
                       const selectedModelo = modelosData.find(
                         (modelo) => modelo.id === selectedModeloId
@@ -352,8 +338,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     }}
                   >
                     {dataSelect && dataSelect.modelos ? (
-                      /* cuando se busca editar la informacion verifica que llegue desde la tabla,de ahi saca el nombre del modelo 
-                      de la marca y del tipo, estos valores son solo de referencia y se necesita volver a seleccionar el valor para asignarlo */
                       <option value={dataSelect.modelo_id}>
                         {dataSelect.modelos.nombre} (
                         {dataSelect.modelos.marcas.nombre})(
@@ -362,21 +346,16 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     ) : (
                       <option value="">-- Seleccione un modelo --</option>
                     )}
-                    {
-                      // se mapean los modelos para mostrarlos en el select usando los valores llamados anteriormente
-                      modelosData.map((modelo) => (
-                        <option
-                          key={modelo.id}
-                          value={modelo.id}
-                        >
-                          {modelo.nombre} ({modelo.marcas.nombre})(
-                          {modelo.tipos.nombre})
-                        </option>
-                      ))
-                    }
+                    {modelosData.map((modelo, index) => (
+                      <option
+                        key={index}
+                        value={modelo.id}
+                      >
+                        {modelo.nombre}
+                      </option>
+                    ))}
                   </select>
-                  <label className="form__label">Modelo:</label>
-
+                  <label className="form__label">Modelo</label>
                   {errors.modelo_id?.type === "required" && (
                     <p>Campo requerido</p>
                   )}
@@ -456,16 +435,17 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
               <article>
                 <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
                   <select
-                    // los monitores son un tipo de equipo, por lo que el valor que se muestra para seleccionarlos aqui el numero de serie de los equipos marcados como monitor
                     className="form__field"
-                    {...register("monitor_id")}
+                    {...register("monitor1_id")}
+                    value={selectedMonitor}
+                    onChange={(e) => setSelectedMonitor(e.target.value)}
                   >
                     <option value="">-- Seleccione un monitor --</option>
                     {dataMonitores
                       .filter(
                         (monitor) =>
                           !monitor.equipoId ||
-                          monitor.equipoId === dataSelect.equipoId
+                          monitor.id === dataSelect.monitor_id
                       )
                       .map((monitor, index) => (
                         <option
@@ -477,7 +457,35 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       ))}
                   </select>
                   <label className="form__label">Monitor</label>
-                  {errors.option?.type === "required" && <p>Campo requerido</p>}
+                  {errors.monitor_id?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                  <select
+                    className="form__field"
+                    {...register("monitor2_id")}
+                  >
+                    <option value="">
+                      -- Seleccione un segundo monitor --
+                    </option>
+                    {dataMonitores
+                      .filter((monitor) => monitor.id !== dataSelect.monitor_id)
+                      .map((monitor, index) => (
+                        <option
+                          key={index}
+                          value={monitor.id}
+                        >
+                          {monitor.numserie}
+                        </option>
+                      ))}
+                  </select>
+                  <label className="form__label">Segundo Monitor</label>
+                  {errors.monitor2_id?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
                 </InputText>
               </article>
               <article>

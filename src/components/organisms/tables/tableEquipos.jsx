@@ -125,7 +125,7 @@ export function TableEquipos({
         </td>
       ),
     },
-    {
+    /*  {
       accessorKey: "nombre_usuario",
       header: "Nombre Usuario",
       cell: (info) => (
@@ -151,7 +151,7 @@ export function TableEquipos({
           <span>{info.getValue()}</span>
         </td>
       ),
-    },
+    },*/
     {
       accessorKey: "correo",
       header: "Correo Usuario",
@@ -291,16 +291,31 @@ export function TableEquipos({
     },
     {
       accessorKey: "monitor_id",
-      header: "Monitor",
-      // se puede usar un if para mostrar un valor en caso de que el campo sea nulo
+      header: "Monitor 1",
       cell: (info) => (
         <td
           data-title="Monitor Serie"
           className="ContentCell"
         >
           <span>
-            {info.row.original.monitor
-              ? info.row.original.monitor.numserie
+            {info.row.original.monitor1
+              ? info.row.original.monitor1.numserie
+              : "N/A"}
+          </span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "monitor2_id",
+      header: "Monitor 2",
+      cell: (info) => (
+        <td
+          data-title="Monitor Serie"
+          className="ContentCell"
+        >
+          <span>
+            {info.row.original.monitor2
+              ? info.row.original.monitor2.numserie
               : "N/A"}
           </span>
         </td>
@@ -426,20 +441,21 @@ export function TableEquipos({
         </thead>
         <tbody>
           {
-          // cuerpo de la tabla que recoge los valores de la configuracion de la columna y los muestra en la tabla
-          table.getRowModel().rows.map((item) => (
-            <tr key={item.id}>
-              {item.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
+            // cuerpo de la tabla que recoge los valores de la configuracion de la columna y los muestra en la tabla
+            table.getRowModel().rows.map((item) => (
+              <tr key={item.id}>
+                {item.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))
+          }
         </tbody>
       </table>
       <Paginacion
-      // informacion para el componente de paginacion, se el envia la tabla y el set state de la pagina mas las funciones de la libreria de la tabla
+        // informacion para el componente de paginacion, se el envia la tabla y el set state de la pagina mas las funciones de la libreria de la tabla
         table={table}
         irinicio={() => table.setPageIndex(0)}
         pagina={table.getState().pagination.pageIndex + 1}

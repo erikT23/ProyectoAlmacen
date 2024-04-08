@@ -67,7 +67,8 @@ export const EditEquipos = async (p) => {
       centro_id: p.centro_id,
       estado_id: p.estado_id,
       departamento_id: p.departamento_id,
-      monitor_id: p.monitor_id,
+      monitor1_id: p.monitor1_id,
+      monitor2_id: p.monitor2_id,
     }) // parametros para actualizar la base de datos que tienen que ser iguales a los de la base de datos
     .eq("id", p.id); // funcion de filtro para supabase que indica que se actualizara el registro que tenga el id igual al id del parametro
   if (error) {
@@ -125,12 +126,15 @@ export const ShowEquiposComunes = async () => {
     return;
   }
 
-  // se hace un mapeo de los equipos para agregar el monitor correspondiente para los equipos con uno asignado
+  // se hace un mapeo de los equipos para agregar los monitores correspondientes para los equipos con uno asignado
   const equiposConMonitores = equiposData.map((equipo) => {
-    const monitor = monitoresData.find(
+    const monitor1 = monitoresData.find(
       (monitor) => monitor.id === equipo.monitor_id
     );
-    return { ...equipo, monitor };
+    const monitor2 = monitoresData.find(
+      (monitor) => monitor.id === equipo.monitor2_id
+    );
+    return { ...equipo, monitor1, monitor2 };
   });
 
   return equiposConMonitores;

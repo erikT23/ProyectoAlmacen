@@ -18,7 +18,6 @@ import { Filter, Paginacion } from "./index";
 // componente de la tabla de bitacoras, detalle de su funcionamiento en la tabla de equipos
 
 export function TableBitacoras({ data, globalFilter }) {
-  console.log(data, "data");
 
   function fuzzyFilter(row, columnId, value, addMeta) {
     const itemRank = rankItem(row.getValue(columnId), value);
