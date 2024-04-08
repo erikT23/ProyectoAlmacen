@@ -111,7 +111,7 @@ export function TableMonitores({
         </td>
       ),
     },
-    {
+   /* {
       accessorKey: "nombre_usuario",
       header: "Nombre Usuario",
       cell: (info) => (
@@ -136,7 +136,7 @@ export function TableMonitores({
           <span>{info.getValue()}</span>
         </td>
       ),
-    },
+    },*/
     {
       accessorKey: "numserie",
       header: "Numero de Serie",

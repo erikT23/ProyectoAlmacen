@@ -86,9 +86,9 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,
-        nombre: Capitalize(data.nombre),
-        nombre_usuario: Capitalize(data.nombre_usuario),
-        apellido_usuario: Capitalize(data.apellido_usuario),
+        nombre: data.nombre,
+        //  nombre_usuario: Capitalize(data.nombre_usuario),
+        //  apellido_usuario: Capitalize(data.apellido_usuario),
         numserie: data.numserie,
         inicio_garantia: data.inicio_garantia,
         fin_garantia: data.fin_garantia,
@@ -107,13 +107,15 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
         icon: "success",
         title: "Guardado",
         text: "Equipo editado con exito",
+      }).then(() => {
+        window.location.reload();
       });
       onClose();
     } else {
       const p = {
-        nombre: Capitalize(data.nombre),
-        nombre_usuario: Capitalize(data.nombre_usuario),
-        apellido_usuario: Capitalize(data.apellido_usuario),
+        nombre: data.nombre,
+        //  nombre_usuario: Capitalize(data.nombre_usuario),
+        //  apellido_usuario: Capitalize(data.apellido_usuario),
         numserie: data.numserie,
         inicio_garantia: data.inicio_garantia,
         fin_garantia: data.fin_garantia,
@@ -131,6 +133,8 @@ export function RegistrarMonitores({ onClose, dataSelect, accion }) {
         icon: "success",
         title: "Guardado",
         text: "Equipo agregado con exito",
+      }).then(() => {
+        window.location.reload();
       });
       onClose();
     }
