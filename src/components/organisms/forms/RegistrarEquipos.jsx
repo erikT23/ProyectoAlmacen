@@ -351,7 +351,8 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                         key={index}
                         value={modelo.id}
                       >
-                        {modelo.nombre}
+                        {modelo.nombre} ({modelo.marcas.nombre}) (
+                        {modelo.tipos.nombre})
                       </option>
                     ))}
                   </select>

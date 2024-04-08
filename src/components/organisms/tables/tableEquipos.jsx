@@ -104,6 +104,9 @@ export function TableEquipos({
       if (result.isConfirmed) {
         await borrarEquipos({ id: p.id });
         Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
       }
     });
   };

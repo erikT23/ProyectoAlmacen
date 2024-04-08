@@ -3,8 +3,6 @@ import { SpinnerLoader } from "../components/molecules";
 import { BitacoraTemplate } from "../components/templates/index";
 import {
   useBitacoraStore,
-  useCentrosStore,
-  useDepartamentosStore,
   useEstadoStore,
   useMarcasStore,
   useModelosStore,
@@ -18,9 +16,7 @@ export function Bitacora() {
   const { bitacoraData, showBitacora } = useBitacoraStore();
   const { showModelos, modelosData } = useModelosStore();
   const { tiposData, showTipos } = useTiposStore();
-  const { centrosData, showCentros } = useCentrosStore();
   const { estadosData, showEstados } = useEstadoStore();
-  const { departamentosData, showDepartamentos } = useDepartamentosStore();
   const { marcasData, showMarcas } = useMarcasStore();
 
   // querys para traer la informacion de la base de datos, hace uso de la libreria tanstack query para hacer las consultas a la base de datos https://tanstack.com/query/latest
@@ -32,18 +28,12 @@ export function Bitacora() {
     queryKey: ["modelos"],
     queryFn: () => showModelos(),
   });
-  useQuery({
-    queryKey: ["centros"],
-    queryFn: () => showCentros(),
-  });
+
   useQuery({
     queryKey: ["estados"],
     queryFn: () => showEstados(),
   });
-  useQuery({
-    queryKey: ["departamentos"],
-    queryFn: () => showDepartamentos(),
-  });
+
   useQuery({
     queryKey: ["marcas"],
     queryFn: () => showMarcas(),
@@ -68,9 +58,7 @@ export function Bitacora() {
       data={bitacoraData}
       tipos={tiposData}
       modelos={modelosData}
-      centros={centrosData}
       estados={estadosData}
-      departamentos={departamentosData}
       marcas={marcasData}
     />
   );

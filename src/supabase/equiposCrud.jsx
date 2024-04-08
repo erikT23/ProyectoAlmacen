@@ -36,7 +36,8 @@ export const InsertEquipos = async (p) => {
       centro_id: p.centro_id,
       estado_id: p.estado_id,
       departamento_id: p.departamento_id,
-      monitor_id: p.monitor_id,
+      monitor1_id: p.monitor1_id,
+      monitor2_id: p.monitor2_id,
     },
   ]); // parametros para insertar a la tabla equipos, los parametros tienen que ser iguales a los de la base de datos
   if (error) {

@@ -1,5 +1,10 @@
 import { create } from "zustand";
-import { ShowBitacora } from "../supabase/index";
+import {
+  DeleteBitacoras,
+  EditBitacoras,
+  InsertBitacora,
+  ShowBitacora,
+} from "../supabase/index";
 
 //store para mostrar la bitacora funcionamiento especifico en el store de equipos
 
@@ -10,5 +15,18 @@ export const useBitacoraStore = create((set) => ({
     const response = await ShowBitacora();
     set({ bitacoraData: response });
     return response;
+  },
+
+  insertarBitacora: async (p) => {
+    await InsertBitacora(p);
+  },
+
+  borrarBitacora: async (p) => {
+    await DeleteBitacoras(p);
+  },
+
+  editarBitacora: async (p) => {
+    console.log(p, "edit");
+    await EditBitacoras(p);
   },
 }));
