@@ -103,7 +103,7 @@ export function TableBitacoras({
         Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
         setTimeout(() => {
           window.location.reload();
-        }, 3000); 
+        }, 3000);
       }
     });
   };
@@ -225,9 +225,15 @@ export function TableBitacoras({
       enableColumnFilter: false,
       cell: (info) => (
         <td
-          style={{ width: "150px" }}
+          style={{
+            width: "400px",
+            height: "auto",
+            overflow: "auto",
+            whiteSpace: "normal",
+          }}
           data-title="Nombre"
           className="ContentCell"
+          title={info.getValue()} // Añade un tooltip que muestra el texto completo
         >
           <span>{info.getValue()}</span>
         </td>

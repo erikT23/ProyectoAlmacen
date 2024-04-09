@@ -19,7 +19,6 @@ export const ShowBitacora = async () => {
 export const InsertBitacora = async (p) => {
   const { error } = await supabase.from("bitacoras").insert({
     accion: p.accion,
-    fecha: new Date().toLocaleDateString("es-ES", { dateStyle: "short" }),
     correo: p.correo,
     numserie: p.numserie,
     categoria: p.categoria,

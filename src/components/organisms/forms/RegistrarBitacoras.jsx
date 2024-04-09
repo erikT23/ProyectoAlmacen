@@ -225,7 +225,13 @@ export function RegistrarBitacoras({ onClose, dataSelect, accion }) {
                       required: true,
                     })}
                   >
-                    <option value={null}>-- Seleccione una Categoria --</option>
+                    {dataSelect && dataSelect.categoria ? (
+                      <option value={dataSelect.categoria}>
+                        {dataSelect.categoria}
+                      </option>
+                    ) : (
+                      <option value="">-- Seleccione una categoria --</option>
+                    )}
                     <option value="Stock">Stock</option>
                     <option value="Garantia">Garantía</option>
                   </select>
@@ -244,7 +250,13 @@ export function RegistrarBitacoras({ onClose, dataSelect, accion }) {
                       setValueAs: (value) => Number(value),
                     })}
                   >
-                    <option value={null}>-- Seleccione un Estado --</option>
+                    {dataSelect && dataSelect.estados ? (
+                      <option value={dataSelect.estado_id}>
+                        {dataSelect.estados.nombre}
+                      </option>
+                    ) : (
+                      <option value="">-- Seleccione un estado --</option>
+                    )}
                     {estadosData.map((estado, index) => (
                       <option
                         key={index}
@@ -268,7 +280,13 @@ export function RegistrarBitacoras({ onClose, dataSelect, accion }) {
                       required: true,
                     })}
                   >
-                    <option value={null}>-- Seleccione una Accion --</option>
+                    {dataSelect && dataSelect.accion ? (
+                      <option value={dataSelect.accion}>
+                        {dataSelect.accion}
+                      </option>
+                    ) : (
+                      <option value="">-- Seleccione una Accion --</option>
+                    )}
                     <option value="Entrada">Entrada</option>
                     <option value="Salida">Salida</option>
                   </select>
@@ -282,7 +300,7 @@ export function RegistrarBitacoras({ onClose, dataSelect, accion }) {
                 <InputText icono={<v.iconomarca />}>
                   <input
                     className="form__field"
-                    defaultValue={dataSelect.sistema_operativo}
+                    defaultValue={dataSelect.motivo}
                     type="text"
                     placeholder=""
                     {...register("motivo", {
