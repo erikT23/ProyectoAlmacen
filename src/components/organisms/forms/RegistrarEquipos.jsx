@@ -5,6 +5,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import {
+  useBitacoraStore,
   useCentrosStore,
   useDepartamentosStore,
   useEquiposStore,
@@ -22,6 +23,7 @@ import { InputText } from "./index";
 // al ser el mas complicado aqui se detalla el funcionamiento de los demas componentes de registro
 
 export function RegistrarEquipos({ onClose, dataSelect, accion }) {
+  console.log(dataSelect, "dataSelect");
   // seccion de importaciones de los Store de zustand, estos son los hooks que se usan para hacer las peticiones a la base de datos
   // las variables show llama a las funciones que realizan la consulta a la base de datos y las variables data son las que contienen la informacion
 
@@ -30,6 +32,8 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   const { showModelos, modelosData } = useModelosStore();
   const { showTipos } = useTiposStore();
   const { mostrarDepartamentosyCentros } = useDepartamentosStore();
+  const { insertarBitacora } = useBitacoraStore();
+
   const { showCentros, centrosData } = useCentrosStore();
   const { showEstados, estadosData } = useEstadoStore();
   const [departamentos, setDepartamentos] = useState([]);
@@ -90,6 +94,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   // esta seccion llama al usuario con sesion iniciada para verificar si tiene permisos para insertar un equipo en el centro seleccionado
 
   const { activeUser } = useUserStore();
+  console.log(activeUser, "activeUser");
   // Roles permitidos para insertar equipos en cada centro
   const rolesACentros = {
     4: [5, 7], // Lindo Maya: PLI y PMY
@@ -135,7 +140,45 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         monitor2_id: data.monitor2_id ? data.monitor2_id : null,
       };
 
+      const pBita = {
+        correo: activeUser.correo,
+        numserie: data.numserie,
+        tipo_id: tipoId,
+        modelo_id: data.modelo_id,
+        marca_id: marcaId,
+        estado_id: data.estado_id,
+        accion: "",
+        motivo: data.motivo,
+      };
+
+      if (
+        data.centro_id !== dataSelect.centro_id &&
+        data.departamento_id !== dataSelect.departamento_id
+      ) {
+        pBita.accion = "Salida";
+      } else if (
+        data.centro_id === dataSelect.centro_id &&
+        data.departamento_id !== dataSelect.departamento_id
+      ) {
+        pBita.accion = "Salida de departamento";
+      } else if (
+        data.centro_id !== dataSelect.centro_id &&
+        data.departamento_id === dataSelect.departamento_id
+      ) {
+        pBita.accion = "Salida de centro";
+      } else if (data.centro_id === 3 && data.departamento_id === 79) {
+        pBita.accion = "Entrada";
+      } else if (
+        data.centro_id === dataSelect.centro_id &&
+        data.departamento_id === dataSelect.departamento_id
+      ) {
+        pBita.accion = "Edicion";
+      }
+
       await editEquipos(p);
+      console.log(pBita, "pBita");
+      await insertarBitacora(pBita);
+
       Swal.fire({
         icon: "success",
         title: "Guardado",
@@ -305,15 +348,11 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     placeholder=""
                     {...register("direccion_ip", {
                       // regex para validar una direccion ip en caso de no cumplir con el formato se mostrara un mensaje de error
-                      pattern:
-                        /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
+
                       required: true,
                     })}
                   />
                   <label className="form__label">Direccion Ip:</label>
-                  {errors.direccion_ip?.type === "pattern" && (
-                    <p>El formato de la ip es incorrecto</p>
-                  )}
                   {errors.direccion_ip?.type === "required" && (
                     <p>Campo requerido</p>
                   )}
@@ -437,7 +476,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                 <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
                   <select
                     className="form__field"
-                    {...register("monitor1_id")}
+                    {...register("monitor_id")}
                     value={selectedMonitor}
                     onChange={(e) => setSelectedMonitor(e.target.value)}
                   >
@@ -497,6 +536,13 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       required: true,
                     })}
                   >
+                    {dataSelect && dataSelect.estados ? (
+                      <option value={dataSelect.estado_id}>
+                        {dataSelect.estados.nombre}
+                      </option>
+                    ) : (
+                      <option value="">-- Seleccione un estado --</option>
+                    )}
                     {estadosData.map((estado, index) => (
                       <option
                         key={index}
@@ -508,6 +554,22 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   </select>
                   <label className="form__label">Estado</label>
                   {errors.estado_id?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<v.iconomarca />}>
+                  <input
+                    className="form__field"
+                    type="text"
+                    placeholder=""
+                    {...register("motivo", {
+                      required: true,
+                    })}
+                  />
+                  <label className="form__label"> Motivo del cambio:</label>
+                  {errors.sistema_operativo?.type === "required" && (
                     <p>Campo requerido</p>
                   )}
                 </InputText>

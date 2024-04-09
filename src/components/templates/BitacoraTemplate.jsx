@@ -1,11 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { v } from "../../styles/variables";
 
-import Swal from "sweetalert2";
 import { useUserStore } from "../../store";
-import { ContentFiltro, Title } from "../atoms";
-import { BtnAdd } from "../molecules";
 import {
   Header,
   InputRetraso,
@@ -14,29 +10,13 @@ import {
 } from "../organisms/index";
 
 // Template de la bitacora, se encarga de mostrar la tabla de bitacoras y gestionar la informacion que se le envia a la tabla su uso especifico se mostrara en la tabla equipos
-export function BitacoraTemplate({
-  data: bitacoraData,
-  
-}) {
+export function BitacoraTemplate({ data: bitacoraData }) {
   const [state, setState] = useState(false);
   const [dataSelect, setdataSelect] = useState([]);
   const [accion, setAccion] = useState("");
   const [openRegistro, setopenRegistro] = useState(false);
   const [globalFilter, setGlobalFilter] = useState("");
-  const { activeUser } = useUserStore();
 
-  const nuevoRegistro = () => {
-    if (activeUser.roles.nombre !== "Administrador") {
-      return Swal.fire({
-        icon: "error",
-        title: " Error",
-        text: "Solo un administrador puede agregar Modelos",
-      });
-    }
-    setopenRegistro(!openRegistro);
-    setAccion("Nuevo");
-    setdataSelect([]);
-  };
   return (
     <Container>
       {
@@ -54,17 +34,7 @@ export function BitacoraTemplate({
           stateConfig={{ state: state, setState: () => setState(!state) }}
         />
       </header>
-      <section className="area1">
-        <ContentFiltro>
-          <Title>Bitacoras</Title>
-          <BtnAdd
-            bgColor={"#be1d1d"}
-            textColor={"#000"}
-            icono={<v.agregar />}
-            funcion={nuevoRegistro}
-          />
-        </ContentFiltro>
-      </section>
+      <section className="area1"></section>
       <section className="area2">
         <InputRetraso
           value={globalFilter ?? ""}

@@ -266,7 +266,6 @@ export function TableEquipos({
     {
       accessorKey: "inicio_garantia",
       header: "Inicio de Garantia",
-      enableColumnFilter: false,
       cell: (info) => (
         <td
           style={{ width: "100px" }}
@@ -280,8 +279,6 @@ export function TableEquipos({
     {
       accessorKey: "fin_garantia",
       header: "Fin de Garantia",
-      enableColumnFilter: false,
-
       cell: (info) => (
         <td
           style={{ width: "100px" }}
