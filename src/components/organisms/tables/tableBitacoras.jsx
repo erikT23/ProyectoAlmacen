@@ -120,6 +120,30 @@ export function TableBitacoras({ data, globalFilter }) {
       ),
     },
     {
+      accessorKey: "centros.nombre",
+      header: "Centro",
+      cell: (info) => (
+        <td
+          data-title="Departamento"
+          className="ContentCell"
+        >
+          <span>{info.row.original.centros.nombre}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "departamentos.nombre",
+      header: "Departamento",
+      cell: (info) => (
+        <td
+          data-title="Departamento"
+          className="ContentCell"
+        >
+          <span>{info.row.original.departamentos.nombre}</span>
+        </td>
+      ),
+    },
+    {
       accessorKey: "accion",
       header: "Accion",
       cell: (info) => (
