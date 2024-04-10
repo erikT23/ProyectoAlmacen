@@ -324,7 +324,6 @@ export function TableEquipos({
     {
       accessorKey: "tipos.nombre",
       header: "Tipo",
-      enableColumnFilter: false,
 
       cell: (info) => (
         <td
@@ -338,7 +337,6 @@ export function TableEquipos({
     {
       accessorKey: "estado.nombre",
       header: "Estado",
-      enableColumnFilter: false,
 
       cell: (info) => (
         <td
@@ -346,6 +344,20 @@ export function TableEquipos({
           className="ContentCell"
         >
           <span>{info.row.original.estados.nombre}</span>
+        </td>
+      ),
+    },
+    {
+      accessorKey: "cantidad",
+      header: "Cantidad",
+      enableColumnFilter: false,
+      cell: (info) => (
+        <td
+          style={{ width: "100px" }}
+          data-title="Cantidad"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
         </td>
       ),
     },

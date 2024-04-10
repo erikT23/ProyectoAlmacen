@@ -1,3 +1,4 @@
+import { json2csv } from "json-2-csv";
 import { useState } from "react";
 import styled from "styled-components";
 import Swal from "sweetalert2";
@@ -5,13 +6,13 @@ import { useUserStore } from "../../store";
 import { v } from "../../styles/variables";
 import { ContentFiltro, Title } from "../atoms/index";
 import { BtnAdd, BtnCsv } from "../molecules/index";
-import { json2csv } from "json-2-csv";
 import {
   Header,
   InputRetraso,
   RegistrarEquipos,
   TableEquipos,
 } from "../organisms/index";
+import { ContarModelos } from "../../utils";
 
 // template para los equipos, se encarga de mostrar la tabla de equipos y de abrir el formulario de registro de equipos
 
@@ -22,6 +23,12 @@ export function EquiposTemplate({ data }) {
   const [openRegistro, setopenRegistro] = useState(false);
   const [globalFilter, setGlobalFilter] = useState("");
   const { activeUser } = useUserStore();
+
+  console.log(data, "data");
+
+  const counts = ContarModelos();
+
+  console.log(counts, "equipos");
 
   // funcion para abrir el formulario de registro de equipos solamente el usuario administrador puede agregar equipos
   const nuevoRegistro = () => {

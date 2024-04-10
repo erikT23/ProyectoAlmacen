@@ -21,23 +21,7 @@ export const ShowEquipos = async () => {
 export const InsertEquipos = async (p) => {
   const { error } = await supabase.from("equipos").insert([
     {
-      nombre: p.nombre,
-      nombre_usuario: p.nombre_usuario,
-      correo: p.correo,
-      apellido_usuario: p.apellido_usuario,
-      numserie: p.numserie,
-      inicio_garantia: p.inicio_garantia,
-      fin_garantia: p.fin_garantia,
-      sistema_operativo: p.sistema_operativo,
-      direccion_ip: p.direccion_ip,
-      tipo_id: p.tipo_id,
-      marca_id: p.marca_id,
-      modelo_id: p.modelo_id,
-      centro_id: p.centro_id,
-      estado_id: p.estado_id,
-      departamento_id: p.departamento_id,
-      monitor_id: p.monitor_id,
-      monitor2_id: p.monitor2_id,
+      ...p,
     },
   ]); // parametros para insertar a la tabla equipos, los parametros tienen que ser iguales a los de la base de datos
   if (error) {
@@ -53,23 +37,7 @@ export const EditEquipos = async (p) => {
   const { error } = await supabase
     .from("equipos")
     .update({
-      nombre: p.nombre,
-      nombre_usuario: p.nombre_usuario,
-      correo: p.correo,
-      apellido_usuario: p.apellido_usuario,
-      numserie: p.numserie,
-      inicio_garantia: p.inicio_garantia,
-      fin_garantia: p.fin_garantia,
-      sistema_operativo: p.sistema_operativo,
-      direccion_ip: p.direccion_ip,
-      tipo_id: p.tipo_id,
-      marca_id: p.marca_id,
-      modelo_id: p.modelo_id,
-      centro_id: p.centro_id,
-      estado_id: p.estado_id,
-      departamento_id: p.departamento_id,
-      monitor_id: p.monitor_id,
-      monitor2_id: p.monitor2_id,
+      ...p
     }) // parametros para actualizar la base de datos que tienen que ser iguales a los de la base de datos
     .eq("id", p.id); // funcion de filtro para supabase que indica que se actualizara el registro que tenga el id igual al id del parametro
   if (error) {

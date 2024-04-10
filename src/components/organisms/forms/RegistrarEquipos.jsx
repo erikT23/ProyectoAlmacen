@@ -149,6 +149,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         motivo: data.motivo,
         departamento_id: data.departamento_id,
         centro_id: data.centro_id,
+        stock: "",
       };
       console.log(data, "data");
 
@@ -169,6 +170,16 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         data.departamento_id === dataSelect.departamento_id
       ) {
         pBita.accion = "Edicion";
+      }
+      if (dataSelect.cantidad - data.cantidadMover <= 0) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No puedes mover más equipos de los que tienes",
+        }).then(() => {
+          return;
+        });
+        return; 
       }
 
       await editEquipos(p);
@@ -199,6 +210,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         departamento_id: data.departamento_id,
         monitor_id: data.monitor_id ? data.monitor_id : null,
         monitor2_id: data.monitor2_id ? data.monitor2_id : null,
+        cantidad: data.cantidad,
       };
       await insertarEquipos(p);
       Swal.fire({
@@ -556,22 +568,69 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   )}
                 </InputText>
               </article>
-              <article>
-                <InputText icono={<v.iconomarca />}>
-                  <input
-                    className="form__field"
-                    type="text"
-                    placeholder=""
-                    {...register("motivo", {
-                      required: true,
-                    })}
-                  />
-                  <label className="form__label"> Motivo del cambio:</label>
-                  {errors.sistema_operativo?.type === "required" && (
-                    <p>Campo requerido</p>
-                  )}
-                </InputText>
-              </article>
+              {accion === "Editar" && (
+                <article>
+                  <InputText icono={<v.iconomarca />}>
+                    <input
+                      className="form__field"
+                      type="text"
+                      placeholder=""
+                      {...register("motivo", {
+                        required: true,
+                      })}
+                    />
+                    <label className="form__label"> Motivo del cambio:</label>
+                    {errors.motivo?.type === "required" && (
+                      <p>Campo requerido</p>
+                    )}
+                  </InputText>
+                </article>
+              )}
+              {accion === "Editar" ? (
+                <article>
+                  <InputText icono={<v.iconomarca />}>
+                    <input
+                      className="form__field"
+                      type="number"
+                      placeholder=""
+                      defaultValue={dataSelect.cantidad}
+                      {...register("cantidadMover", {
+                        required: true,
+                      })}
+                    />
+                    <label className="form__label"> Cantidad a mover:</label>
+                    <p>
+                      Estás moviendo {dataSelect.cantidad} equipo(s). Si deseas
+                      mover una cantidad diferente, cambia este valor.
+                    </p>
+                    {errors.cantidadMover?.type === "required" && (
+                      <p>Campo requerido</p>
+                    )}
+                  </InputText>
+                </article>
+              ) : (
+                <article>
+                  <InputText icono={<v.iconomarca />}>
+                    <input
+                      className="form__field"
+                      type="number"
+                      placeholder=""
+                      defaultValue={1}
+                      {...register("cantidad", {
+                        required: true,
+                      })}
+                    />
+                    <label className="form__label"> Cantidad:</label>
+                    <p>
+                      Si deseas ingresar más de un equipo igual, cambia este
+                      valor.
+                    </p>
+                    {errors.cantidad?.type === "required" && (
+                      <p>Campo requerido</p>
+                    )}
+                  </InputText>
+                </article>
+              )}
               <div className="btnguardarContent">
                 <Btnsave
                   // boton para guardar los datos, al hacer click se ejecuta la funcion insertar
