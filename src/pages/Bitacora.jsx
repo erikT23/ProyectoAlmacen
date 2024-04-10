@@ -3,6 +3,8 @@ import { SpinnerLoader } from "../components/molecules";
 import { BitacoraTemplate } from "../components/templates/index";
 import {
   useBitacoraStore,
+  useCentrosStore,
+  useDepartamentosStore,
   useEstadoStore,
   useMarcasStore,
   useModelosStore,
@@ -18,6 +20,8 @@ export function Bitacora() {
   const { tiposData, showTipos } = useTiposStore();
   const { estadosData, showEstados } = useEstadoStore();
   const { marcasData, showMarcas } = useMarcasStore();
+  const { showDepartamentos, departamentosData } = useDepartamentosStore();
+  const { showCentros, centrosData } = useCentrosStore();
 
   // querys para traer la informacion de la base de datos, hace uso de la libreria tanstack query para hacer las consultas a la base de datos https://tanstack.com/query/latest
   useQuery({
@@ -37,6 +41,15 @@ export function Bitacora() {
   useQuery({
     queryKey: ["marcas"],
     queryFn: () => showMarcas(),
+  });
+  useQuery({
+    queryKey: ["centros"],
+    queryFn: () => showCentros(),
+  });
+
+  useQuery({
+    queryKey: ["departamentos"],
+    queryFn: () => showDepartamentos(),
   });
 
   // esta query se encarga de traer la informacion de la bitacora, se activa cuando ya se han cargado los datos de las llaves foraneas y mientras este cargando mostrara un spinner de carga
@@ -60,6 +73,8 @@ export function Bitacora() {
       modelos={modelosData}
       estados={estadosData}
       marcas={marcasData}
+      centros={centrosData}
+      departamentos={departamentosData}
     />
   );
 }

@@ -5,7 +5,9 @@ import { supabase } from "./index";
 export const ShowBitacora = async () => {
   const { error, data } = await supabase
     .from("bitacoras")
-    .select("*,tipos(nombre),modelos(nombre,marcas(nombre)),estados(nombre)");
+    .select(
+      "*,tipos(nombre),modelos(nombre,marcas(nombre)),estados(nombre),centros(nombre),departamentos(nombre)"
+    );
   if (data) {
     return data;
   }
@@ -21,12 +23,13 @@ export const InsertBitacora = async (p) => {
     accion: p.accion,
     correo: p.correo,
     numserie: p.numserie,
-    categoria: p.categoria,
     motivo: p.motivo,
     marca_id: p.marca_id,
     modelo_id: p.modelo_id,
     tipo_id: p.tipo_id,
     estado_id: p.estado_id,
+    centro_id: p.centro_id,
+    departamento_id: p.departamento_id,
   });
 
   if (error) {
@@ -39,19 +42,20 @@ export const InsertBitacora = async (p) => {
 };
 
 export const EditBitacoras = async (p) => {
-  console.log(p,"crud")
+  console.log(p, "crud");
   const { error } = await supabase
     .from("bitacoras")
     .update({
       accion: p.accion,
       correo: p.correo,
       numserie: p.numserie,
-      categoria: p.categoria,
       motivo: p.motivo,
       marca_id: p.marca_id,
       modelo_id: p.modelo_id,
       tipo_id: p.tipo_id,
       estado_id: p.estado_id,
+      centro_id: p.centro_id,
+      departamento_id: p.departamento_id,
     })
     .match({ id: p.id });
 

@@ -108,19 +108,6 @@ export function TableBitacoras({ data, globalFilter }) {
       ),
     },
     {
-      accessorKey: "categoria",
-      header: "Categoria",
-      cell: (info) => (
-        <td
-          data-title="Nombre"
-          className="ContentCell"
-          style={{ height: "auto", width: "auto" }}
-        >
-          <span>{info.getValue()}</span>
-        </td>
-      ),
-    },
-    {
       accessorKey: "estados.nombre",
       header: "Estado",
       cell: (info) => (

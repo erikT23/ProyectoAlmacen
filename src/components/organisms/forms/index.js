@@ -1,7 +1,6 @@
 export { InputRetraso } from './InputRetraso';
 export { InputText } from './InputText';
 export { RegistrarAdmin } from './RegistrarAdmin';
-export { RegistrarBitacoras } from './RegistrarBitacoras';
 export { RegistrarCentros } from './RegistrarCentros';
 export { RegistrarCentrosyDeps } from './RegistrarCentrosyDeps';
 export { RegistrarDepartamentos } from './RegistrarDepartamentos';

@@ -94,7 +94,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   // esta seccion llama al usuario con sesion iniciada para verificar si tiene permisos para insertar un equipo en el centro seleccionado
 
   const { activeUser } = useUserStore();
-  console.log(activeUser, "activeUser");
   // Roles permitidos para insertar equipos en cada centro
   const rolesACentros = {
     4: [5, 7], // Lindo Maya: PLI y PMY
@@ -123,7 +122,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
       const p = {
         id: dataSelect.id,
         nombre: data.nombre,
-
         correo: data.correo,
         numserie: data.numserie,
         inicio_garantia: data.inicio_garantia,
@@ -149,24 +147,22 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         estado_id: data.estado_id,
         accion: "",
         motivo: data.motivo,
+        departamento_id: data.departamento_id,
+        centro_id: data.centro_id,
       };
+      console.log(data, "data");
 
       if (
-        data.centro_id !== dataSelect.centro_id &&
-        data.departamento_id !== dataSelect.departamento_id
+        (data.centro_id !== 3 || data.departamento_id !== 79) &&
+        dataSelect.centro_id === 3 &&
+        dataSelect.departamento_id === 79
       ) {
         pBita.accion = "Salida";
       } else if (
-        data.centro_id === dataSelect.centro_id &&
-        data.departamento_id !== dataSelect.departamento_id
+        data.centro_id === 3 &&
+        data.departamento_id === 79 &&
+        (dataSelect.centro_id !== 3 || dataSelect.departamento_id !== 79)
       ) {
-        pBita.accion = "Salida de departamento";
-      } else if (
-        data.centro_id !== dataSelect.centro_id &&
-        data.departamento_id === dataSelect.departamento_id
-      ) {
-        pBita.accion = "Salida de centro";
-      } else if (data.centro_id === 3 && data.departamento_id === 79) {
         pBita.accion = "Entrada";
       } else if (
         data.centro_id === dataSelect.centro_id &&
@@ -176,7 +172,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
       }
 
       await editEquipos(p);
-      console.log(pBita, "pBita");
       await insertarBitacora(pBita);
 
       Swal.fire({
@@ -364,6 +359,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     className="form__field"
                     {...register("modelo_id", {
                       required: true,
+                      setValueAs: (value) => Number(value),
                     })}
                     onChange={(e) => {
                       const selectedModeloId = Number(e.target.value);
@@ -408,6 +404,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     {...register("centro_id", {
                       // funciona de manera parecida al anterior, una vez que se selecciona un centro usa su id para buscar los departamentos en ese centro
                       required: true,
+                      setValueAs: (value) => Number(value),
                     })}
                     onChange={(e) => {
                       const selectedCentro = centrosData.find(
@@ -534,6 +531,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     className="form__field"
                     {...register("estado_id", {
                       required: true,
+                      setValueAs: (value) => Number(value),
                     })}
                   >
                     {dataSelect && dataSelect.estados ? (

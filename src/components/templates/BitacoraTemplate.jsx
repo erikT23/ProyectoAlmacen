@@ -1,40 +1,26 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import { useUserStore } from "../../store";
-import {
-  Header,
-  InputRetraso,
-  RegistrarBitacoras,
-  TableBitacoras,
-} from "../organisms/index";
+import { Header, InputRetraso, TableBitacoras } from "../organisms/index";
+import { ContentFiltro, Title } from "../atoms";
 
 // Template de la bitacora, se encarga de mostrar la tabla de bitacoras y gestionar la informacion que se le envia a la tabla su uso especifico se mostrara en la tabla equipos
 export function BitacoraTemplate({ data: bitacoraData }) {
   const [state, setState] = useState(false);
-  const [dataSelect, setdataSelect] = useState([]);
-  const [accion, setAccion] = useState("");
-  const [openRegistro, setopenRegistro] = useState(false);
   const [globalFilter, setGlobalFilter] = useState("");
 
   return (
     <Container>
-      {
-        openRegistro && (
-          <RegistrarBitacoras
-            dataSelect={dataSelect}
-            accion={accion}
-            onClose={() => setopenRegistro(!openRegistro)}
-          />
-        )
-        // los template estan divididos en areas para facilitar el diseño y la organizacion de los componentes
-      }
       <header className="header">
         <Header
           stateConfig={{ state: state, setState: () => setState(!state) }}
         />
       </header>
-      <section className="area1"></section>
+      <section className="area1">
+        <ContentFiltro>
+          <Title>Bitacora</Title>
+        </ContentFiltro>
+      </section>
       <section className="area2">
         <InputRetraso
           value={globalFilter ?? ""}
@@ -45,9 +31,6 @@ export function BitacoraTemplate({ data: bitacoraData }) {
       <section className="main">
         <TableBitacoras
           data={bitacoraData}
-          setopenRegistro={setopenRegistro}
-          setdataSelect={setdataSelect}
-          setAccion={setAccion}
           globalFilter={globalFilter}
         />
       </section>
