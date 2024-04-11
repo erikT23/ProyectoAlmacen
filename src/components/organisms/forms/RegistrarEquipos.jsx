@@ -23,7 +23,6 @@ import { InputText } from "./index";
 // al ser el mas complicado aqui se detalla el funcionamiento de los demas componentes de registro
 
 export function RegistrarEquipos({ onClose, dataSelect, accion }) {
-  console.log(dataSelect, "dataSelect");
   // seccion de importaciones de los Store de zustand, estos son los hooks que se usan para hacer las peticiones a la base de datos
   // las variables show llama a las funciones que realizan la consulta a la base de datos y las variables data son las que contienen la informacion
 
@@ -33,6 +32,8 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   const { showTipos } = useTiposStore();
   const { mostrarDepartamentosyCentros } = useDepartamentosStore();
   const { insertarBitacora } = useBitacoraStore();
+  // Lista de tipos de equipos que se asignarán automáticamente
+  const autoAssignTypes = [20, 28, 29, 30, 35, 41, 45, 7, 23];
 
   const { showCentros, centrosData } = useCentrosStore();
   const { showEstados, estadosData } = useEstadoStore();
@@ -119,6 +120,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     // se crea una constante p con los parametros que se van a enviar a la base de datos
     // estos deben de ser los mismos que los campos de la tabla en la base de datos
     if (accion === "Editar") {
+      console.log(data, "data");
       const p = {
         id: dataSelect.id,
         nombre: data.nombre,
@@ -136,6 +138,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         departamento_id: data.departamento_id,
         monitor_id: data.monitor_id ? data.monitor_id : null,
         monitor2_id: data.monitor2_id ? data.monitor2_id : null,
+        stock: "",
       };
 
       const pBita = {
@@ -149,9 +152,9 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         motivo: data.motivo,
         departamento_id: data.departamento_id,
         centro_id: data.centro_id,
+        cantidad: dataSelect.cantidad,
         stock: "",
       };
-      console.log(data, "data");
 
       if (
         (data.centro_id !== 3 || data.departamento_id !== 79) &&
@@ -159,18 +162,34 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         dataSelect.departamento_id === 79
       ) {
         pBita.accion = "Salida";
+        pBita.stock = dataSelect.cantidad - data.cantidadMover;
+        p.stock = dataSelect.cantidad - data.cantidadMover;
       } else if (
         data.centro_id === 3 &&
         data.departamento_id === 79 &&
         (dataSelect.centro_id !== 3 || dataSelect.departamento_id !== 79)
       ) {
         pBita.accion = "Entrada";
+        pBita.stock = dataSelect.cantidad + data.cantidadMover;
+        p.stock = dataSelect.cantidad + data.cantidadMover;
       } else if (
         data.centro_id === dataSelect.centro_id &&
         data.departamento_id === dataSelect.departamento_id
       ) {
         pBita.accion = "Edicion";
+        pBita.stock = dataSelect.cantidad;
       }
+      console.log(p, "p");
+      console.log(pBita, "pBita");
+      if (pBita.stock > dataSelect.cantidad || pBita.stock <= 0) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "El stock no puede exceder la cantidad ni ser menos o igual a 0",
+        });
+        return;
+      }
+
       if (dataSelect.cantidad - data.cantidadMover <= 0) {
         Swal.fire({
           icon: "error",
@@ -179,7 +198,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         }).then(() => {
           return;
         });
-        return; 
+        return;
       }
 
       await editEquipos(p);
@@ -211,6 +230,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
         monitor_id: data.monitor_id ? data.monitor_id : null,
         monitor2_id: data.monitor2_id ? data.monitor2_id : null,
         cantidad: data.cantidad,
+        stock: data.cantidad,
       };
       await insertarEquipos(p);
       Swal.fire({
@@ -409,78 +429,84 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   )}
                 </InputText>
               </article>
-              <article>
-                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
-                  <select
-                    className="form__field"
-                    {...register("centro_id", {
-                      // funciona de manera parecida al anterior, una vez que se selecciona un centro usa su id para buscar los departamentos en ese centro
-                      required: true,
-                      setValueAs: (value) => Number(value),
-                    })}
-                    onChange={(e) => {
-                      const selectedCentro = centrosData.find(
-                        (centro) => centro.id === Number(e.target.value)
-                      );
-                      setDepartamentos(
-                        selectedCentro ? selectedCentro.departamentos : []
-                      );
-                    }}
-                  >
-                    {dataSelect && dataSelect.centros ? (
-                      <option value={dataSelect.centro_id}>
-                        {dataSelect.centros.nombre}
-                      </option>
-                    ) : (
-                      <option value="">-- Seleccione un centro --</option>
-                    )}
-                    {centrosData.map((centro, index) => (
-                      <option
-                        key={index}
-                        value={centro.id}
+
+              {accion !== "Editar" ||
+              !autoAssignTypes.includes(dataSelect.tipo_id) ? (
+                <>
+                  <article>
+                    <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                      <select
+                        className="form__field"
+                        {...register("centro_id", {
+                          required: true,
+                          setValueAs: (value) => Number(value),
+                        })}
+                        onChange={(e) => {
+                          const selectedCentro = centrosData.find(
+                            (centro) => centro.id === Number(e.target.value)
+                          );
+                          setDepartamentos(
+                            selectedCentro ? selectedCentro.departamentos : []
+                          );
+                        }}
                       >
-                        {centro.nombre}
-                      </option>
-                    ))}
-                  </select>
-                  <label className="form__label">Centro</label>
-                  {errors.centro_id?.type === "required" && (
-                    <p>Campo requerido</p>
-                  )}
-                </InputText>
-              </article>
-              <article>
-                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
-                  <select
-                    className="form__field"
-                    {...register("departamento_id", {
-                      // una vez seleccionado el centro se muestran aqui los departamentos, para que el id del departamento no regrese como string se usa parseInt para convertirlo a numero
-                      required: true,
-                      setValueAs: (value) => parseInt(value, 10),
-                    })}
-                  >
-                    {dataSelect && dataSelect.departamentos ? (
-                      <option value={dataSelect.departamento_id}>
-                        {dataSelect.departamentos.nombre}
-                      </option>
-                    ) : (
-                      <option value="">-- Seleccione un departamento --</option>
-                    )}
-                    {departamentos.map((departamento, index) => (
-                      <option
-                        key={index}
-                        value={departamento.id}
+                        {dataSelect && dataSelect.centros ? (
+                          <option value={dataSelect.centro_id}>
+                            {dataSelect.centros.nombre}
+                          </option>
+                        ) : (
+                          <option value="">-- Seleccione un centro --</option>
+                        )}
+                        {centrosData.map((centro, index) => (
+                          <option
+                            key={index}
+                            value={centro.id}
+                          >
+                            {centro.nombre}
+                          </option>
+                        ))}
+                      </select>
+                      <label className="form__label">Centro</label>
+                      {errors.centro_id?.type === "required" && (
+                        <p>Campo requerido</p>
+                      )}
+                    </InputText>
+                  </article>
+                  <article>
+                    <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                      <select
+                        className="form__field"
+                        {...register("departamento_id", {
+                          required: true,
+                          setValueAs: (value) => parseInt(value, 10),
+                        })}
                       >
-                        {departamento.nombre}
-                      </option>
-                    ))}
-                  </select>
-                  <label className="form__label">Departamento</label>
-                  {errors.departamento_id?.type === "required" && (
-                    <p>Campo requerido</p>
-                  )}
-                </InputText>
-              </article>
+                        {dataSelect && dataSelect.departamentos ? (
+                          <option value={dataSelect.departamento_id}>
+                            {dataSelect.departamentos.nombre}
+                          </option>
+                        ) : (
+                          <option value="">
+                            -- Seleccione un departamento --
+                          </option>
+                        )}
+                        {departamentos.map((departamento, index) => (
+                          <option
+                            key={index}
+                            value={departamento.id}
+                          >
+                            {departamento.nombre}
+                          </option>
+                        ))}
+                      </select>
+                      <label className="form__label">Departamento</label>
+                      {errors.departamento_id?.type === "required" && (
+                        <p>Campo requerido</p>
+                      )}
+                    </InputText>
+                  </article>
+                </>
+              ) : null}
               <article>
                 <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
                   <select
@@ -587,6 +613,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                 </article>
               )}
               {accion === "Editar" ? (
+                <>
                 <article>
                   <InputText icono={<v.iconomarca />}>
                     <input
@@ -596,6 +623,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       defaultValue={dataSelect.cantidad}
                       {...register("cantidadMover", {
                         required: true,
+                        setValueAs: (value) => Number(value),
                       })}
                     />
                     <label className="form__label"> Cantidad a mover:</label>
@@ -608,6 +636,30 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     )}
                   </InputText>
                 </article>
+                
+<article>
+                  <InputText icono={<v.iconomarca />}>
+                    <input
+                      className="form__field"
+                      type="number"
+                      placeholder=""
+                      defaultValue={dataSelect.cantidad}
+                      {...register("cantidadMover", {
+                        required: true,
+                        setValueAs: (value) => Number(value),
+                      })}
+                    />
+                    <label className="form__label"> Cantidad a mover:</label>
+                    <p>
+                      Estás moviendo {dataSelect.cantidad} equipo(s). Si deseas
+                      mover una cantidad diferente, cambia este valor.
+                    </p>
+                    {errors.cantidadMover?.type === "required" && (
+                      <p>Campo requerido</p>
+                    )}
+                  </InputText>
+                </article>
+                </>
               ) : (
                 <article>
                   <InputText icono={<v.iconomarca />}>

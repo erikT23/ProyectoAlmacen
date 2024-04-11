@@ -42,7 +42,6 @@ export const InsertBitacora = async (p) => {
 };
 
 export const EditBitacoras = async (p) => {
-  console.log(p, "crud");
   const { error } = await supabase
     .from("bitacoras")
     .update({

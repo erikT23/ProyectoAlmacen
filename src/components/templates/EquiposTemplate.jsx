@@ -12,7 +12,6 @@ import {
   RegistrarEquipos,
   TableEquipos,
 } from "../organisms/index";
-import { ContarModelos } from "../../utils";
 
 // template para los equipos, se encarga de mostrar la tabla de equipos y de abrir el formulario de registro de equipos
 
@@ -24,11 +23,6 @@ export function EquiposTemplate({ data }) {
   const [globalFilter, setGlobalFilter] = useState("");
   const { activeUser } = useUserStore();
 
-  console.log(data, "data");
-
-  const counts = ContarModelos();
-
-  console.log(counts, "equipos");
 
   // funcion para abrir el formulario de registro de equipos solamente el usuario administrador puede agregar equipos
   const nuevoRegistro = () => {

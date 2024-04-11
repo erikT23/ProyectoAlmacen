@@ -362,6 +362,20 @@ export function TableEquipos({
       ),
     },
     {
+      accessorKey: "stock",
+      header: "En Stock",
+      enableColumnFilter: false,
+      cell: (info) => (
+        <td
+          style={{ width: "100px" }}
+          data-title="Cantidad"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
+        </td>
+      ),
+    },
+    {
       // campo para las acciones de la tabla, se llama el componente TableActions que recibe las funciones de editar y eliminar y se le pasa la informacion del equipo seleccionado usando las funciones de la libreria de la tabla
       accessorKey: "accionesMarcas",
       header: "Acciones Marcas",

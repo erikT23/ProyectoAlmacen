@@ -26,7 +26,6 @@ export const useBitacoraStore = create((set) => ({
   },
 
   editarBitacora: async (p) => {
-    console.log(p, "edit");
     await EditBitacoras(p);
   },
 }));
