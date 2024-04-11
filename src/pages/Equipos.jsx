@@ -48,7 +48,7 @@ export function Equipos() {
   });
 
   const { isLoading, error } = useQuery({
-    queryKey: ["conteo Equipos"],
+    queryKey: ["mostrar Equipos"],
     queryFn: () => showEquiposComunes(),
   });
 

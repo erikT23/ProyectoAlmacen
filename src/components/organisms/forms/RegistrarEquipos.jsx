@@ -22,7 +22,7 @@ import { InputText } from "./index";
 // Componente para registrar un nuevo equipo
 // al ser el mas complicado aqui se detalla el funcionamiento de los demas componentes de registro
 
-export function RegistrarEquipos({ onClose, dataSelect, accion }) {
+export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
   // seccion de importaciones de los Store de zustand, estos son los hooks que se usan para hacer las peticiones a la base de datos
   // las variables show llama a las funciones que realizan la consulta a la base de datos y las variables data son las que contienen la informacion
 
@@ -41,6 +41,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
   const [marcaId, setMarcaId] = useState(null);
   const [tipoId, setTipoId] = useState(null);
   const [selectedMonitor, setSelectedMonitor] = useState("");
+  const [selectedMonitor2, setSelectedMonitor2] = useState("");
 
   useEffect(() => {
     setSelectedMonitor(dataSelect.monitor_id || "");
@@ -120,7 +121,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     // se crea una constante p con los parametros que se van a enviar a la base de datos
     // estos deben de ser los mismos que los campos de la tabla en la base de datos
     if (accion === "Editar") {
-      console.log(data, "data");
 
       const isAutoAssignType = autoAssignTypes.includes(dataSelect.tipo_id);
       let p;
@@ -168,7 +168,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
           numserie: data.numserie,
           inicio_garantia: data.inicio_garantia,
           fin_garantia: data.fin_garantia,
-          sistema_operativo: Capitalize(data.sistema_operativo),
+          sistema_operativo: data.sistema_operativo,
           direccion_ip: data.direccion_ip,
           tipo_id: tipoId,
           modelo_id: data.modelo_id,
@@ -238,9 +238,6 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
       pBita.stock = newStock;
       p.stock = newStock;
 
-      console.log(p, "p");
-      console.log(pBita, "pBita");
-      console.log(dataSelect, "dataSelect");
       if (pBita.stock > dataSelect.cantidad || pBita.stock <= 0) {
         Swal.fire({
           icon: "error",
@@ -569,7 +566,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   )}
                 </InputText>
               </article>
-              {accion !== "Editar" &&
+              {accion === "Editar" &&
               !autoAssignTypes.includes(dataSelect.tipo_id) ? (
                 <>
                   <article>
@@ -584,8 +581,11 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                         {dataMonitores
                           .filter(
                             (monitor) =>
-                              !monitor.equipoId ||
-                              monitor.id === dataSelect.monitor_id
+                              !equipos.some(
+                                (equipo) =>
+                                  equipo.monitor_id === monitor.id ||
+                                  equipo.monitor2_id === monitor.id
+                              ) || monitor.id === dataSelect.monitor_id
                           )
                           .map((monitor, index) => (
                             <option
@@ -607,13 +607,21 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       <select
                         className="form__field"
                         {...register("monitor2_id")}
+                        value={selectedMonitor2}
+                        onChange={(e) => setSelectedMonitor2(e.target.value)}
                       >
                         <option value="">
                           -- Seleccione un segundo monitor --
                         </option>
                         {dataMonitores
                           .filter(
-                            (monitor) => monitor.id !== dataSelect.monitor_id
+                            (monitor) =>
+                              monitor.id !== selectedMonitor &&
+                              !equipos.some(
+                                (equipo) =>
+                                  equipo.monitor_id === monitor.id ||
+                                  equipo.monitor2_id === monitor.id
+                              )
                           )
                           .map((monitor, index) => (
                             <option
@@ -702,6 +710,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       )}
                     </InputText>
                   </article>
+                  
                   <article>
                     <InputText icono={<v.iconomarca />}>
                       <input
@@ -735,6 +744,7 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                       defaultValue={1}
                       {...register("cantidad", {
                         required: true,
+                        setValueAs: (value) => Number(value),
                       })}
                     />
                     <label className="form__label"> Cantidad:</label>
