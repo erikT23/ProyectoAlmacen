@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Route, Routes } from "react-router-dom";
-import { ErrorCard, SpinnerLoader } from "../components/molecules";
+import { SpinnerLoader } from "../components/molecules";
 import { ProtectedRoutes, UserAuth } from "../index";
 import {
   Bitacora,
@@ -26,7 +26,7 @@ export function MyRoutes() {
 
   const { showUsers } = useUserStore();
 
-  const { isLoading, error } = useQuery({
+  const { isLoading } = useQuery({
     queryKey: ["mostrar usuarios"],
     queryFn: showUsers,
   });
@@ -34,7 +34,6 @@ export function MyRoutes() {
   if (isLoading) {
     return <SpinnerLoader />;
   }
-  
 
   return (
     <Routes>

@@ -263,18 +263,14 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
       }
       // Si el centro y departamento son iguales a los seleccionados, la acción es una "Edición"
       else if (
-        centro_id === selectCentroId &&
-        departamento_id === selectDepartamentoId
+       ( centro_id === selectCentroId &&
+        departamento_id === selectDepartamentoId)
       ) {
         pBita.accion = "Edicion";
         pBita.stock = dataSelect.stock;
         p.stock = newStock;
       }
 
-      // Actualizamos el stock de pBita y p con el nuevo stock
- console.log(data, "data");
-      console.log(p, "p");
-      console.log(pBita, "pBita");
       // Si el stock es mayor que la cantidad total o menor o igual a cero, mostramos un error
       if (pBita.stock > dataSelect.cantidad || pBita.stock < 0) {
         Swal.fire({
@@ -296,8 +292,6 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         });
         return;
       }
-
-     
 
       await editEquipos(p);
       await insertarBitacora(pBita);
@@ -400,7 +394,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
                   {errors.correo?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>
-              {accion === "Editar" &&
+              {accion === "Editar" ||
               !autoAssignTypes.includes(dataSelect.tipo_id) ? (
                 <>
                   <article>
@@ -454,7 +448,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
                   )}
                 </InputText>
               </article>
-              {accion !== "Editar" &&
+              {accion === "Editar" ||
               !autoAssignTypes.includes(dataSelect.tipo_id) ? (
                 <>
                   <article>
@@ -492,7 +486,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
                         <p>Campo requerido</p>
                       )}
                     </InputText>
-                  </article>{" "}
+                  </article>
                 </>
               ) : null}
               <article>
