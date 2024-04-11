@@ -7,5 +7,4 @@ export { RegistrarDepartamentos } from './RegistrarDepartamentos';
 export { RegistrarEquipos } from './RegistrarEquipos';
 export { RegistrarMarca } from './RegistrarMarca';
 export { RegistrarModelos } from './RegistrarModelos';
-export { RegistrarMonitores } from './RegistrarMonitores';
 export { RegistrarTest } from './RegistrarTest';

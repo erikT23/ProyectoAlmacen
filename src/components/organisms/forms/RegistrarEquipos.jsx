@@ -121,6 +121,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
     // se crea una constante p con los parametros que se van a enviar a la base de datos y pBita para el control de la bitacora
     // estos deben de ser los mismos que los campos de la tabla en la base de datos
     if (accion === "Editar") {
+      console.log(dataSelect, "dataSelect");
       // expresion booleana que verifica si tipo_id esta en la lista de tipos de equipos que se manejaran como genericos
       const isAutoAssignType = autoAssignTypes.includes(dataSelect.tipo_id);
       let p;
@@ -228,18 +229,21 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         selectCentroId !== 3 || selectDepartamentoId !== 79;
 
       // Inicializamos newStock con el valor de stock de los datos seleccionados
-      let newStock = dataSelect.stock;
+      let newStock = Number(dataSelect.stock);
+      let cantidad = Number(cantidadMover);
+
+      console.log("newStock inicial:", newStock);
 
       // Si el movimiento es "Entrada", incrementamos newStock con la cantidad a mover
       if (movimiento === "Entrada") {
-        newStock += cantidadMover;
+        newStock += cantidad;
+        pBita.accion = "Entrada";
+      } else if (movimiento === "Salida") {
+        newStock -= cantidad;
+        pBita.accion = "Salida";
       }
-      // Si el movimiento es "Salida", decrementamos newStock con la cantidad a mover
-      else if (movimiento === "Salida") {
-        newStock -= cantidadMover;
-      }
-      pBita.stock = newStock;
-      p.stock = newStock;
+
+      console.log("newStock después del cálculo:", newStock);
 
       // Si el centro o departamento son diferentes y los seleccionados son 3 y 79 respectivamente, la acción es una "Salida"
       if (
@@ -248,8 +252,10 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         selectDepartamentoId === 79
       ) {
         pBita.accion = "Salida";
-        pBita.stock -= 1;
-        p.stock -= 1;
+        if (movimiento !== "Salida") {
+          newStock -= 1;
+        }
+        console.log("newStock después de la salida:", newStock);
       }
       // Si el centro y departamento son 3 y 79 respectivamente y los seleccionados son diferentes, la acción es una "Entrada"
       else if (
@@ -258,18 +264,20 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         isSelectCentroOrDepartamentoDifferent
       ) {
         pBita.accion = "Entrada";
-        pBita.stock += 1;
-        p.stock += 1;
+        if (movimiento !== "Entrada") {
+          newStock += 1;
+        }
       }
       // Si el centro y departamento son iguales a los seleccionados, la acción es una "Edición"
       else if (
-       ( centro_id === selectCentroId &&
-        departamento_id === selectDepartamentoId)
+        isCentroOrDepartamentoDifferent &&
+        isSelectCentroOrDepartamentoDifferent
       ) {
         pBita.accion = "Edicion";
-        pBita.stock = dataSelect.stock;
-        p.stock = newStock;
       }
+
+      pBita.stock = newStock;
+      p.stock = newStock;
 
       // Si el stock es mayor que la cantidad total o menor o igual a cero, mostramos un error
       if (pBita.stock > dataSelect.cantidad || pBita.stock < 0) {
@@ -293,6 +301,9 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         return;
       }
 
+      console.log(data, "data");
+      console.log(p, "p");
+      console.log(pBita, "pBita");
       await editEquipos(p);
       await insertarBitacora(pBita);
 
