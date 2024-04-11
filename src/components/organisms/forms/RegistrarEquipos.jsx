@@ -32,7 +32,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
   const { showTipos } = useTiposStore();
   const { mostrarDepartamentosyCentros } = useDepartamentosStore();
   const { insertarBitacora } = useBitacoraStore();
-  // Lista de tipos de equipos que se asignarán automáticamente
+  // Lista de tipos de equipos que se manejaran como genericos y se llegan a manejar en cantidades grandes
   const autoAssignTypes = [20, 28, 29, 30, 35, 41, 45, 7, 23];
 
   const { showCentros, centrosData } = useCentrosStore();
@@ -118,14 +118,15 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
       }
     }
     // al llamar este componente se le pasa la accion que se va a relizar, dependiendo de la accion se ejecuta una funcion diferente
-    // se crea una constante p con los parametros que se van a enviar a la base de datos
+    // se crea una constante p con los parametros que se van a enviar a la base de datos y pBita para el control de la bitacora
     // estos deben de ser los mismos que los campos de la tabla en la base de datos
     if (accion === "Editar") {
-
+      // expresion booleana que verifica si tipo_id esta en la lista de tipos de equipos que se manejaran como genericos
       const isAutoAssignType = autoAssignTypes.includes(dataSelect.tipo_id);
       let p;
       let pBita;
       if (isAutoAssignType) {
+        // los equipos genericos no manejan datos como sistema operativo y direccion ip y su ubicacion se controla en bitacora por lo que esos datos se toman de los valores que se agreron junto al equipo
         p = {
           id: dataSelect.id,
           nombre: data.nombre,
@@ -161,6 +162,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
           stock: "",
         };
       } else {
+        // en caso contrario se actualizan los campos desde el formulario
         p = {
           id: dataSelect.id,
           nombre: data.nombre,
@@ -197,37 +199,53 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         };
       }
 
+      // Extraemos los valores de movimiento, centro_id, departamento_id y cantidadMover de los datos proporcionados
       const { movimiento, centro_id, departamento_id, cantidadMover } = data;
+
+      // Extraemos los valores de centro_id y departamento_id de los datos seleccionados
       const {
         centro_id: selectCentroId,
         departamento_id: selectDepartamentoId,
       } = dataSelect;
 
+      // Comprobamos si el centro_id o el departamento_id son diferentes de 3 y 79 respectivamente
       const isCentroOrDepartamentoDifferent =
         centro_id !== 3 || departamento_id !== 79;
+
+      // Comprobamos si el centro_id o el departamento_id seleccionados son diferentes de 3 y 79 respectivamente
       const isSelectCentroOrDepartamentoDifferent =
         selectCentroId !== 3 || selectDepartamentoId !== 79;
 
+      // Inicializamos newStock con el valor de stock de los datos seleccionados
       let newStock = dataSelect.stock;
+
+      // Si el movimiento es "Entrada", incrementamos newStock con la cantidad a mover
       if (movimiento === "Entrada") {
         newStock += cantidadMover;
-      } else if (movimiento === "Salida") {
+      }
+      // Si el movimiento es "Salida", decrementamos newStock con la cantidad a mover
+      else if (movimiento === "Salida") {
         newStock -= cantidadMover;
       }
 
+      // Si el centro o departamento son diferentes y los seleccionados son 3 y 79 respectivamente, la acción es una "Salida"
       if (
         isCentroOrDepartamentoDifferent &&
         selectCentroId === 3 &&
         selectDepartamentoId === 79
       ) {
         pBita.accion = "Salida";
-      } else if (
+      }
+      // Si el centro y departamento son 3 y 79 respectivamente y los seleccionados son diferentes, la acción es una "Entrada"
+      else if (
         centro_id === 3 &&
         departamento_id === 79 &&
         isSelectCentroOrDepartamentoDifferent
       ) {
         pBita.accion = "Entrada";
-      } else if (
+      }
+      // Si el centro y departamento son iguales a los seleccionados, la acción es una "Edición"
+      else if (
         centro_id === selectCentroId &&
         departamento_id === selectDepartamentoId
       ) {
@@ -235,9 +253,12 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         pBita.stock = dataSelect.stock;
         p.stock = newStock;
       }
+
+      // Actualizamos el stock de pBita y p con el nuevo stock
       pBita.stock = newStock;
       p.stock = newStock;
 
+      // Si el stock es mayor que la cantidad total o menor o igual a cero, mostramos un error
       if (pBita.stock > dataSelect.cantidad || pBita.stock <= 0) {
         Swal.fire({
           icon: "error",
@@ -247,6 +268,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         return;
       }
 
+      // Si la cantidad total menos la cantidad a mover es menor o igual a cero, mostramos un error
       if (dataSelect.cantidad - data.cantidadMover <= 0) {
         Swal.fire({
           icon: "error",
@@ -261,6 +283,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
       await editEquipos(p);
       await insertarBitacora(pBita);
 
+      // tras insertar la bitacora y editar el equipo se muestra una notificacion de exito y se recarga la pagina
       Swal.fire({
         icon: "success",
         title: "Guardado",
@@ -270,6 +293,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
       });
       onClose();
     } else {
+      //en caso que no se edite solo se crea un nuevo equipo
       const p = {
         nombre: Capitalize(data.nombre),
         numserie: data.numserie,
@@ -567,7 +591,8 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
                 </InputText>
               </article>
               {accion === "Editar" &&
-              !autoAssignTypes.includes(dataSelect.tipo_id) ? (
+              !autoAssignTypes.includes(dataSelect.tipo_id) &&
+              dataSelect.tipo_id !== 3 ? (
                 <>
                   <article>
                     <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
@@ -710,7 +735,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
                       )}
                     </InputText>
                   </article>
-                  
+
                   <article>
                     <InputText icono={<v.iconomarca />}>
                       <input

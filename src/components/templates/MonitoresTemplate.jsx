@@ -8,7 +8,7 @@ import { BtnAdd } from "../molecules/index";
 import {
   Header,
   InputRetraso,
-  RegistrarMonitores,
+  RegistrarEquipos,
   TableMonitores,
 } from "../organisms/index";
 
@@ -37,7 +37,8 @@ export function MonitoresTemplate({ data }) {
   return (
     <Container>
       {openRegistro && (
-        <RegistrarMonitores
+        <RegistrarEquipos
+          equipos={data}
           dataSelect={dataSelect}
           accion={accion}
           onClose={() => setopenRegistro(!openRegistro)}
