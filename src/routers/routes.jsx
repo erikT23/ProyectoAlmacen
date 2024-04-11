@@ -34,9 +34,7 @@ export function MyRoutes() {
   if (isLoading) {
     return <SpinnerLoader />;
   }
-  if (error) {
-    return <ErrorCard mensaje={error.message} />;
-  }
+  
 
   return (
     <Routes>

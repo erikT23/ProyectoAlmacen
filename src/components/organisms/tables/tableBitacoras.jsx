@@ -42,7 +42,7 @@ export function TableBitacoras({ data, globalFilter }) {
           data-title="Fecha"
           className="ContentCell"
         >
-          <span>{new Date(info.getValue()).toLocaleString()}</span>
+          <span>{info.getValue()}</span>
         </td>
       ),
     },

@@ -146,8 +146,13 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
           monitor2_id: data.monitor2_id ? data.monitor2_id : null,
           stock: "",
         };
+        const date = new Date();
+        const localDate = new Date(
+          date.getTime() - date.getTimezoneOffset() * 60000
+        );
 
         pBita = {
+          fecha: localDate,
           correo: activeUser.correo,
           numserie: data.numserie,
           tipo_id: tipoId,
@@ -183,7 +188,13 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
           stock: "",
         };
 
+        const date = new Date();
+        const localDate = new Date(
+          date.getTime() - date.getTimezoneOffset() * 60000
+        );
+
         pBita = {
+          fecha: localDate,
           correo: activeUser.correo,
           numserie: data.numserie,
           tipo_id: tipoId,
@@ -227,6 +238,8 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
       else if (movimiento === "Salida") {
         newStock -= cantidadMover;
       }
+      pBita.stock = newStock;
+      p.stock = newStock;
 
       // Si el centro o departamento son diferentes y los seleccionados son 3 y 79 respectivamente, la acción es una "Salida"
       if (
@@ -235,6 +248,8 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         selectDepartamentoId === 79
       ) {
         pBita.accion = "Salida";
+        pBita.stock -= 1;
+        p.stock -= 1;
       }
       // Si el centro y departamento son 3 y 79 respectivamente y los seleccionados son diferentes, la acción es una "Entrada"
       else if (
@@ -243,6 +258,8 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         isSelectCentroOrDepartamentoDifferent
       ) {
         pBita.accion = "Entrada";
+        pBita.stock += 1;
+        p.stock += 1;
       }
       // Si el centro y departamento son iguales a los seleccionados, la acción es una "Edición"
       else if (
@@ -255,15 +272,15 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
       }
 
       // Actualizamos el stock de pBita y p con el nuevo stock
-      pBita.stock = newStock;
-      p.stock = newStock;
-
+ console.log(data, "data");
+      console.log(p, "p");
+      console.log(pBita, "pBita");
       // Si el stock es mayor que la cantidad total o menor o igual a cero, mostramos un error
-      if (pBita.stock > dataSelect.cantidad || pBita.stock <= 0) {
+      if (pBita.stock > dataSelect.cantidad || pBita.stock < 0) {
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: "El stock no puede exceder la cantidad ni ser menos o igual a 0",
+          text: "El stock no puede exceder la cantidad ni ser menor a 0",
         });
         return;
       }
@@ -279,6 +296,8 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         });
         return;
       }
+
+     
 
       await editEquipos(p);
       await insertarBitacora(pBita);
@@ -381,7 +400,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
                   {errors.correo?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>
-              {accion !== "Editar" &&
+              {accion === "Editar" &&
               !autoAssignTypes.includes(dataSelect.tipo_id) ? (
                 <>
                   <article>
