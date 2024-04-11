@@ -20,16 +20,7 @@ export const ShowBitacora = async () => {
 
 export const InsertBitacora = async (p) => {
   const { error } = await supabase.from("bitacoras").insert({
-    accion: p.accion,
-    correo: p.correo,
-    numserie: p.numserie,
-    motivo: p.motivo,
-    marca_id: p.marca_id,
-    modelo_id: p.modelo_id,
-    tipo_id: p.tipo_id,
-    estado_id: p.estado_id,
-    centro_id: p.centro_id,
-    departamento_id: p.departamento_id,
+    ...p,
   });
 
   if (error) {

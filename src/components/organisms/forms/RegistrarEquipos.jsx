@@ -121,66 +121,126 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
     // estos deben de ser los mismos que los campos de la tabla en la base de datos
     if (accion === "Editar") {
       console.log(data, "data");
-      const p = {
-        id: dataSelect.id,
-        nombre: data.nombre,
-        correo: data.correo,
-        numserie: data.numserie,
-        inicio_garantia: data.inicio_garantia,
-        fin_garantia: data.fin_garantia,
-        sistema_operativo: Capitalize(data.sistema_operativo),
-        direccion_ip: data.direccion_ip,
-        tipo_id: tipoId,
-        modelo_id: data.modelo_id,
-        marca_id: marcaId,
-        centro_id: data.centro_id,
-        estado_id: data.estado_id,
-        departamento_id: data.departamento_id,
-        monitor_id: data.monitor_id ? data.monitor_id : null,
-        monitor2_id: data.monitor2_id ? data.monitor2_id : null,
-        stock: "",
-      };
 
-      const pBita = {
-        correo: activeUser.correo,
-        numserie: data.numserie,
-        tipo_id: tipoId,
-        modelo_id: data.modelo_id,
-        marca_id: marcaId,
-        estado_id: data.estado_id,
-        accion: "",
-        motivo: data.motivo,
-        departamento_id: data.departamento_id,
-        centro_id: data.centro_id,
-        cantidad: dataSelect.cantidad,
-        stock: "",
-      };
+      const isAutoAssignType = autoAssignTypes.includes(dataSelect.tipo_id);
+      let p;
+      let pBita;
+      if (isAutoAssignType) {
+        p = {
+          id: dataSelect.id,
+          nombre: data.nombre,
+          correo: data.correo,
+          numserie: data.numserie,
+          inicio_garantia: data.inicio_garantia,
+          fin_garantia: data.fin_garantia,
+          sistema_operativo: Capitalize(data.sistema_operativo),
+          direccion_ip: data.direccion_ip,
+          tipo_id: tipoId,
+          modelo_id: data.modelo_id,
+          marca_id: marcaId,
+          centro_id: dataSelect.centro_id,
+          estado_id: dataSelect.estado_id,
+          departamento_id: dataSelect.departamento_id,
+          monitor_id: data.monitor_id ? data.monitor_id : null,
+          monitor2_id: data.monitor2_id ? data.monitor2_id : null,
+          stock: "",
+        };
+
+        pBita = {
+          correo: activeUser.correo,
+          numserie: data.numserie,
+          tipo_id: tipoId,
+          modelo_id: data.modelo_id,
+          marca_id: marcaId,
+          estado_id: data.estado_id,
+          accion: "",
+          motivo: data.motivo,
+          departamento_id: data.departamento_id,
+          centro_id: data.centro_id,
+          cantidad: dataSelect.cantidad,
+          stock: "",
+        };
+      } else {
+        p = {
+          id: dataSelect.id,
+          nombre: data.nombre,
+          correo: data.correo,
+          numserie: data.numserie,
+          inicio_garantia: data.inicio_garantia,
+          fin_garantia: data.fin_garantia,
+          sistema_operativo: Capitalize(data.sistema_operativo),
+          direccion_ip: data.direccion_ip,
+          tipo_id: tipoId,
+          modelo_id: data.modelo_id,
+          marca_id: marcaId,
+          centro_id: data.centro_id,
+          estado_id: data.estado_id,
+          departamento_id: data.departamento_id,
+          monitor_id: data.monitor_id ? data.monitor_id : null,
+          monitor2_id: data.monitor2_id ? data.monitor2_id : null,
+          stock: "",
+        };
+
+        pBita = {
+          correo: activeUser.correo,
+          numserie: data.numserie,
+          tipo_id: tipoId,
+          modelo_id: data.modelo_id,
+          marca_id: marcaId,
+          estado_id: data.estado_id,
+          accion: "",
+          motivo: data.motivo,
+          departamento_id: data.departamento_id,
+          centro_id: data.centro_id,
+          cantidad: dataSelect.cantidad,
+          stock: "",
+        };
+      }
+
+      const { movimiento, centro_id, departamento_id, cantidadMover } = data;
+      const {
+        centro_id: selectCentroId,
+        departamento_id: selectDepartamentoId,
+      } = dataSelect;
+
+      const isCentroOrDepartamentoDifferent =
+        centro_id !== 3 || departamento_id !== 79;
+      const isSelectCentroOrDepartamentoDifferent =
+        selectCentroId !== 3 || selectDepartamentoId !== 79;
+
+      let newStock = dataSelect.stock;
+      if (movimiento === "Entrada") {
+        newStock += cantidadMover;
+      } else if (movimiento === "Salida") {
+        newStock -= cantidadMover;
+      }
 
       if (
-        (data.centro_id !== 3 || data.departamento_id !== 79) &&
-        dataSelect.centro_id === 3 &&
-        dataSelect.departamento_id === 79
+        isCentroOrDepartamentoDifferent &&
+        selectCentroId === 3 &&
+        selectDepartamentoId === 79
       ) {
         pBita.accion = "Salida";
-        pBita.stock = dataSelect.cantidad - data.cantidadMover;
-        p.stock = dataSelect.cantidad - data.cantidadMover;
       } else if (
-        data.centro_id === 3 &&
-        data.departamento_id === 79 &&
-        (dataSelect.centro_id !== 3 || dataSelect.departamento_id !== 79)
+        centro_id === 3 &&
+        departamento_id === 79 &&
+        isSelectCentroOrDepartamentoDifferent
       ) {
         pBita.accion = "Entrada";
-        pBita.stock = dataSelect.cantidad + data.cantidadMover;
-        p.stock = dataSelect.cantidad + data.cantidadMover;
       } else if (
-        data.centro_id === dataSelect.centro_id &&
-        data.departamento_id === dataSelect.departamento_id
+        centro_id === selectCentroId &&
+        departamento_id === selectDepartamentoId
       ) {
         pBita.accion = "Edicion";
-        pBita.stock = dataSelect.cantidad;
+        pBita.stock = dataSelect.stock;
+        p.stock = newStock;
       }
+      pBita.stock = newStock;
+      p.stock = newStock;
+
       console.log(p, "p");
       console.log(pBita, "pBita");
+      console.log(dataSelect, "dataSelect");
       if (pBita.stock > dataSelect.cantidad || pBita.stock <= 0) {
         Swal.fire({
           icon: "error",
@@ -300,21 +360,26 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   {errors.correo?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>
-              <article>
-                <InputText icono={<v.iconomarca />}>
-                  <input
-                    className="form__field"
-                    defaultValue={dataSelect.numserie}
-                    type="text"
-                    placeholder=""
-                    {...register("numserie", { required: true })}
-                  />
-                  <label className="form__label">Numero de serie:</label>
-                  {errors.numserie?.type === "required" && (
-                    <p>Campo requerido</p>
-                  )}
-                </InputText>
-              </article>
+              {accion !== "Editar" &&
+              !autoAssignTypes.includes(dataSelect.tipo_id) ? (
+                <>
+                  <article>
+                    <InputText icono={<v.iconomarca />}>
+                      <input
+                        className="form__field"
+                        defaultValue={dataSelect.numserie}
+                        type="text"
+                        placeholder=""
+                        {...register("numserie", { required: true })}
+                      />
+                      <label className="form__label">Numero de serie:</label>
+                      {errors.numserie?.type === "required" && (
+                        <p>Campo requerido</p>
+                      )}
+                    </InputText>
+                  </article>
+                </>
+              ) : null}
               <article>
                 <InputText icono={<v.iconomarca />}>
                   <input
@@ -349,42 +414,47 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   )}
                 </InputText>
               </article>
-              <article>
-                <InputText icono={<v.iconomarca />}>
-                  <input
-                    className="form__field"
-                    defaultValue={dataSelect.sistema_operativo}
-                    type="text"
-                    placeholder=""
-                    {...register("sistema_operativo", {
-                      required: true,
-                    })}
-                  />
-                  <label className="form__label">Sistema Operativo:</label>
-                  {errors.sistema_operativo?.type === "required" && (
-                    <p>Campo requerido</p>
-                  )}
-                </InputText>
-              </article>
-              <article>
-                <InputText icono={<v.iconomarca />}>
-                  <input
-                    className="form__field"
-                    defaultValue={dataSelect.direccion_ip}
-                    type="text"
-                    placeholder=""
-                    {...register("direccion_ip", {
-                      // regex para validar una direccion ip en caso de no cumplir con el formato se mostrara un mensaje de error
+              {accion !== "Editar" &&
+              !autoAssignTypes.includes(dataSelect.tipo_id) ? (
+                <>
+                  <article>
+                    <InputText icono={<v.iconomarca />}>
+                      <input
+                        className="form__field"
+                        defaultValue={dataSelect.sistema_operativo}
+                        type="text"
+                        placeholder=""
+                        {...register("sistema_operativo", {
+                          required: true,
+                        })}
+                      />
+                      <label className="form__label">Sistema Operativo:</label>
+                      {errors.sistema_operativo?.type === "required" && (
+                        <p>Campo requerido</p>
+                      )}
+                    </InputText>
+                  </article>
+                  <article>
+                    <InputText icono={<v.iconomarca />}>
+                      <input
+                        className="form__field"
+                        defaultValue={dataSelect.direccion_ip}
+                        type="text"
+                        placeholder=""
+                        {...register("direccion_ip", {
+                          // regex para validar una direccion ip en caso de no cumplir con el formato se mostrara un mensaje de error
 
-                      required: true,
-                    })}
-                  />
-                  <label className="form__label">Direccion Ip:</label>
-                  {errors.direccion_ip?.type === "required" && (
-                    <p>Campo requerido</p>
-                  )}
-                </InputText>
-              </article>
+                          required: true,
+                        })}
+                      />
+                      <label className="form__label">Direccion Ip:</label>
+                      {errors.direccion_ip?.type === "required" && (
+                        <p>Campo requerido</p>
+                      )}
+                    </InputText>
+                  </article>{" "}
+                </>
+              ) : null}
               <article>
                 <InputText icono={<v.iconomarca />}>
                   <select
@@ -429,45 +499,105 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   )}
                 </InputText>
               </article>
-
-              {accion !== "Editar" ||
+              <article>
+                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                  <select
+                    className="form__field"
+                    {...register("centro_id", {
+                      required: true,
+                      setValueAs: (value) => Number(value),
+                    })}
+                    onChange={(e) => {
+                      const selectedCentro = centrosData.find(
+                        (centro) => centro.id === Number(e.target.value)
+                      );
+                      setDepartamentos(
+                        selectedCentro ? selectedCentro.departamentos : []
+                      );
+                    }}
+                  >
+                    {dataSelect && dataSelect.centros ? (
+                      <option value={dataSelect.centro_id}>
+                        {dataSelect.centros.nombre}
+                      </option>
+                    ) : (
+                      <option value="">-- Seleccione un centro --</option>
+                    )}
+                    {centrosData.map((centro, index) => (
+                      <option
+                        key={index}
+                        value={centro.id}
+                      >
+                        {centro.nombre}
+                      </option>
+                    ))}
+                  </select>
+                  <label className="form__label">Centro</label>
+                  {errors.centro_id?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
+                </InputText>
+              </article>
+              <article>
+                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
+                  <select
+                    className="form__field"
+                    {...register("departamento_id", {
+                      required: true,
+                      setValueAs: (value) => parseInt(value, 10),
+                    })}
+                  >
+                    {dataSelect && dataSelect.departamentos ? (
+                      <option value={dataSelect.departamento_id}>
+                        {dataSelect.departamentos.nombre}
+                      </option>
+                    ) : (
+                      <option value="">-- Seleccione un departamento --</option>
+                    )}
+                    {departamentos.map((departamento, index) => (
+                      <option
+                        key={index}
+                        value={departamento.id}
+                      >
+                        {departamento.nombre}
+                      </option>
+                    ))}
+                  </select>
+                  <label className="form__label">Departamento</label>
+                  {errors.departamento_id?.type === "required" && (
+                    <p>Campo requerido</p>
+                  )}
+                </InputText>
+              </article>
+              {accion !== "Editar" &&
               !autoAssignTypes.includes(dataSelect.tipo_id) ? (
                 <>
                   <article>
                     <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
                       <select
                         className="form__field"
-                        {...register("centro_id", {
-                          required: true,
-                          setValueAs: (value) => Number(value),
-                        })}
-                        onChange={(e) => {
-                          const selectedCentro = centrosData.find(
-                            (centro) => centro.id === Number(e.target.value)
-                          );
-                          setDepartamentos(
-                            selectedCentro ? selectedCentro.departamentos : []
-                          );
-                        }}
+                        {...register("monitor_id")}
+                        value={selectedMonitor}
+                        onChange={(e) => setSelectedMonitor(e.target.value)}
                       >
-                        {dataSelect && dataSelect.centros ? (
-                          <option value={dataSelect.centro_id}>
-                            {dataSelect.centros.nombre}
-                          </option>
-                        ) : (
-                          <option value="">-- Seleccione un centro --</option>
-                        )}
-                        {centrosData.map((centro, index) => (
-                          <option
-                            key={index}
-                            value={centro.id}
-                          >
-                            {centro.nombre}
-                          </option>
-                        ))}
+                        <option value="">-- Seleccione un monitor --</option>
+                        {dataMonitores
+                          .filter(
+                            (monitor) =>
+                              !monitor.equipoId ||
+                              monitor.id === dataSelect.monitor_id
+                          )
+                          .map((monitor, index) => (
+                            <option
+                              key={index}
+                              value={monitor.id}
+                            >
+                              {monitor.numserie}
+                            </option>
+                          ))}
                       </select>
-                      <label className="form__label">Centro</label>
-                      {errors.centro_id?.type === "required" && (
+                      <label className="form__label">Monitor</label>
+                      {errors.monitor_id?.type === "required" && (
                         <p>Campo requerido</p>
                       )}
                     </InputText>
@@ -476,93 +606,32 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                     <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
                       <select
                         className="form__field"
-                        {...register("departamento_id", {
-                          required: true,
-                          setValueAs: (value) => parseInt(value, 10),
-                        })}
+                        {...register("monitor2_id")}
                       >
-                        {dataSelect && dataSelect.departamentos ? (
-                          <option value={dataSelect.departamento_id}>
-                            {dataSelect.departamentos.nombre}
-                          </option>
-                        ) : (
-                          <option value="">
-                            -- Seleccione un departamento --
-                          </option>
-                        )}
-                        {departamentos.map((departamento, index) => (
-                          <option
-                            key={index}
-                            value={departamento.id}
-                          >
-                            {departamento.nombre}
-                          </option>
-                        ))}
+                        <option value="">
+                          -- Seleccione un segundo monitor --
+                        </option>
+                        {dataMonitores
+                          .filter(
+                            (monitor) => monitor.id !== dataSelect.monitor_id
+                          )
+                          .map((monitor, index) => (
+                            <option
+                              key={index}
+                              value={monitor.id}
+                            >
+                              {monitor.numserie}
+                            </option>
+                          ))}
                       </select>
-                      <label className="form__label">Departamento</label>
-                      {errors.departamento_id?.type === "required" && (
+                      <label className="form__label">Segundo Monitor</label>
+                      {errors.monitor2_id?.type === "required" && (
                         <p>Campo requerido</p>
                       )}
                     </InputText>
                   </article>
                 </>
               ) : null}
-              <article>
-                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
-                  <select
-                    className="form__field"
-                    {...register("monitor_id")}
-                    value={selectedMonitor}
-                    onChange={(e) => setSelectedMonitor(e.target.value)}
-                  >
-                    <option value="">-- Seleccione un monitor --</option>
-                    {dataMonitores
-                      .filter(
-                        (monitor) =>
-                          !monitor.equipoId ||
-                          monitor.id === dataSelect.monitor_id
-                      )
-                      .map((monitor, index) => (
-                        <option
-                          key={index}
-                          value={monitor.id}
-                        >
-                          {monitor.numserie}
-                        </option>
-                      ))}
-                  </select>
-                  <label className="form__label">Monitor</label>
-                  {errors.monitor_id?.type === "required" && (
-                    <p>Campo requerido</p>
-                  )}
-                </InputText>
-              </article>
-              <article>
-                <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
-                  <select
-                    className="form__field"
-                    {...register("monitor2_id")}
-                  >
-                    <option value="">
-                      -- Seleccione un segundo monitor --
-                    </option>
-                    {dataMonitores
-                      .filter((monitor) => monitor.id !== dataSelect.monitor_id)
-                      .map((monitor, index) => (
-                        <option
-                          key={index}
-                          value={monitor.id}
-                        >
-                          {monitor.numserie}
-                        </option>
-                      ))}
-                  </select>
-                  <label className="form__label">Segundo Monitor</label>
-                  {errors.monitor2_id?.type === "required" && (
-                    <p>Campo requerido</p>
-                  )}
-                </InputText>
-              </article>
               <article>
                 <InputText icono={<RiLockPasswordLine color="#3AA597" />}>
                   <select
@@ -612,53 +681,49 @@ export function RegistrarEquipos({ onClose, dataSelect, accion }) {
                   </InputText>
                 </article>
               )}
-              {accion === "Editar" ? (
+              {accion === "Editar" &&
+              autoAssignTypes.includes(dataSelect.tipo_id) ? (
                 <>
-                <article>
-                  <InputText icono={<v.iconomarca />}>
-                    <input
-                      className="form__field"
-                      type="number"
-                      placeholder=""
-                      defaultValue={dataSelect.cantidad}
-                      {...register("cantidadMover", {
-                        required: true,
-                        setValueAs: (value) => Number(value),
-                      })}
-                    />
-                    <label className="form__label"> Cantidad a mover:</label>
-                    <p>
-                      Estás moviendo {dataSelect.cantidad} equipo(s). Si deseas
-                      mover una cantidad diferente, cambia este valor.
-                    </p>
-                    {errors.cantidadMover?.type === "required" && (
-                      <p>Campo requerido</p>
-                    )}
-                  </InputText>
-                </article>
-                
-<article>
-                  <InputText icono={<v.iconomarca />}>
-                    <input
-                      className="form__field"
-                      type="number"
-                      placeholder=""
-                      defaultValue={dataSelect.cantidad}
-                      {...register("cantidadMover", {
-                        required: true,
-                        setValueAs: (value) => Number(value),
-                      })}
-                    />
-                    <label className="form__label"> Cantidad a mover:</label>
-                    <p>
-                      Estás moviendo {dataSelect.cantidad} equipo(s). Si deseas
-                      mover una cantidad diferente, cambia este valor.
-                    </p>
-                    {errors.cantidadMover?.type === "required" && (
-                      <p>Campo requerido</p>
-                    )}
-                  </InputText>
-                </article>
+                  <article>
+                    <InputText icono={<v.iconomarca />}>
+                      <select
+                        className="form__field"
+                        {...register("movimiento", {
+                          required: true,
+                        })}
+                      >
+                        <option value="Salida">Salida</option>
+                        <option value="Entrada">Entrada</option>
+                      </select>
+                      <label className="form__label"> Accion a tomar:</label>
+
+                      {errors.movimiento?.type === "required" && (
+                        <p>Campo requerido</p>
+                      )}
+                    </InputText>
+                  </article>
+                  <article>
+                    <InputText icono={<v.iconomarca />}>
+                      <input
+                        className="form__field"
+                        type="number"
+                        placeholder=""
+                        defaultValue={dataSelect.cantidad}
+                        {...register("cantidadMover", {
+                          required: true,
+                          setValueAs: (value) => Number(value),
+                        })}
+                      />
+                      <label className="form__label"> Cantidad a mover:</label>
+                      <p>
+                        Estás moviendo {dataSelect.cantidad} equipo(s). Si
+                        deseas mover una cantidad diferente, cambia este valor.
+                      </p>
+                      {errors.cantidadMover?.type === "required" && (
+                        <p>Campo requerido</p>
+                      )}
+                    </InputText>
+                  </article>
                 </>
               ) : (
                 <article>
