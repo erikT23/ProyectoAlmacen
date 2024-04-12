@@ -78,6 +78,7 @@ export function TableEquipos({
 
   // funcion para eliminar un equipo, se muestra un mensaje de confirmacion antes de eliminar el equipo
   const eliminar = (p) => {
+ 
     if (activeUser.rol_id !== 1) {
       // 1 es el ID del rol "Administrador"
       const centrosPermitidos = rolesACentros[activeUser.rol_id];
@@ -90,6 +91,14 @@ export function TableEquipos({
           text: "No tienes permiso para eliminar este equipo",
         });
       }
+    }
+
+    if (p.stock <= 0) {
+      return Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "No puedes eliminar un equipo que no esta en stock",
+      });
     }
     // mensaje de confirmacion para eliminar el equipo
     Swal.fire({
