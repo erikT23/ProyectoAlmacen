@@ -13,10 +13,15 @@ import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { useMarcasStore, useUserStore } from "../../../store/index";
+import {
+  useMarcasStore,
+  useModelosStore,
+  useUserStore,
+} from "../../../store/index";
 import { v } from "../../../styles/index";
 import { TableActions } from "../index";
 import { Filter, Paginacion } from "./index";
+import { useQuery } from "@tanstack/react-query";
 
 // componente de la tabla de marcas, detalle de su funcionamiento en la tabla de equipos
 
@@ -35,6 +40,7 @@ export function TableMarcas({
     return itemRank.passed;
   }
 
+  const { mostrarModelos, dataModelos } = useModelosStore();
   const [columnFilters, setColumnFilters] = useState([]);
   const [setPagina] = useState(1);
   const [pagination, setPagination] = useState({
@@ -43,6 +49,12 @@ export function TableMarcas({
   });
   const { borrarMarcas } = useMarcasStore();
   const { activeUser } = useUserStore();
+
+  useQuery({
+    queryKey: ["mostrar Modelos"],
+    queryFn: () => mostrarModelos(),
+  });
+
   const editar = (data) => {
     if (activeUser.roles.nombre !== "Administrador") {
       return Swal.fire({
@@ -66,15 +78,19 @@ export function TableMarcas({
       });
     }
 
-    //esto sirve para prevenir que se elimine una categoria por defecto
-    /* if (p.nombre === "generica") {
+    // Buscar modelos asociados a la marca
+    const modelos = dataModelos.filter((modelo) => modelo.marca_id === p.id);
+
+
+    // Si existen modelos asociados a la marca, detener la operación de eliminación
+    if (modelos.length > 0) {
       return Swal.fire({
         icon: "error",
         title: " Error",
-        text: "No se puede eliminar una categoria generica",
+        text: "No se puede eliminar una marca que tiene modelos asociados",
       });
-      return;
-    }*/
+    }
+
 
     Swal.fire({
       title: "¿Estas seguro de eliminar esto?",

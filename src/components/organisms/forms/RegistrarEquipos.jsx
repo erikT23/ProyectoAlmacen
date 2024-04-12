@@ -193,7 +193,6 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         const localDate = new Date(
           date.getTime() - date.getTimezoneOffset() * 60000
         );
-        console.log(data, "data antes depbita");
         pBita = {
           fecha: localDate,
           correo: activeUser.correo,
@@ -297,9 +296,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         return;
       }
 
-      console.log(pBita, "informacion de la bitacora");
-      console.log(dataSelect, "informacion del equipo");
-      console.log(data, "informacion del formulario");
+      
       await editEquipos(p);
       await insertarBitacora(pBita);
 

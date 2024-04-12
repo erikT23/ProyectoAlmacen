@@ -13,10 +13,15 @@ import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { useModelosStore, useUserStore } from "../../../store/index";
+import {
+  useEquiposStore,
+  useModelosStore,
+  useUserStore,
+} from "../../../store/index";
 import { v } from "../../../styles/index";
 import { TableActions } from "../index";
 import { Filter, Paginacion } from "./index";
+import { useQuery } from "@tanstack/react-query";
 
 // componente de la tabla de modelos, detalle de su funcionamiento en la tabla de equipos
 
@@ -35,6 +40,12 @@ export function TableModelos({
     return itemRank.passed;
   }
 
+  const { showEquipos, equiposData } = useEquiposStore();
+
+  useQuery({
+    queryKey: "equipos",
+    queryFn: () => showEquipos(),
+  });
   const [columnFilters, setColumnFilters] = useState([]);
   const [setPagina] = useState(1);
   const [pagination, setPagination] = useState({
@@ -57,7 +68,6 @@ export function TableModelos({
     setdataSelect(data);
     setAccion("Editar");
   };
-
   const eliminar = (p) => {
     if (activeUser.roles.nombre !== "Administrador") {
       return Swal.fire({
@@ -66,8 +76,17 @@ export function TableModelos({
         text: "Solo un administrador puede eliminar modelos",
       });
     }
-    //esto sirve para prevenir que se elimine una categoria por defecto
+    // Buscar equipos asociados al modelo
+    const equipos = equiposData.filter((equipo) => equipo.modelo_id === p.id);
 
+    // Si existen equipos asociados al modelo, detener la operación de eliminación
+    if (equipos.length > 0) {
+      return Swal.fire({
+        icon: "error",
+        title: " Error",
+        text: "No se puede eliminar un modelo que tiene equipos asociados",
+      });
+    }
     Swal.fire({
       title: "¿Estas seguro de eliminar esto?",
       text: "este cambio sera irreversible!",
