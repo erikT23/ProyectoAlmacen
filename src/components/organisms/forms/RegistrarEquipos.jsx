@@ -395,10 +395,16 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
                     defaultValue={dataSelect.correo}
                     type="text"
                     placeholder=""
-                    {...register("correo", { required: true })}
+                    {...register("correo", {
+                      required: "Campo requerido",
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@iberostar\.com$/i,
+                        message: "El correo debe terminar con @iberostar.com",
+                      },
+                    })}
                   />
                   <label className="form__label">Correo del usuario:</label>
-                  {errors.correo?.type === "required" && <p>Campo requerido</p>}
+                  {errors.correo && <p>{errors.correo.message}</p>}
                 </InputText>
               </article>
               {accion === "Editar" ||
