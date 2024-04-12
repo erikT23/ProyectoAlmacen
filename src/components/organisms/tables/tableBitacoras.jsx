@@ -182,6 +182,19 @@ export function TableBitacoras({ data, globalFilter }) {
       ),
     },
     {
+      accessorKey: "movidos",
+      header: "Cantidad Movida",
+      enableColumnFilter: false,
+      cell: (info) => (
+        <td
+          data-title="Nombre"
+          className="ContentCell"
+        >
+          <span>{info.getValue()}</span>
+        </td>
+      ),
+    },
+    {
       accessorKey: "motivo",
       header: "Motivo",
       enableColumnFilter: false,

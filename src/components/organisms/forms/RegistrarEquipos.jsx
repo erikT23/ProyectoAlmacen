@@ -121,7 +121,6 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
     // se crea una constante p con los parametros que se van a enviar a la base de datos y pBita para el control de la bitacora
     // estos deben de ser los mismos que los campos de la tabla en la base de datos
     if (accion === "Editar") {
-      console.log(dataSelect, "dataSelect");
       // expresion booleana que verifica si tipo_id esta en la lista de tipos de equipos que se manejaran como genericos
       const isAutoAssignType = autoAssignTypes.includes(dataSelect.tipo_id);
       let p;
@@ -165,6 +164,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
           departamento_id: data.departamento_id,
           centro_id: data.centro_id,
           cantidad: dataSelect.cantidad,
+          movidos: data.cantidadMover,
           stock: "",
         };
       } else {
@@ -193,7 +193,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         const localDate = new Date(
           date.getTime() - date.getTimezoneOffset() * 60000
         );
-
+        console.log(data, "data antes depbita");
         pBita = {
           fecha: localDate,
           correo: activeUser.correo,
@@ -208,6 +208,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
           centro_id: data.centro_id,
           cantidad: dataSelect.cantidad,
           stock: "",
+          movidos: data.cantidad,
         };
       }
 
@@ -232,8 +233,6 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
       let newStock = Number(dataSelect.stock);
       let cantidad = Number(cantidadMover);
 
-      console.log("newStock inicial:", newStock);
-
       // Si el movimiento es "Entrada", incrementamos newStock con la cantidad a mover
       if (movimiento === "Entrada") {
         newStock += cantidad;
@@ -242,8 +241,6 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         newStock -= cantidad;
         pBita.accion = "Salida";
       }
-
-      console.log("newStock después del cálculo:", newStock);
 
       // Si el centro o departamento son diferentes y los seleccionados son 3 y 79 respectivamente, la acción es una "Salida"
       if (
@@ -255,7 +252,6 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         if (movimiento !== "Salida") {
           newStock -= 1;
         }
-        console.log("newStock después de la salida:", newStock);
       }
       // Si el centro y departamento son 3 y 79 respectivamente y los seleccionados son diferentes, la acción es una "Entrada"
       else if (
@@ -301,9 +297,9 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         return;
       }
 
-      console.log(data, "data");
-      console.log(p, "p");
-      console.log(pBita, "pBita");
+      console.log(pBita, "informacion de la bitacora");
+      console.log(dataSelect, "informacion del equipo");
+      console.log(data, "informacion del formulario");
       await editEquipos(p);
       await insertarBitacora(pBita);
 
