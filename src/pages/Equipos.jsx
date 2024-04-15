@@ -14,6 +14,7 @@ import {
 
 // Page para mostrar los equipos, funcionamiento especifico en la page de bitacora
 export function Equipos() {
+  // Obteniendo los métodos y estados necesarios de los stores
   const { dataSinMonitor, showEquiposComunes } = useEquiposStore();
   const { showModelos, modelosData } = useModelosStore();
   const { tiposData, showTipos } = useTiposStore();
@@ -22,6 +23,7 @@ export function Equipos() {
   const { departamentosData, showDepartamentos } = useDepartamentosStore();
   const { marcasData, showMarcas } = useMarcasStore();
 
+  // Realizando las consultas necesarias para obtener los datos
   useQuery({
     queryKey: ["mostrar tipos"],
     queryFn: () => showTipos(),
@@ -47,14 +49,17 @@ export function Equipos() {
     queryFn: () => showMarcas(),
   });
 
+  // Realizando la consulta para obtener los equipos
   const { isLoading, error } = useQuery({
     queryKey: ["mostrar Equipos"],
     queryFn: () => showEquiposComunes(),
   });
 
+  // Si la consulta está cargando, mostrar un spinner
   if (isLoading) {
     return <SpinnerLoader />;
   }
+  // Si hay un error en la consulta, mostrar un mensaje de error
   if (error) {
     return Swal.fire({
       icon: "error",
@@ -62,6 +67,7 @@ export function Equipos() {
       text: "Error al cargar los datos " + error,
     });
   }
+  // Si la consulta se realizó correctamente, mostrar los equipos
   return (
     <EquiposTemplate
       data={dataSinMonitor}
