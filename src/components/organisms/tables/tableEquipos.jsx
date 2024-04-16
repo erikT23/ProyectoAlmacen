@@ -69,7 +69,6 @@ export function TableEquipos({
         });
       }
     }
-
     // abre el modal de registro con los datos del equipo seleccionado o vacio si se va a insertar un nuevo equipo
     setopenRegistro(true);
     setdataSelect(data);
@@ -137,7 +136,7 @@ export function TableEquipos({
         </td>
       ),
     },
-    /*  {
+    /*{
       accessorKey: "nombre_usuario",
       header: "Nombre Usuario",
       cell: (info) => (

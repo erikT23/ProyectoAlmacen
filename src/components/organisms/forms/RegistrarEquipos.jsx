@@ -43,10 +43,16 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
   const [selectedMonitor, setSelectedMonitor] = useState("");
   const [selectedMonitor2, setSelectedMonitor2] = useState("");
 
+  // Este efecto se ejecuta cuando 'dataSelect.monitor_id' cambia.
+  // Establece el estado 'selectedMonitor' con el valor de 'dataSelect.monitor_id' o una cadena vacía si 'dataSelect.monitor_id' es nulo o indefinido.
   useEffect(() => {
     setSelectedMonitor(dataSelect.monitor_id || "");
   }, [dataSelect.monitor_id]);
 
+  // Este efecto se ejecuta cuando 'dataSelect' o 'modelosData' cambian.
+  // Si 'dataSelect' y 'dataSelect.modelo_id' existen, busca en 'modelosData' un modelo cuyo id sea igual a 'dataSelect.modelo_id'.
+  // Si encuentra un modelo, establece los estados 'marcaId' y 'tipoId' con los valores correspondientes del modelo.
+  // Si no encuentra un modelo, establece los estados 'marcaId' y 'tipoId' a null.
   useEffect(() => {
     if (dataSelect && dataSelect.modelo_id) {
       const selectedModelo = modelosData.find(
@@ -96,7 +102,11 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
   // esta seccion llama al usuario con sesion iniciada para verificar si tiene permisos para insertar un equipo en el centro seleccionado
 
   const { activeUser } = useUserStore();
-  // Roles permitidos para insertar equipos en cada centro
+
+  // Este objeto define una correspondencia entre roles y centros.
+  // Cada propiedad del objeto es un rol, identificado por un número.
+  // El valor de cada propiedad es un array de números que representan los centros asociados a ese rol.
+  // Por ejemplo, el rol 4 (Lindo Maya) está asociado a los centros 5 (PLI) y 7 (PMY).
   const rolesACentros = {
     4: [5, 7], // Lindo Maya: PLI y PMY
     3: [6, 4], // Mar Beach: PMA y PBE
@@ -193,6 +203,7 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         const localDate = new Date(
           date.getTime() - date.getTimezoneOffset() * 60000
         );
+
         pBita = {
           fecha: localDate,
           correo: activeUser.correo,
@@ -296,7 +307,6 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
         return;
       }
 
-      
       await editEquipos(p);
       await insertarBitacora(pBita);
 
@@ -384,7 +394,6 @@ export function RegistrarEquipos({ equipos, onClose, dataSelect, accion }) {
                   {errors.nombre?.type === "required" && <p>Campo requerido</p>}
                 </InputText>
               </article>
-
               <article>
                 <InputText icono={<v.iconomarca />}>
                   <input

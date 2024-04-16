@@ -2,31 +2,33 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 
-/*
-Componente para el filtrado global, se le puede pasar un valor inicial y un tiempo de espera para que se ejecute la función onChange
-
-*/
-
+// Este componente es un input personalizado que implementa un retraso (debounce) en el manejo del evento onChange.
 export function InputRetraso({
-  value: initialValue,
-  onChange,
-  debounce = 2000,
-  ...props
+  value: initialValue, // Valor inicial del input
+  onChange, // Función a ejecutar cuando el valor del input cambia
+  debounce = 2000, // Tiempo de retraso en milisegundos antes de ejecutar la función onChange
+  ...props // Otros props que se pasen al componente
 }) {
+  // Estado local para almacenar el valor actual del input
   const [value, setValue] = useState(initialValue);
 
+  // Efecto para actualizar el valor del estado local cuando cambie el valor inicial
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
 
+  // Efecto para manejar el retraso (debounce) en el evento onChange
   useEffect(() => {
+    // Crear un timeout que se ejecutará después del tiempo especificado en 'debounce'
     const timeout = setTimeout(() => {
-      onChange(value);
+      onChange(value); // Ejecutar la función onChange con el valor actual
     }, debounce);
 
+    // Limpiar el timeout cuando el componente se desmonte o cuando el valor, debounce o onChange cambien
     return () => clearTimeout(timeout);
   }, [value, debounce, onChange]);
 
+  // Renderizar el componente
   return (
     <Container>
       <article className="content">
